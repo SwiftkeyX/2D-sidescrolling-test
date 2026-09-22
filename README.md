@@ -32,6 +32,11 @@ Deadline 25/9/69
 
         2. inventory can hold resources, tools, crafted objects, and seeds.
             [] Have several items in the game. Those items also was categorized.
+            [] make at least 3 items in each category
+                resource = lumber, carrot, red berry, corn
+                tools = watering can, shovel, axes
+                seed = carrot seed, red berry seed, corn seed
+                crafted item = Storage Chest, Golden Veggie, Broccoli
         
         3. inventory bar - a overlay bar at the bottom for quick access e.g. equipable, usable, or placeable
             [] use simple grid UI overlay like inventory window 
@@ -52,6 +57,34 @@ Deadline 25/9/69
             [] A Storage Chest requiring 10x Lumber, which can hold 30 items when crafted and placed
             [] Let the Storage Chest use the same logic to inventory window but bigger. Inventory have 10 cell, Storage Chest have 30 cell.
 
+    4. combat system
+        1. Player is equip with Wand. It can shoot projectile that does 5 damage.
+            [] when player attack, create a cube that drive itself forward non-stop. Let it destroy itself after 5 sec.
+            [] the cube has collider for doing damage
 
-I try download kenny 2D pack. But it was kinda annoying to use.
-I have to open each sprite by hand to know what it is and the sprite was so small.
+        2. Slime that can patrol, and attack player on found. When die, split into smaller slimes with 5 health. 
+            [] make a clone statemachine for slime. add that he can patrol around, and attack player on found.
+                [] let him walk by jumping, his hitbox should be the same size as his sprite. We have animation of him jumping, could we make the animation drive hitbox? 
+                [] player have 30 health. if slimes hit player, player lose 3 health.
+                [] how are we going to make slime patrol? 
+            [] making slime split when he die. when slime die, create another 3 slime but scaling its size down.
+            [] when player die, teleport player back to home, reset HP
+
+# Day 1  
+I am not confidence in making inventory. So I'll start with what I am confidence with which is:
+    1. player controller
+    2. combat system.
+    3. lastly, time hop system because it seem easy.
+
+## Design player controller 
+    implement CharacterController2D for movement/jump.
+	implement FSM for clean code. 
+    (1hr)
+
+## Design combat system
+
+# Day 2
+Inventory
+Inventory is the biggest mechanic for me that I wasn't confidence at
+
+# Day 3 Wrap thing up
