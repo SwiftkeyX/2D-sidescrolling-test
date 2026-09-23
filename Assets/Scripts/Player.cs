@@ -1,4 +1,5 @@
 using SideScroller.Characters.States;
+using SideScroller.Combat;
 using SideScroller.Equipments;
 using SideScroller.Input;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace SideScroller.Characters
         // ===== classes =====
         private PlayerStateMachine _stateMachine;
         private Equipment _equipment;
+        [SerializeField] private Wand _wand;
         [SerializeField] private EquipmentSO _startingEquipment;
         [SerializeField] private SpriteRenderer _equipmentRenderer;
 
@@ -31,18 +33,20 @@ namespace SideScroller.Characters
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _jumpForce = 9f;
 
+
         private const float GroundCheckDistance = 0.05f;
 
         // ======================================== getter ========================================
         // ====== 1. input ======
         public float MoveInput => PlayerInputSystem.MoveAxis;
         public bool JumpPressed => PlayerInputSystem.JumpPressedThisFrame;
+        public bool AttackPressed => PlayerInputSystem.AttackPressedThisFrame;
 
         // ====== 2. state ======
         public void ChangeState(PlayerStateEnum next) => _stateMachine.ChangeState(next);
         public PlayerStateEnum PreviousStateType => _stateMachine.PreviousType;
         public PlayerStateEnum StateType => _stateMachine.CurrentType;
-        
+
         // ====== 3. jump state ======
         // Cast collider below to check ground state
         public bool IsGrounded => _collider.Cast(Vector2.down, _groundFilter, _groundHits, GroundCheckDistance) > 0;
@@ -79,6 +83,10 @@ namespace SideScroller.Characters
         void Update()
         {
             _stateMachine.Tick();
+
+            // FLAGGING: this should be move to state machine later
+            // shooting does not interrupt walking or jumping, so it sits outside the state machine
+            if (AttackPressed) FireWand();
         }
 
         // ======================================== state machine ========================================
@@ -104,6 +112,17 @@ namespace SideScroller.Characters
             if (Mathf.Approximately(input, 0f)) return;
 
             _playerSprite.flipX = input < 0f;
+        }
+
+        // ==== combat ====
+        public void FireWand()
+        {
+            // if not holding a wand, return
+            if (_wand == null) return;
+            if (_equipment.Current == null || _equipment.Current.Type != EquipmentTypeEnum.Wand) return;
+
+            float facingDirection = _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
+            _wand.Fire(facingDirection);
         }
 
         // ==== other ====

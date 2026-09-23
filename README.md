@@ -87,13 +87,16 @@ I am not confidence in making inventory. So I'll start with what I am confidence
 ## Design combat system
 
     implement a equipment system (1hr):
-        [] a equip weapon will show on player's head indicate that player was holding it.
+        [x] a equip weapon will show on player's head indicate that player was holding it.
             (8:50)  implement Equipment class & ScritableObject for the equipment
-        [] (tempo) let player switch between wand, shovel, watering-can, and axes using "tab".
+        [x] (tempo) let player switch between wand, shovel, watering-can, and axes using "tab".
             (9:15)  I don't think it make sense. Ditch this one.
         [] implement a wand:
             (9:15)  make it shoot a cube that drive itself forward
                     the cube have its own class, "bullet". it drive itself forward and destroy after 5 sec.
+            (9:30)  implement wand class
+                    make wand a child to equipment class.
+                    implement shoot direction using mouse pointer
 
     implement slime part 1 (1hr):
         [] copy player controller to slime = idle, patrol, Chase. how are we going to make slime patrol?
