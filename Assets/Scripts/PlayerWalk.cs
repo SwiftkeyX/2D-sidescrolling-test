@@ -25,6 +25,13 @@ namespace SideScroller.Characters.States
 
         protected override void CheckSwitchState()
         {
+            // when player is on the ground, player can jump
+            if (_transition.WantsJump()) { _me.ChangeState(PlayerStateEnum.Jump); return; }
+
+            // when player is not on the ground by jumping, player is falling
+            if (!_me.IsGrounded) { _me.ChangeState(PlayerStateEnum.Fall); return; }
+            
+            // when player want to walk, let player walk 
             if (!_transition.WantsWalk()) { _me.ChangeState(PlayerStateEnum.Idle); return; }
         }
     }

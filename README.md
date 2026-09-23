@@ -7,9 +7,8 @@ Deadline 25/9/69
 - find free asset
 
   Feature 0. player can move, jump
-  [] use CharacterController2D for movement/jump
-  [] implement FSM for clean code.
-
+    [] use CharacterController2D for movement/jump
+    [] implement FSM for clean code.
   1.  time hop triggers
       1. player walk into collider to trigger the time skip
          [] simple collider trigger logic
@@ -22,7 +21,6 @@ Deadline 25/9/69
          [] Let say 5 minutes = each interval (Morning/Afternoon/Evening)
          [] When the time is met, the light turn brighter/dimmer ? - no idea how to make daytime/nighttime in 2D game.
          [] When the day cross between Evening => Morning, +1 to "today" int var
-         
   2.  Inventory system
       1. player can collect/use/remove/organize items
          [] make simple grid UI overlay for inventory window
@@ -74,16 +72,19 @@ Deadline 25/9/69
 I am not confidence in making inventory. So I'll start with what I am confidence with which is: 1. player controller 2. combat system. 3. lastly, time hop system because it seem easy.
 
 ## Design player controller
+
     implement FSM for player (1hr):
         [] implement FSM for clean code = idle, walk, jump, attack
-            (7:00)   I am trying to move my old FSM code to this project. 
-                     Let's make idle/walking work first.
-            (7:30)   implement CharacterController2D for movement/jump.
-            (8:00)   change to Rigidbody2D because there's no CharacterController2D.
-                     implement new input system
-            
+            (7:00)  I am trying to move my old FSM code to this project.
+                    Let's make idle/walking work first.
+            (7:30)  implement CharacterController2D for movement/jump.
+            (8:00)  change to Rigidbody2D because there's no CharacterController2D.
+                    implement new input system
+            (8:20)  implement jump state
+                    use collider.cast to check ground state 
 
 ## Design combat system
+
     implement a equipment system (1hr):
         [] a equip weapon will show on player's head indicate that player was holding it.
         [] (tempo) let player switch between wand, shovel, watering-can, and axes using "tab".
@@ -108,12 +109,13 @@ I am not confidence in making inventory. So I'll start with what I am confidence
         [] when player die, teleport player back to home, reset HP
 
 ## Design time hop mechanic
+
     implement time hop (2hr):
         [] make simple overlay using UI document to show current time. (Morning/Afternoon/Evening)
         [] implement time interval (Morning/Afternoon/Evening). 5 minute is 1 interval.
         [] When the time is met, the light turn brighter/dimmer ? - no idea how to make daytime/nighttime in 2D game.
         [] Implement weekday (Morning/Afternoon/Evening). When the day cross between Evening => Morning, +1 to "today"
-    	[] simple collider for testing tiime hop mechanic. when player walk into it, skip to next interval. 
+    	[] simple collider for testing tiime hop mechanic. when player walk into it, skip to next interval.
 
 # Day 2
 

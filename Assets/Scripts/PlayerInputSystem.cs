@@ -26,13 +26,6 @@ namespace SideScroller.Input
         }
 
         public static float MoveAxis => Actions.Player.Move.ReadValue<Vector2>().x;
-
-        public static bool IsPointerDown => Mouse.current.leftButton.isPressed;
-        public static bool DragPressedThisFrame => Mouse.current.leftButton.wasPressedThisFrame;
-        public static bool DragReleasedThisFrame => Mouse.current.leftButton.wasReleasedThisFrame;
-        public static bool SpacePressedThisFrame => Keyboard.current.spaceKey.wasPressedThisFrame;
-        public static bool InspectPressedThisFrame => Mouse.current.rightButton.wasPressedThisFrame;
-        public static bool RestartPressedThisFrame => Keyboard.current.rKey.wasPressedThisFrame;
-        public static Vector2 PointerScreenPosition => Mouse.current.position.ReadValue();
+        public static bool JumpPressedThisFrame => Actions.Player.Jump.WasPressedThisFrame();
     }
 }

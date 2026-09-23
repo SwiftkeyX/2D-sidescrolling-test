@@ -9,6 +9,8 @@ namespace SideScroller.Characters.States
     {
         private readonly PlayerIdle _idle;
         private readonly PlayerWalk _walk;
+        private readonly PlayerJump _jump;
+        private readonly PlayerFall _fall;
 
         public PlayerState Current { get; private set; }
 
@@ -21,6 +23,8 @@ namespace SideScroller.Characters.States
 
             _idle = new PlayerIdle(player, transition);
             _walk = new PlayerWalk(player, transition);
+            _jump = new PlayerJump(player, transition);
+            _fall = new PlayerFall(player, transition);
         }
 
         public void Start(PlayerStateEnum initial)
@@ -56,6 +60,8 @@ namespace SideScroller.Characters.States
             {
                 case PlayerStateEnum.Idle: return _idle;
                 case PlayerStateEnum.Walk: return _walk;
+                case PlayerStateEnum.Jump: return _jump;
+                case PlayerStateEnum.Fall: return _fall;
                 default: return _idle;
             }
         }
