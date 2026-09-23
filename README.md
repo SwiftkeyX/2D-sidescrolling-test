@@ -151,10 +151,11 @@ I am not confidence in making inventory. So I'll start with what I am confidence
 **implement time hop (2hr):**
 
 - [ ] make simple overlay using UI document to show current time. (Morning/Afternoon/Evening)
-- [ ] implement time interval (Morning/Afternoon/Evening). 5 minute is 1 interval.
-- [ ] When the time is met, the light turn brighter/dimmer ? - no idea how to make daytime/nighttime in 2D game.
+  - (18:30) add text panel to UI document
+            implement time interval (Morning/Afternoon/Evening). 5 minute is 1 interval.
+            When the time is met, the light turn brighter/dimmer ? - no idea how to make daytime/nighttime in 2D game.
 - [ ] Implement weekday (Morning/Afternoon/Evening). When the day cross between Evening => Morning, +1 to "today"
-- [ ] simple collider for testing tiime hop mechanic. when player walk into it, skip to next interval.
+- [ ] simple collider for testing time hop mechanic. when player walk into it, skip to next interval.
 
 # Day 2
 
