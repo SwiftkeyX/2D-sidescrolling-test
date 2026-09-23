@@ -1,5 +1,5 @@
 
-namespace MagicSchool.Combat.Heroes.States
+namespace SideScroller.Characters.States
 {
     /// <summary>
     /// Grounded and moving horizontally. Movement is driven every frame from the raw input axis.

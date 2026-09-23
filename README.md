@@ -76,10 +76,12 @@ I am not confidence in making inventory. So I'll start with what I am confidence
 ## Design player controller
     implement FSM for player (1hr):
         [] implement FSM for clean code = idle, walk, jump, attack
-            (7:00)   [] I am trying to move my old FSM code to this project. 
+            (7:00)   I am trying to move my old FSM code to this project. 
                      Let's make idle/walking work first.
-            (7:30)   [x] implement CharacterController2D for movement/jump.
-            (8:00)   [] change to Rigidbody2D because there's no CharacterController2D.
+            (7:30)   implement CharacterController2D for movement/jump.
+            (8:00)   change to Rigidbody2D because there's no CharacterController2D.
+                     implement new input system
+            
 
 ## Design combat system
     implement a equipment system (1hr):

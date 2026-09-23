@@ -1,8 +1,8 @@
-using MagicSchool.Combat.Heroes.States;
+using SideScroller.Characters.States;
+using SideScroller.Input;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-namespace MagicSchool.Combat.Heroes
+namespace SideScroller.Characters
 {
     /// <summary>
     /// Player don't have any logic inside it BUT:
@@ -22,7 +22,7 @@ namespace MagicSchool.Combat.Heroes
 
         // ======================================== getter ========================================
         // ====== 1. input ======
-        public float MoveInput { get; private set; }
+        public float MoveInput => PlayerInputSystem.MoveAxis;
 
         // ====== 2. state ======
         public void ChangeState(PlayerStateEnum next) => _stateMachine.ChangeState(next);
@@ -44,7 +44,6 @@ namespace MagicSchool.Combat.Heroes
 
         void Update()
         {
-            ReadInput();
             _stateMachine.Tick();
         }
 
@@ -69,18 +68,5 @@ namespace MagicSchool.Combat.Heroes
 
         // no Animator yet
         public void PlayAnimation(PlayerStateEnum state) { }
-
-        // ======================================== input ========================================
-        private void ReadInput()
-        {
-            Keyboard keyboard = Keyboard.current;
-            if (keyboard == null) { MoveInput = 0f; return; }
-
-            float input = 0f;
-            if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed) input -= 1f;
-            if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed) input += 1f;
-
-            MoveInput = input;
-        }
     }
 }

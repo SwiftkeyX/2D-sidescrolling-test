@@ -1,5 +1,5 @@
 
-namespace MagicSchool.Combat.Heroes.States
+namespace SideScroller.Characters.States
 {
     /// <summary>
     /// PlayerStateMachine is state machine that control player's behaviour.

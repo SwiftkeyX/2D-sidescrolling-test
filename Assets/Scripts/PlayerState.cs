@@ -1,5 +1,5 @@
 
-namespace MagicSchool.Combat.Heroes.States
+namespace SideScroller.Characters.States
 {
 
     internal abstract class PlayerState

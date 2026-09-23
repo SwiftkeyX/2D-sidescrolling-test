@@ -1,5 +1,5 @@
 
-namespace MagicSchool.Combat.Heroes.States
+namespace SideScroller.Characters.States
 {
     /// <summary>
     /// Grounded and standing still. The resting state every other state falls back to.
