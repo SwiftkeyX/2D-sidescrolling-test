@@ -8,6 +8,7 @@ namespace SideScroller.Combat
         [SerializeField] private int _damage = 3;
         [SerializeField] private TeamEnum _targetTeam = TeamEnum.Player;
         [SerializeField] private float _hitCooldown = 0.5f;
+
         private float _lastHitAt = float.NegativeInfinity;
 
         // OnEnter hitbox, apply damage
@@ -24,11 +25,11 @@ namespace SideScroller.Combat
             IDamageable target = other.GetComponentInParent<IDamageable>();
             if (target == null) return;
 
-            // damage is only apply to different team
+            // damage only applies to the other team
             if (target.Team != _targetTeam) return;
 
             _lastHitAt = Time.time;
             target.TakeDamage(_damage);
-        }
+        }  
     }
 }

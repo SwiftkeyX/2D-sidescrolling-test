@@ -96,7 +96,7 @@ I am not confidence in making inventory. So I'll start with what I am confidence
                     make wand a child to equipment class.
                     implement shoot direction using mouse pointer
 
-    implement slime part 1 (1hr):
+    implement slime part 1 (4hr):
         [x] copy player controller to slime = idle, patrol, Chase. how are we going to make slime patrol?
             (10:00) implement slime by copying from player controller: implement idle and chase state
             (10:50) implement patrol state
@@ -106,7 +106,7 @@ I am not confidence in making inventory. So I'll start with what I am confidence
             (11:30) implement attack to slime
                     make him jump as a attack move
             (13:00) Organize file mimicing namespace structure
-        [] attach hitbox to slime
+        [x] attach hitbox to slime
             (13:00) add collider to slime. turn on option isTrigger.
                     make SlimeHitbox class for doing damage using collider.
             (13:25) make general class, "Hitbox" for doing damage to opposite team
@@ -114,6 +114,13 @@ I am not confidence in making inventory. So I'll start with what I am confidence
                     implement new inferface IDamageable 
             (13:30) implement simple health to player and slime (no UI)
                     player have 30 health. slime have 20 health
+            (14:00) slime also push player when jump on the player
+                    when slime hit player, slime should fly pass through the player.
+                    okay, how about having 2 collider:
+                    1. hitbox - using isTrigger - put this in the child for easy time searching
+                    2. collider - separating collider layer for player and enemies using matrix.
+                    now player and enemies don't collide, but the hitbox still does.
+                    now player is hurt and slime fly pass through the player while doing so.
 
     implement health to player and slime (1hr):
         [] use UI document for player's health (this overlay will be later used for inventory and more)
