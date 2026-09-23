@@ -9,6 +9,7 @@ namespace SideScroller.Enemies.States
         private readonly SlimeIdle _idle;
         private readonly SlimePatrol _patrol;
         private readonly SlimeChase _chase;
+        private readonly SlimeAttack _attack;
 
         public SlimeState Current { get; private set; }
 
@@ -22,6 +23,7 @@ namespace SideScroller.Enemies.States
             _idle = new SlimeIdle(slime, transition);
             _patrol = new SlimePatrol(slime, transition);
             _chase = new SlimeChase(slime, transition);
+            _attack = new SlimeAttack(slime, transition);
         }
 
         public void Start(SlimeStateEnum initial)
@@ -55,6 +57,7 @@ namespace SideScroller.Enemies.States
                 case SlimeStateEnum.Idle: return _idle;
                 case SlimeStateEnum.Patrol: return _patrol;
                 case SlimeStateEnum.Chase: return _chase;
+                case SlimeStateEnum.Attack: return _attack;
                 default: return _idle;
             }
         }

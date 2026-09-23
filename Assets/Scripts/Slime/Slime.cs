@@ -24,16 +24,34 @@ namespace SideScroller.Enemies
         private readonly RaycastHit2D[] _probeHits = new RaycastHit2D[1];
 
         // ======================================== Etc ========================================
+        // slime move speed
         [SerializeField] private float _moveSpeed = 2f;
+        
+        // slime detection range
         [SerializeField] private float _detectRange = 5f;
+        
+        // short pause for idle state
         [SerializeField] private float _idleDuration = 0.6f;
 
+        // attack data
+        [SerializeField] private float _attackRange = 1.5f;
+        [SerializeField] private float _attackCooldown = 1.5f;
+        private float _lastAttackAt = float.NegativeInfinity;
+        
+        // jump data
+        [SerializeField] private float _jumpUpForce = 5f;
+        [SerializeField] private float _jumpForwardForce = 1.8f;
+
+        // check wall & ground distance 
         private const float WallCheckDistance = 0.08f;
+        private const float GroundCheckDistance = 0.05f;
 
         // ======================================== getter ========================================
         // ====== 1. tuning ======
         public float DetectRange => _detectRange;
         public float IdleDuration => _idleDuration;
+        public float AttackRange => _attackRange;
+        public bool AttackReady => Time.time - _lastAttackAt >= _attackCooldown;
 
         // ====== 2. state ======
         public void ChangeState(SlimeStateEnum next) => _stateMachine.ChangeState(next);
@@ -44,12 +62,13 @@ namespace SideScroller.Enemies
         public bool HasTarget => _target != null;
         public float DistanceToTarget => _target == null ? float.MaxValue : Vector2.Distance(transform.position, _target.position);
         public float DirectionToTarget => _target == null ? Facing : Mathf.Sign(_target.position.x - transform.position.x);
-        
+
         // -1 or 1, the way we are facing
         public float Facing { get; private set; } = 1f;
 
         // Is there a wall ahead?
         public bool HasWallAhead => _collider.Cast(new Vector2(Facing, 0f), _solidFilter, _probeHits, WallCheckDistance) > 0;
+        public bool IsGrounded => _collider.Cast(Vector2.down, _solidFilter, _probeHits, GroundCheckDistance) > 0;
 
         // ======================================== life cycle ========================================
         void Awake()
@@ -89,6 +108,12 @@ namespace SideScroller.Enemies
             _body.linearVelocity = new Vector2(0f, _body.linearVelocity.y);
         }
 
+        public void Jump(float direction)
+        {
+            _lastAttackAt = Time.time;
+            _body.linearVelocity = new Vector2(direction * _jumpForwardForce, _jumpUpForce);
+        }
+
         public void TurnAround() => FaceMoveDirection(-Facing);
 
         public void FaceMoveDirection(float direction)
@@ -105,13 +130,16 @@ namespace SideScroller.Enemies
         public void PlayAnimation(SlimeStateEnum state) { }
 
         // ======================================== editor ========================================
-        // draw circle radius indicate detection range
         void OnDrawGizmos()
         {
+            // draw circle radius indicate detection range
             bool chasing = Application.isPlaying && _stateMachine != null && StateType == SlimeStateEnum.Chase;
-
             Gizmos.color = chasing ? Color.red : Color.yellow;
             DrawCircle(transform.position, _detectRange);
+
+            // draw circle radius indicate attack range
+            Gizmos.color = Color.magenta;
+            DrawCircle(transform.position, _attackRange);
         }
 
         private static void DrawCircle(Vector3 centre, float radius, int segments = 48)

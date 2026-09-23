@@ -22,6 +22,8 @@ namespace SideScroller.Enemies.States
 
         protected override void CheckSwitchState()
         {
+            if (_transition.CanAttack()) { _me.ChangeState(SlimeStateEnum.Attack); return; }
+
             if (_transition.LostTarget()) { _me.ChangeState(SlimeStateEnum.Idle); return; }
         }
     }

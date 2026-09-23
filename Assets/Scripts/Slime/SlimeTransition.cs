@@ -26,6 +26,15 @@ namespace SideScroller.Enemies.States
             return !_me.HasTarget || _me.DistanceToTarget > _me.DetectRange * LoseSightMultiplier;
         }
 
+        // I am ready to attack player
+        public bool CanAttack()
+        {
+            return _me.HasTarget
+                && _me.DistanceToTarget <= _me.AttackRange
+                && _me.AttackReady
+                && _me.IsGrounded;
+        }
+
         // ahead is blocked
         public bool BlockedAhead()
         {

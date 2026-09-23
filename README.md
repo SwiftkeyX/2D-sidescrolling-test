@@ -73,7 +73,7 @@ I am not confidence in making inventory. So I'll start with what I am confidence
 
 ## Design player controller
 
-    implement FSM for player (1hr):
+    implement FSM for player (2hr):
         [x] implement FSM for clean code = idle, walk, jump, attack
             (7:00)  I am trying to move my old FSM code to this project.
                     Let's make idle/walking work first.
@@ -89,14 +89,15 @@ I am not confidence in making inventory. So I'll start with what I am confidence
     implement a equipment system (1hr):
         [x] a equip weapon will show on player's head indicate that player was holding it.
             (8:50)  implement Equipment class & ScritableObject for the equipment
-        [x] (tempo) let player switch between wand, shovel, watering-can, and axes using "tab".
-            (9:15)  I don't think it make sense. Ditch this one.
         [x] implement a wand:
             (9:15)  make it shoot a cube that drive itself forward
                     the cube have its own class, "bullet". it drive itself forward and destroy after 5 sec.
             (9:30)  implement wand class
                     make wand a child to equipment class.
                     implement shoot direction using mouse pointer
+
+        [] (defered) cleanup: 
+            make bullet a monobehavior too.
 
     implement slime part 1 (1hr):
         [] copy player controller to slime = idle, patrol, Chase. how are we going to make slime patrol?
@@ -105,8 +106,10 @@ I am not confidence in making inventory. So I'll start with what I am confidence
                     make slime patrol by walking straight forward, if found wall, turn around
             (11:00) implement cinemachine to the player
                     re-test slime patrol 
+            (11:30) implement attack to slime
+                    make him jump as a attack move
         [] attach hitbox to slime
-        [] when he walk, he actually use jump animation. Could we make the animation drive hitbox?
+            (13:00) 
 
     implement health to player and slime (1hr):
         [] use UI document for player's health (this overlay will be later used for inventory and more)
