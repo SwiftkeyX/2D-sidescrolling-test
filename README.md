@@ -155,7 +155,8 @@ I am not confidence in making inventory. So I'll start with what I am confidence
             implement time interval (Morning/Afternoon/Evening). 5 minute is 1 interval.
             When the time is met, the light turn brighter/dimmer ? - no idea how to make daytime/nighttime in 2D game.
             when the new day come, let text UI show current day in the center of the screen. And slowly fade away. 
-- [ ] simple collider for testing time hop mechanic. when player walk into it, skip to next interval.
+- [x] simple collider for testing time hop mechanic. when player walk into it, skip to next interval.
+  - (19:00) use the same trick to slime
 
 # Day 2
 
