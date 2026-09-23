@@ -96,11 +96,8 @@ I am not confidence in making inventory. So I'll start with what I am confidence
                     make wand a child to equipment class.
                     implement shoot direction using mouse pointer
 
-        [] (defered) cleanup: 
-            make bullet a monobehavior too.
-
     implement slime part 1 (1hr):
-        [] copy player controller to slime = idle, patrol, Chase. how are we going to make slime patrol?
+        [x] copy player controller to slime = idle, patrol, Chase. how are we going to make slime patrol?
             (10:00) implement slime by copying from player controller: implement idle and chase state
             (10:50) implement patrol state
                     make slime patrol by walking straight forward, if found wall, turn around
@@ -108,8 +105,15 @@ I am not confidence in making inventory. So I'll start with what I am confidence
                     re-test slime patrol 
             (11:30) implement attack to slime
                     make him jump as a attack move
+            (13:00) Organize file mimicing namespace structure
         [] attach hitbox to slime
-            (13:00) 
+            (13:00) add collider to slime. turn on option isTrigger.
+                    make SlimeHitbox class for doing damage using collider.
+            (13:25) make general class, "Hitbox" for doing damage to opposite team
+                    opposite team is compared using team enum
+                    implement new inferface IDamageable 
+            (13:30) implement simple health to player and slime (no UI)
+                    player have 30 health. slime have 20 health
 
     implement health to player and slime (1hr):
         [] use UI document for player's health (this overlay will be later used for inventory and more)
@@ -119,8 +123,15 @@ I am not confidence in making inventory. So I'll start with what I am confidence
     implement slime part 2 (2hr):
         [] let slime do damage to player. implementing simple collider logic.
         [] let player's wand do damage to slime.
+            make BulletHitbox class copying SlimeHitbox.
+
+    implement dead logic:
         [] when slime die, create another 3 slime but scaling its size down.
         [] when player die, teleport player back to home, reset HP
+
+    cleanup: 
+        [] make bullet a monobehavior too.
+        [] move collider from child to the parent
 
 ## Design time hop mechanic
 
