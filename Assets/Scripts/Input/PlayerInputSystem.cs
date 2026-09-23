@@ -25,6 +25,15 @@ namespace SideScroller.Input
             }
         }
 
+        /// <summary>
+        /// Enter Play Mode Settings is set to reload the scene but not the domain, so statics
+        /// outlive a play session. Without this, _actions comes back pointing at the action set
+        /// the Input System disabled on exit, and the getter above skips re-enabling it because
+        /// it is not null - input is simply dead from the second Play onwards, silently.
+        /// </summary>
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatics() => _actions = null;
+
         public static float MoveAxis => Actions.Player.Move.ReadValue<Vector2>().x;
         public static bool JumpPressedThisFrame => Actions.Player.Jump.WasPressedThisFrame();
         public static bool AttackPressedThisFrame => Actions.Player.Attack.WasPressedThisFrame();

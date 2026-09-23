@@ -125,15 +125,17 @@ I am not confidence in making inventory. So I'll start with what I am confidence
             (14:40) attach hitbox to bullet. adjust bullet collision layer.
 
     implement health to player and slime (1hr):
-        [] use UI document for player's health (this overlay will be later used for inventory and more)
+        [x] use UI document for player's health (this overlay will be later used for inventory and more)
             (15:00) I am trying to move my old UI code to this project.
                     Rename Health.cs to Stat.cs because it could be misleading that it was a UI.
-        [] use legacy UI for world UI healthbar which used by slime
+        [x] use legacy UI for world UI healthbar which used by slime
             (15:30) Implement world healthbar for slime
-        [] implement stat class and implement it with FSM
+            (16:00) Change setting to "Reload Scene" only.  
 
     implement dead logic:
         [] when slime die, create another 3 slime but scaling its size down.
+            (16:00) add dead state to slime. create 3 slime on dead.
+                    scaling the size down.
         [] when player die, teleport player back to home, reset HP
 
     cleanup: 
