@@ -1,11 +1,20 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="ClockPanel" src="project://database/Assets/UI%20Toolkit/ClockPanel.uxml?fileID=9197481963319205126&amp;guid=e10d4b8a629f4c73b5d28a07f61c93e5&amp;type=3#ClockPanel"/>
     <ui:Template name="HealthPanel" src="project://database/Assets/UI%20Toolkit/HealthPanel.uxml?fileID=9197481963319205126&amp;guid=8e043b71f6c24a9db538702ec1af49d6&amp;type=3#HealthPanel"/>
+    <ui:Template name="DayBannerPanel" src="project://database/Assets/UI%20Toolkit/DayBannerPanel.uxml?fileID=9197481963319205126&amp;guid=b39f07c1e4a5426d81cf902b7e5a4d16&amp;type=3#DayBannerPanel"/>
     <ui:VisualElement name="Root" picking-mode="Ignore" style="flex-grow: 1; width: 100%; height: 100%;">
-        <ui:VisualElement name="HealthPanel" picking-mode="Ignore" style="position: relative; left: 0; top: 0;">
-            <ui:Instance template="HealthPanel"/>
+        <ui:VisualElement name="Top" style="flex-grow: 1; height: auto; max-height: 10%; flex-direction: row;">
+            <ui:VisualElement name="HealthPanel" picking-mode="Ignore" style="position: relative; left: auto; top: auto; flex-grow: 1;">
+                <ui:Instance template="HealthPanel" style="flex-grow: 1;"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="ClockPanel" picking-mode="Ignore" style="position: relative; right: auto; top: auto; flex-grow: 1; max-width: 30%;">
+                <ui:Instance template="ClockPanel"/>
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="ClockPanel" picking-mode="Ignore" style="position: absolute; right: 0; top: 0;"/>
         <ui:VisualElement name="HotbarPanel" picking-mode="Ignore" style="position: absolute; left: 0; right: 0; bottom: 0; align-items: center;"/>
         <ui:VisualElement name="InventoryPanel" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; align-items: center; justify-content: center;"/>
+        <ui:VisualElement name="DayBannerPanel" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+            <ui:Instance template="DayBannerPanel"/>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

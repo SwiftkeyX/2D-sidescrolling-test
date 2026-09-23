@@ -150,15 +150,40 @@ I am not confidence in making inventory. So I'll start with what I am confidence
 
 **implement time hop (2hr):**
 
-- [ ] make simple overlay using UI document to show current time. (Morning/Afternoon/Evening)
-- [ ] implement time interval (Morning/Afternoon/Evening). 5 minute is 1 interval.
-- [ ] When the time is met, the light turn brighter/dimmer ? - no idea how to make daytime/nighttime in 2D game.
-- [ ] Implement weekday (Morning/Afternoon/Evening). When the day cross between Evening => Morning, +1 to "today"
-- [ ] simple collider for testing tiime hop mechanic. when player walk into it, skip to next interval.
+- [x] make simple overlay using UI document to show current time. (Morning/Afternoon/Evening)
+  - (18:30) add text panel to UI document
+            implement time interval (Morning/Afternoon/Evening). 5 minute is 1 interval.
+            When the time is met, the light turn brighter/dimmer ? - no idea how to make daytime/nighttime in 2D game.
+            when the new day come, let text UI show current day in the center of the screen. And slowly fade away. 
+- [x] simple collider for testing time hop mechanic. when player walk into it, skip to next interval.
+  - (19:00) use the same trick to slime
 
 # Day 2
 
-Inventory
 Inventory is the biggest mechanic for me that I wasn't confidence at
 
+## Design inventory 
+
+**player can collect/use/remove/organize items**
+
+- [ ] make simple grid UI overlay for inventory window
+  - Each cell can be put the item sprite inside
+  - When player collect item, the item was added into the very first available grid.
+  - Player can drag items sprite around in the inventory, can replace/swap each items by dragging on top of them
+
+
+   2. inventory can hold resources, tools, crafted objects, and seeds.
+      - [ ] Have several items in the game. Those items also was categorized.
+      - [ ] make at least 3 items in each category  
+        resource = lumber, carrot, red berry, corn  
+        tools = watering can, shovel, axes  
+        seed = carrot seed, red berry seed, corn seed  
+        crafted item = Storage Chest, Golden Veggie, Broccoli
+   3. inventory bar - a overlay bar at the bottom for quick access e.g. equipable, usable, or placeable
+      - [ ] use simple grid UI overlay like inventory window
+      - [ ] drag seeds from a bar on the ground to place it
+      - [ ] drag shovel from a bar on the seed, make the seed grow to flower
+      - [ ] that mean a seed is the class of it own. It have several variation of sprite when it was growth.
+   4. items can stack and have limit at 10 max
+      - [ ] Each cell in inventory keep a list<Stack>. Stack is class that keep a items variable and a number of the stack.
 # Day 3 Wrap thing up
