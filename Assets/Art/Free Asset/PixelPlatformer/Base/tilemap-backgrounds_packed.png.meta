@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 18
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0000
+      name: tilemap-backgrounds_packed_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,14 +115,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b8630e66f93f7c4caa5b41c3f4e12ce
-      internalID: -1668341567
+      spriteID: 072d0d92228ab36419da15ba31b44899
+      internalID: 259151404
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0001
+      name: tilemap-backgrounds_packed_1
       rect:
         serializedVersion: 2
         x: 24
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 806bf23edd3ff3544b98f10355eb9284
-      internalID: -750234220
+      spriteID: 85f87831cec32ea4fbae867328214949
+      internalID: 868958205
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0002
+      name: tilemap-backgrounds_packed_2
       rect:
         serializedVersion: 2
         x: 48
@@ -159,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 070e358c6cd0ecf4d9db70568cbaacc8
-      internalID: -1669528753
+      spriteID: 3168c0fa95629ad43a0892579a5e793c
+      internalID: -2036822440
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0003
+      name: tilemap-backgrounds_packed_3
       rect:
         serializedVersion: 2
         x: 72
@@ -181,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6679bbbcbbfc59a44bdf3575939b9aac
-      internalID: 441556696
+      spriteID: 86be2f3b18f3baf4f82a045072ff2362
+      internalID: 849956565
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0004
+      name: tilemap-backgrounds_packed_4
       rect:
         serializedVersion: 2
         x: 96
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c747a55e9a30d104d814323a91b7de36
-      internalID: 1205626533
+      spriteID: 37f8269bc883c464988c6ac68a0b49ef
+      internalID: 181581494
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0005
+      name: tilemap-backgrounds_packed_5
       rect:
         serializedVersion: 2
         x: 120
@@ -225,14 +225,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26a0584f65b1dd0458b8391ab0eccfce
-      internalID: -598051474
+      spriteID: d955e9db2bf33874fb2da44997e19e42
+      internalID: -101727543
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0006
+      name: tilemap-backgrounds_packed_6
       rect:
         serializedVersion: 2
         x: 144
@@ -247,14 +247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09b6d1a010cd7f44180884be34cbe292
-      internalID: -1383278033
+      spriteID: 92399a75a0764204381c5c771065c142
+      internalID: 450172113
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0007
+      name: tilemap-backgrounds_packed_7
       rect:
         serializedVersion: 2
         x: 168
@@ -269,14 +269,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59b990aa3f0e7d64f913a1159db16fba
-      internalID: 1750902776
+      spriteID: ed1ac032d417b5146928869442e453a8
+      internalID: -79612319
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0008
+      name: tilemap-backgrounds_packed_8
       rect:
         serializedVersion: 2
         x: 0
@@ -291,14 +291,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79b744883cc1cd6418f3a0f3a32597e2
-      internalID: -360792561
+      spriteID: cc0f77f36cd6b044396a7845e9953590
+      internalID: 983974995
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0009
+      name: tilemap-backgrounds_packed_9
       rect:
         serializedVersion: 2
         x: 24
@@ -313,14 +313,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4db124addb2a874286b9ca327701dd3
-      internalID: 645015068
+      spriteID: c11957f7749998b44891273fab866e62
+      internalID: 917895189
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0010
+      name: tilemap-backgrounds_packed_10
       rect:
         serializedVersion: 2
         x: 48
@@ -335,14 +335,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eaec4b30701419f45972fa0d1d5a8034
-      internalID: -1455320519
+      spriteID: df47f83f28f38664cbd71f3858670c81
+      internalID: 1287632834
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0011
+      name: tilemap-backgrounds_packed_11
       rect:
         serializedVersion: 2
         x: 72
@@ -357,14 +357,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1f90715216c7ca4f9b3b7b42cafe86e
-      internalID: 2031878204
+      spriteID: f358e47fcb8d12d4a9c7737e6a8b19ab
+      internalID: 1715026211
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0012
+      name: tilemap-backgrounds_packed_12
       rect:
         serializedVersion: 2
         x: 96
@@ -379,14 +379,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a287a4053f8b47545aa514c68eb367df
-      internalID: -1602996304
+      spriteID: c3c398f02cf238449878b67b5323b3f6
+      internalID: 1608154950
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0013
+      name: tilemap-backgrounds_packed_13
       rect:
         serializedVersion: 2
         x: 120
@@ -401,14 +401,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f113dbfe6959cfb4e932a0bbb1ad27bc
-      internalID: -1280524088
+      spriteID: 9e126960c53f9d2408dfbce18d608c90
+      internalID: 229206697
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0014
+      name: tilemap-backgrounds_packed_14
       rect:
         serializedVersion: 2
         x: 144
@@ -423,14 +423,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 126848bea37846044989dc275546d897
-      internalID: 143676134
+      spriteID: e41c4a72208c44d469a0181ea94d9c8f
+      internalID: -1001301808
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0015
+      name: tilemap-backgrounds_packed_15
       rect:
         serializedVersion: 2
         x: 168
@@ -445,14 +445,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1ffd584d2cc60b4b8dd5d8c27bb7a45
-      internalID: 696321599
+      spriteID: 5df295e6adf8a284db5392fdd5d3e4b1
+      internalID: 303176919
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0016
+      name: tilemap-backgrounds_packed_16
       rect:
         serializedVersion: 2
         x: 0
@@ -467,14 +467,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cb8c1e9d67cd0e4aa1bb810a81d4137
-      internalID: -1244628012
+      spriteID: 3a89fea280b1923439d80dc0483c57d0
+      internalID: 123975636
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0017
+      name: tilemap-backgrounds_packed_17
       rect:
         serializedVersion: 2
         x: 24
@@ -489,14 +489,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97860981a136b3542b115db91701a8c6
-      internalID: 1990696316
+      spriteID: 610cb04b137278346b6b93fe98bc1585
+      internalID: 1504689496
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0018
+      name: tilemap-backgrounds_packed_18
       rect:
         serializedVersion: 2
         x: 48
@@ -511,14 +511,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 932c541c56086a947905eb9f98cc52a9
-      internalID: -2101104478
+      spriteID: 1643d33f9f954e247bca178dee21f465
+      internalID: -1894244871
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0019
+      name: tilemap-backgrounds_packed_19
       rect:
         serializedVersion: 2
         x: 72
@@ -533,14 +533,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c7d60f2e115d4c4399cb6c337198539
-      internalID: 1470516814
+      spriteID: 68fb0da22cee7ea4b988da3ca57db640
+      internalID: -1686171775
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0020
+      name: tilemap-backgrounds_packed_20
       rect:
         serializedVersion: 2
         x: 96
@@ -555,14 +555,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac9338dd40dba764aa7cb05374e56cd7
-      internalID: -713210477
+      spriteID: 32ad4da56dcfe934c991cb765230dd97
+      internalID: 1516527336
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0021
+      name: tilemap-backgrounds_packed_21
       rect:
         serializedVersion: 2
         x: 120
@@ -577,14 +577,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4312ea5497d2d849ab9323a60f9a4eb
-      internalID: 510884785
+      spriteID: 259cad96abc877344b4c4ffa28423884
+      internalID: 518134806
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0022
+      name: tilemap-backgrounds_packed_22
       rect:
         serializedVersion: 2
         x: 144
@@ -599,14 +599,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba3fc085bd8d82a4886f22ae8efe6977
-      internalID: 1637887508
+      spriteID: 0aaa84218d15c09449708d829c99573c
+      internalID: 1934238549
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap-backgrounds_packed_0023
+      name: tilemap-backgrounds_packed_23
       rect:
         serializedVersion: 2
         x: 168
@@ -621,8 +621,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd5b1dafb11a6db4398066e6dbd44e2b
-      internalID: -1906088126
+      spriteID: dfe9253dae5999f41add186dfbd72db9
+      internalID: -760769279
       vertices: []
       indices: 
       edges: []
@@ -639,32 +639,36 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":3.0},"gridSpriteSize":{"x":24.0,"y":24.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      - key: SpriteEditor.SliceOnImport
+        value: False
     nameFileIdTable:
-      tilemap-backgrounds_packed_0000: -1668341567
-      tilemap-backgrounds_packed_0001: -750234220
-      tilemap-backgrounds_packed_0002: -1669528753
-      tilemap-backgrounds_packed_0003: 441556696
-      tilemap-backgrounds_packed_0004: 1205626533
-      tilemap-backgrounds_packed_0005: -598051474
-      tilemap-backgrounds_packed_0006: -1383278033
-      tilemap-backgrounds_packed_0007: 1750902776
-      tilemap-backgrounds_packed_0008: -360792561
-      tilemap-backgrounds_packed_0009: 645015068
-      tilemap-backgrounds_packed_0010: -1455320519
-      tilemap-backgrounds_packed_0011: 2031878204
-      tilemap-backgrounds_packed_0012: -1602996304
-      tilemap-backgrounds_packed_0013: -1280524088
-      tilemap-backgrounds_packed_0014: 143676134
-      tilemap-backgrounds_packed_0015: 696321599
-      tilemap-backgrounds_packed_0016: -1244628012
-      tilemap-backgrounds_packed_0017: 1990696316
-      tilemap-backgrounds_packed_0018: -2101104478
-      tilemap-backgrounds_packed_0019: 1470516814
-      tilemap-backgrounds_packed_0020: -713210477
-      tilemap-backgrounds_packed_0021: 510884785
-      tilemap-backgrounds_packed_0022: 1637887508
-      tilemap-backgrounds_packed_0023: -1906088126
+      tilemap-backgrounds_packed_0: 259151404
+      tilemap-backgrounds_packed_1: 868958205
+      tilemap-backgrounds_packed_10: 1287632834
+      tilemap-backgrounds_packed_11: 1715026211
+      tilemap-backgrounds_packed_12: 1608154950
+      tilemap-backgrounds_packed_13: 229206697
+      tilemap-backgrounds_packed_14: -1001301808
+      tilemap-backgrounds_packed_15: 303176919
+      tilemap-backgrounds_packed_16: 123975636
+      tilemap-backgrounds_packed_17: 1504689496
+      tilemap-backgrounds_packed_18: -1894244871
+      tilemap-backgrounds_packed_19: -1686171775
+      tilemap-backgrounds_packed_2: -2036822440
+      tilemap-backgrounds_packed_20: 1516527336
+      tilemap-backgrounds_packed_21: 518134806
+      tilemap-backgrounds_packed_22: 1934238549
+      tilemap-backgrounds_packed_23: -760769279
+      tilemap-backgrounds_packed_3: 849956565
+      tilemap-backgrounds_packed_4: 181581494
+      tilemap-backgrounds_packed_5: -101727543
+      tilemap-backgrounds_packed_6: 450172113
+      tilemap-backgrounds_packed_7: -79612319
+      tilemap-backgrounds_packed_8: 983974995
+      tilemap-backgrounds_packed_9: 917895189
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
