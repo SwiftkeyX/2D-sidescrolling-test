@@ -14,6 +14,7 @@ namespace SideScroller.Combat
         public bool IsAlive => Current > 0;
 
         public event Action Died;
+        public event Action<int, int> OnHealthChanged;
 
         void Awake()
         {
@@ -26,8 +27,16 @@ namespace SideScroller.Combat
             if (!IsAlive) return;
 
             Current = Mathf.Max(0, Current - amount);
+            
+            OnHealthChanged?.Invoke(Current, _maxHealth);
 
             if (Current == 0) Died?.Invoke();
+        }
+
+        public void ResetHealth()
+        {
+            Current = _maxHealth;
+            OnHealthChanged?.Invoke(Current, _maxHealth);
         }
     }
 }

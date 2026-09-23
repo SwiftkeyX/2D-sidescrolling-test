@@ -122,15 +122,14 @@ I am not confidence in making inventory. So I'll start with what I am confidence
                     now player and enemies don't collide, but the hitbox still does.
                     now player is hurt and slime fly pass through the player while doing so.
         [x] attach hitbox to bullet
-            (14:40) 
+            (14:40) attach hitbox to bullet. adjust bullet collision layer.
 
     implement health to player and slime (1hr):
         [] use UI document for player's health (this overlay will be later used for inventory and more)
+            (15:00) I am trying to move my old UI code to this project.
+                    Rename Health.cs to Stat.cs because it could be misleading that it was a UI.
         [] use legacy UI for world UI healthbar which used by slime
         [] implement stat class and implement it with FSM
-
-    implement slime part 2 (2hr):
-        [] let slime do damage to player. implementing simple collider logic.
 
     implement dead logic:
         [] when slime die, create another 3 slime but scaling its size down.
