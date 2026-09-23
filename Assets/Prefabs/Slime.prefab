@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 3591175223489236057}
   - component: {fileID: 6702116451496168356}
   - component: {fileID: 4364263141746957853}
-  - component: {fileID: 7159746836127688828}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -193,18 +192,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Combat.Health
   _maxHealth: 20
   _team: 1
---- !u!114 &7159746836127688828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7872636211366655064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e01cdd56ef9c12a439cd8773605e73ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Combat.Hitbox
-  _damage: 3
-  _targetTeam: 0
-  _hitCooldown: 0.5

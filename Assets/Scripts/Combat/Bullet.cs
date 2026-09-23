@@ -3,6 +3,7 @@ using UnityEngine;
 namespace SideScroller.Combat
 {
     // Drive forward in a straight line and cleans itself up.
+    [RequireComponent(typeof(Hitbox))]
     public class Bullet : MonoBehaviour
     {
         [SerializeField] private float _speed = 12f;
@@ -15,6 +16,11 @@ namespace SideScroller.Combat
             _direction = direction.normalized;
         }
 
+        void Awake()
+        {
+            GetComponent<Hitbox>().Hit += OnHit;
+        }
+
         void Start()
         {
             Destroy(gameObject, _lifeTime);
@@ -23,6 +29,12 @@ namespace SideScroller.Combat
         void Update()
         {
             transform.Translate(_direction * (_speed * Time.deltaTime), Space.World);
+        }
+
+        // OnHit, destroy itself
+        private void OnHit(IDamageable target)
+        {
+            Destroy(gameObject);
         }
     }
 }

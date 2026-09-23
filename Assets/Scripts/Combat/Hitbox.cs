@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace SideScroller.Combat
@@ -11,6 +12,8 @@ namespace SideScroller.Combat
 
         private float _lastHitAt = float.NegativeInfinity;
 
+        public event Action<IDamageable> Hit;
+
         // OnEnter hitbox, apply damage
         void OnTriggerEnter2D(Collider2D other) => TryDamage(other);
 
@@ -21,6 +24,7 @@ namespace SideScroller.Combat
         {
             if (Time.time - _lastHitAt < _hitCooldown) return;
 
+            // FIXME: change this to normal getcomponent 
             // the collider may be a child, health lives further up
             IDamageable target = other.GetComponentInParent<IDamageable>();
             if (target == null) return;
@@ -30,6 +34,8 @@ namespace SideScroller.Combat
 
             _lastHitAt = Time.time;
             target.TakeDamage(_damage);
-        }  
+
+            Hit?.Invoke(target);
+        }
     }
 }
