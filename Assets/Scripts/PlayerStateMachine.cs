@@ -2,31 +2,25 @@
 namespace MagicSchool.Combat.Heroes.States
 {
     /// <summary>
-    /// PlayerStateMachine is state machine that control hero's behaviour.
+    /// PlayerStateMachine is state machine that control player's behaviour.
     /// It's vanilla state machine, nothing special.
     /// </summary>
     internal class PlayerStateMachine
     {
-        private readonly Player _me;
         private readonly PlayerIdle _idle;
         private readonly PlayerWalk _walk;
-        private readonly PlayerAttack _attack;
-        private readonly PlayerDead _dead;
 
         public PlayerState Current { get; private set; }
 
         public PlayerStateEnum CurrentType => Current == null ? PlayerStateEnum.Idle : Current.StateType;
         public PlayerStateEnum PreviousType { get; private set; }
 
-        public PlayerStateMachine(Player hero)
+        public PlayerStateMachine(Player player)
         {
-            _me = hero;
-            Transition transition = new Transition(hero);
+            Transition transition = new Transition(player);
 
-            _idle = new PlayerIdle(hero, transition);
-            _walk = new PlayerWalk(hero, transition);
-            _attack = new PlayerAttack(hero, transition);
-            _dead = new PlayerDead(hero, transition);
+            _idle = new PlayerIdle(player, transition);
+            _walk = new PlayerWalk(player, transition);
         }
 
         public void Start(PlayerStateEnum initial)
@@ -50,53 +44,10 @@ namespace MagicSchool.Combat.Heroes.States
         {
             if (Current == null) return;
 
-            // interrupt state e.g. stun, dead
-            if (TryResolveInterrupt(out PlayerStateEnum forced))
-            {
-                ChangeState(forced);
+            // global interrupts (dead, stun) get resolved here before the state updates,
+            // once there are states that need them
 
-                // return early, so we don't update in the same frame
-                return;
-            }
-
-            // update state
             Current.OnUpdate();
-        }
-
-        /// <summary>
-        /// Global state transition.  
-        /// Some of the transition are redundant in each state, make it a global transition by move it here.
-        /// </summary>
-        private bool TryResolveInterrupt(out PlayerStateEnum forced)
-        {
-            forced = default;
-
-            if (CurrentType == PlayerStateEnum.Dead) return false;
-
-            if (_me.CurrentHP <= 0)
-            {
-                forced = PlayerStateEnum.Dead;
-                return true;
-            }
-
-            // FLAGGING: the stun duration should be addition to previous exist stun running 
-            bool notStun = CurrentType != PlayerStateEnum.Stunned;
-            if (_me.IsStunned && notStun)
-            {
-                forced = PlayerStateEnum.Stunned;
-                return true;
-            }
-
-            // FLAGGING: Being stun while casting skill is useless for the stun user, since skill effect is already fire.
-            // if mana is full, trigger OnCast skill
-            bool success = _me.TriggerActiveSkill(_me.IsManaCapped());
-            if (success)
-            {
-                forced = PlayerStateEnum.Cast;
-                return true;
-            }
-
-            return false;
         }
 
         private PlayerState GetState(PlayerStateEnum type)
@@ -105,9 +56,7 @@ namespace MagicSchool.Combat.Heroes.States
             {
                 case PlayerStateEnum.Idle: return _idle;
                 case PlayerStateEnum.Walk: return _walk;
-                case PlayerStateEnum.Attack: return _attack;
-                case PlayerStateEnum.Dead: return _dead;
-                default: return null;
+                default: return _idle;
             }
         }
     }
