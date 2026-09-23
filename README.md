@@ -133,11 +133,12 @@ I am not confidence in making inventory. So I'll start with what I am confidence
             (16:00) Change setting to "Reload Scene" only.  
 
     implement dead logic:
-        [] when slime die, create another 3 slime but scaling its size down.
+        [x] when slime die, create another 3 slime but scaling its size down.
             (16:00) add dead state to slime. create 3 slime on dead.
                     scaling the size down.
+                    wire dead event from stat.cs to statemachine
         [] when player die, teleport player back to home, reset HP
-
+            (16:40) 
     cleanup: 
         [] make bullet a monobehavior too.
 

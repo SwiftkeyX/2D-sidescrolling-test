@@ -1,4 +1,5 @@
 using SideScroller.Characters;
+using SideScroller.Combat;
 using SideScroller.Enemies.States;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace SideScroller.Enemies
         // ======================================== Dependency ========================================
         // ===== classes =====
         private SlimeStateMachine _stateMachine;
+        private Stat _stat;
 
         // ===== unity =====
         private Rigidbody2D _body;
@@ -23,13 +25,13 @@ namespace SideScroller.Enemies
         private ContactFilter2D _solidFilter;
         private readonly RaycastHit2D[] _probeHits = new RaycastHit2D[1];
 
-        // ======================================== Etc ========================================
+        // ======================================== tune data ========================================
         // slime move speed
         [SerializeField] private float _moveSpeed = 2f;
-        
+
         // slime detection range
         [SerializeField] private float _detectRange = 5f;
-        
+
         // short pause for idle state
         [SerializeField] private float _idleDuration = 0.6f;
 
@@ -37,10 +39,16 @@ namespace SideScroller.Enemies
         [SerializeField] private float _attackRange = 1.5f;
         [SerializeField] private float _attackCooldown = 1.5f;
         private float _lastAttackAt = float.NegativeInfinity;
-        
+
         // jump data
         [SerializeField] private float _jumpUpForce = 5f;
         [SerializeField] private float _jumpForwardForce = 1.8f;
+
+        // dead data
+        // when dead this slime, split into smaller slime.
+        [SerializeField] private Slime _splitIntoChild; 
+        [SerializeField] private int _splitCount = 3;   
+        [SerializeField] private float _splitSpread = 0.35f;
 
         // check wall & ground distance 
         private const float WallCheckDistance = 0.08f;
@@ -76,6 +84,7 @@ namespace SideScroller.Enemies
             _body = GetComponent<Rigidbody2D>();
             _collider = GetComponent<Collider2D>();
             _sprite = GetComponent<SpriteRenderer>();
+            _stat = GetComponent<Stat>();
 
             _solidFilter = new ContactFilter2D();
             _solidFilter.useTriggers = false;
@@ -83,7 +92,13 @@ namespace SideScroller.Enemies
             Player player = FindFirstObjectByType<Player>();
             if (player != null) _target = player.transform;
 
-            _stateMachine = new SlimeStateMachine(this);
+            _stateMachine = new SlimeStateMachine(this, _stat);
+        }
+
+        void OnDestroy()
+        {
+            // destroy non-unity class
+            _stateMachine?.Detach();
         }
 
         void Start()
@@ -123,6 +138,27 @@ namespace SideScroller.Enemies
             Facing = Mathf.Sign(direction);
 
             if (_sprite != null) _sprite.flipX = Facing < 0f;
+        }
+
+        // ==== dying ====
+        public void Despawn() => Destroy(gameObject);
+
+        // when this slime die, split into smaller slime
+        public void SplitIntoSmallerSlime()
+        {
+            if (_splitIntoChild == null) return;
+            if (_splitCount <= 0) return;
+
+            // spread smaller slime along x axis
+            float step = _splitCount > 1 ? _splitSpread : 0f;
+            float startPos = -step * (_splitCount - 1) * 0.5f;
+
+            // spawn slime
+            for (int i = 0; i < _splitCount; i++)
+            {
+                Vector3 at = transform.position + new Vector3(startPos + step * i, 0f, 0f);
+                Instantiate(_splitIntoChild, at, transform.rotation);
+            }
         }
 
         // ==== other ====
