@@ -1,13 +1,14 @@
+using SideScroller.Equipments;
 using UnityEngine;
 
 namespace SideScroller.Combat
 {
-    public class Wand : MonoBehaviour
+    public class Wand : Equipment
     {
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Vector2 _muzzleOffset = new Vector2(0.6f, 0.1f);
 
-        public void Fire(float facing)
+        public override void Activate(float facing)
         {
             if (_bulletPrefab == null) return;
 

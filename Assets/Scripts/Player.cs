@@ -17,8 +17,8 @@ namespace SideScroller.Characters
         // ======================================== Dependency ========================================
         // ===== classes =====
         private PlayerStateMachine _stateMachine;
-        private Equipment _equipment;
-        [SerializeField] private Wand _wand;
+        private EquipmentSlot _equipmentSlot;
+        [SerializeField] private Equipment _equipment;
         [SerializeField] private EquipmentSO _startingEquipment;
         [SerializeField] private SpriteRenderer _equipmentRenderer;
 
@@ -53,11 +53,11 @@ namespace SideScroller.Characters
         public float VerticalVelocity => _body.linearVelocity.y;
 
         // ====== 4. equipment ======
-        public EquipmentSO EquippedItem => _equipment.Current;
-        public bool HasEquipment => _equipment.HasEquipment;
+        public EquipmentSO EquippedItem => _equipmentSlot.Current;
+        public bool HasEquipment => _equipmentSlot.HasEquipment;
 
-        public void Equip(EquipmentSO equipment) => _equipment.Equip(equipment);
-        public void Unequip() => _equipment.Unequip();
+        public void Equip(EquipmentSO equipment) => _equipmentSlot.Equip(equipment);
+        public void Unequip() => _equipmentSlot.Unequip();
 
         // ======================================== unity ========================================
         void Awake()
@@ -69,8 +69,8 @@ namespace SideScroller.Characters
             _groundFilter = new ContactFilter2D();
             _groundFilter.useTriggers = false;
 
-            _equipment = new Equipment(_equipmentRenderer);
-            if (_startingEquipment != null) _equipment.Equip(_startingEquipment);
+            _equipmentSlot = new EquipmentSlot(_equipmentRenderer);
+            if (_startingEquipment != null) _equipmentSlot.Equip(_startingEquipment);
 
             _stateMachine = new PlayerStateMachine(this);
         }
@@ -86,7 +86,7 @@ namespace SideScroller.Characters
 
             // FLAGGING: this should be move to state machine later
             // shooting does not interrupt walking or jumping, so it sits outside the state machine
-            if (AttackPressed) FireWand();
+            if (AttackPressed) ActivateTool();
         }
 
         // ======================================== state machine ========================================
@@ -115,14 +115,15 @@ namespace SideScroller.Characters
         }
 
         // ==== combat ====
-        public void FireWand()
+        // every tool activates the same way, the tool decides what that means
+        public void ActivateTool()
         {
-            // if not holding a wand, return
-            if (_wand == null) return;
-            if (_equipment.Current == null || _equipment.Current.Type != EquipmentTypeEnum.Wand) return;
+            if (_equipment == null) return;
+            if (_equipmentSlot.Current == null) return;
+            if (_equipmentSlot.Current.Type != _equipment.Type) return;
 
             float facingDirection = _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
-            _wand.Fire(facingDirection);
+            _equipment.Activate(facingDirection);
         }
 
         // ==== other ====

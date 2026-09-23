@@ -1900,7 +1900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6b4cdbfd20065041951f885d33c1d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MagicSchool.Combat.Heroes.Player
-  _wand: {fileID: 1136419355}
+  _tool: {fileID: 1136419355}
   _startingEquipment: {fileID: 11400000, guid: 85614674b0e633a48b56226ca77dca94, type: 2}
   _equipmentRenderer: {fileID: 1794785076}
   _moveSpeed: 5
@@ -2056,6 +2056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d65ea1c06c5d4a498e0a53a057cfb1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Combat.Wand
+  _data: {fileID: 11400000, guid: 85614674b0e633a48b56226ca77dca94, type: 2}
   _bulletPrefab: {fileID: 9132770697416454547, guid: d04b80e9f8e14f04a846bd69e9da0a3c, type: 3}
   _muzzleOffset: {x: 0.6, y: 0.1}
 --- !u!1 &1794785074
