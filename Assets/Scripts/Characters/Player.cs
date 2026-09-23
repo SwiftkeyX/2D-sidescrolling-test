@@ -17,6 +17,7 @@ namespace SideScroller.Characters
         // ======================================== Dependency ========================================
         // ===== classes =====
         private PlayerStateMachine _stateMachine;
+        private Stat _stat;
         private EquipmentSlot _equipmentSlot;
         [SerializeField] private Equipment _equipment;
         [SerializeField] private EquipmentSO _startingEquipment;
@@ -83,6 +84,7 @@ namespace SideScroller.Characters
             _playerSprite = GetComponent<SpriteRenderer>();
             _camera = Camera.main;
             _collider = GetComponent<Collider2D>();
+            _stat = GetComponent<Stat>();
 
             _groundFilter = new ContactFilter2D();
             _groundFilter.useTriggers = false;
@@ -90,7 +92,13 @@ namespace SideScroller.Characters
             _equipmentSlot = new EquipmentSlot(_equipmentRenderer);
             if (_startingEquipment != null) _equipmentSlot.Equip(_startingEquipment);
 
-            _stateMachine = new PlayerStateMachine(this);
+            _stateMachine = new PlayerStateMachine(this, _stat);
+        }
+
+        void OnDestroy()
+        {
+            // destroy non-unity class
+            _stateMachine?.Detach();
         }
 
         void Start()
@@ -102,8 +110,8 @@ namespace SideScroller.Characters
         {
             _stateMachine.Tick();
 
-            // FLAGGING: this should be move to state machine later
-            // shooting does not interrupt walking or jumping, so it sits outside the state machine
+            if (StateType == PlayerStateEnum.Dead) return;
+
             if (AttackPressed) ActivateTool();
         }
 
