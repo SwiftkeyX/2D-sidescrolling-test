@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Overlay.uss?fileID=7433441132597879392&amp;guid=2a6f58d0b3e74c81af9d64e05b71c832&amp;type=3#Overlay"/>
+    <ui:VisualElement name="DayBannerPanel" picking-mode="Ignore" class="banner-layer">
+        <ui:VisualElement name="DayBanner" picking-mode="Ignore" class="banner">
+            <ui:Label name="DayBannerText" picking-mode="Ignore" text="MONDAY DAY 1" class="banner__text"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
