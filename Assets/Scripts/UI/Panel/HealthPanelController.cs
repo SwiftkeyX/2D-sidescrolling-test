@@ -7,7 +7,7 @@ namespace SideScroller.UI
     /// The player's health bar, top-left of the overlay.
     internal class HealthPanelController : PanelController
     {
-        [SerializeField] private Health _health;
+        [SerializeField] private Stat _health;
 
         private VisualElement _fill;
         private Label _value;
@@ -42,9 +42,9 @@ namespace SideScroller.UI
         }
 
         // the player is the only thing on our own team carrying health
-        private static Health FindPlayerHealth()
+        private static Stat FindPlayerHealth()
         {
-            foreach (Health health in FindObjectsByType<Health>(FindObjectsSortMode.None))
+            foreach (Stat health in FindObjectsByType<Stat>(FindObjectsSortMode.None))
             {
                 if (health.Team == TeamEnum.Player) return health;
             }

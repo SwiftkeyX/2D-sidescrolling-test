@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SideScroller.Combat
 {
-    public class Health : MonoBehaviour, IDamageable
+    public class Stat : MonoBehaviour, IDamageable
     {
         [SerializeField] private int _maxHealth = 30;
         [SerializeField] private TeamEnum _team = TeamEnum.Player;
@@ -27,7 +27,7 @@ namespace SideScroller.Combat
             if (!IsAlive) return;
 
             Current = Mathf.Max(0, Current - amount);
-            
+
             OnHealthChanged?.Invoke(Current, _maxHealth);
 
             if (Current == 0) Died?.Invoke();
