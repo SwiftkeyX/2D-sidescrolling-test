@@ -129,6 +129,7 @@ I am not confidence in making inventory. So I'll start with what I am confidence
             (15:00) I am trying to move my old UI code to this project.
                     Rename Health.cs to Stat.cs because it could be misleading that it was a UI.
         [] use legacy UI for world UI healthbar which used by slime
+            (15:30) Implement world healthbar for slime
         [] implement stat class and implement it with FSM
 
     implement dead logic:
