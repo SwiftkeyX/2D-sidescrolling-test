@@ -74,14 +74,15 @@ I am not confidence in making inventory. So I'll start with what I am confidence
 ## Design player controller
 
     implement FSM for player (1hr):
-        [] implement FSM for clean code = idle, walk, jump, attack
+        [x] implement FSM for clean code = idle, walk, jump, attack
             (7:00)  I am trying to move my old FSM code to this project.
                     Let's make idle/walking work first.
             (7:30)  implement CharacterController2D for movement/jump.
             (8:00)  change to Rigidbody2D because there's no CharacterController2D.
                     implement new input system
             (8:20)  implement jump state
-                    use collider.cast to check ground state 
+                    use collider.cast to check ground state
+                    left the attack state alone, let implement weapon first 
 
 ## Design combat system
 
