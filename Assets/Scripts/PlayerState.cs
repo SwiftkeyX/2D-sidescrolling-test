@@ -4,11 +4,12 @@ namespace MagicSchool.Combat.Heroes.States
 
     internal abstract class PlayerState
     {
-        // protected readonly Player _me;
+        protected readonly Player _me;
         protected readonly Transition _transition;
 
-        protected PlayerState(Transition transition)
+        protected PlayerState(Player me, Transition transition)
         {
+            _me = me;
             _transition = transition;
         }
 
