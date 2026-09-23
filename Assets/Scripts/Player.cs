@@ -1,4 +1,5 @@
 using SideScroller.Characters.States;
+using SideScroller.Equipments;
 using SideScroller.Input;
 using UnityEngine;
 
@@ -13,16 +14,23 @@ namespace SideScroller.Characters
     public class Player : MonoBehaviour
     {
         // ======================================== Dependency ========================================
+        // ===== classes =====
         private PlayerStateMachine _stateMachine;
-        private Rigidbody2D _body;
-        private SpriteRenderer _sprite;
+        private Equipment _equipment;
+        [SerializeField] private EquipmentSO _startingEquipment;
+        [SerializeField] private SpriteRenderer _equipmentRenderer;
+
+        // ===== unity =====
         private Collider2D _collider;
+        private Rigidbody2D _body;
+        private SpriteRenderer _playerSprite;
         private ContactFilter2D _groundFilter;
         private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[1];
 
         // ======================================== Etc ========================================
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _jumpForce = 9f;
+
         private const float GroundCheckDistance = 0.05f;
 
         // ======================================== getter ========================================
@@ -40,15 +48,25 @@ namespace SideScroller.Characters
         public bool IsGrounded => _collider.Cast(Vector2.down, _groundFilter, _groundHits, GroundCheckDistance) > 0;
         public float VerticalVelocity => _body.linearVelocity.y;
 
+        // ====== 4. equipment ======
+        public EquipmentSO EquippedItem => _equipment.Current;
+        public bool HasEquipment => _equipment.HasEquipment;
+
+        public void Equip(EquipmentSO equipment) => _equipment.Equip(equipment);
+        public void Unequip() => _equipment.Unequip();
+
         // ======================================== unity ========================================
         void Awake()
         {
             _body = GetComponent<Rigidbody2D>();
-            _sprite = GetComponentInChildren<SpriteRenderer>();
+            _playerSprite = GetComponent<SpriteRenderer>();
             _collider = GetComponent<Collider2D>();
 
             _groundFilter = new ContactFilter2D();
             _groundFilter.useTriggers = false;
+
+            _equipment = new Equipment(_equipmentRenderer);
+            if (_startingEquipment != null) _equipment.Equip(_startingEquipment);
 
             _stateMachine = new PlayerStateMachine(this);
         }
@@ -82,10 +100,10 @@ namespace SideScroller.Characters
 
         public void FaceMoveDirection(float input)
         {
-            if (_sprite == null) return;
+            if (_playerSprite == null) return;
             if (Mathf.Approximately(input, 0f)) return;
 
-            _sprite.flipX = input < 0f;
+            _playerSprite.flipX = input < 0f;
         }
 
         // ==== other ====
