@@ -121,6 +121,8 @@ I am not confidence in making inventory. So I'll start with what I am confidence
                     2. collider - separating collider layer for player and enemies using matrix.
                     now player and enemies don't collide, but the hitbox still does.
                     now player is hurt and slime fly pass through the player while doing so.
+        [x] attach hitbox to bullet
+            (14:40) 
 
     implement health to player and slime (1hr):
         [] use UI document for player's health (this overlay will be later used for inventory and more)
@@ -129,8 +131,6 @@ I am not confidence in making inventory. So I'll start with what I am confidence
 
     implement slime part 2 (2hr):
         [] let slime do damage to player. implementing simple collider logic.
-        [] let player's wand do damage to slime.
-            make BulletHitbox class copying SlimeHitbox.
 
     implement dead logic:
         [] when slime die, create another 3 slime but scaling its size down.
@@ -138,7 +138,6 @@ I am not confidence in making inventory. So I'll start with what I am confidence
 
     cleanup: 
         [] make bullet a monobehavior too.
-        [] move collider from child to the parent
 
 ## Design time hop mechanic
 

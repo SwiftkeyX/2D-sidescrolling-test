@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 428497909464659523}
   - component: {fileID: 1114365303297356003}
   - component: {fileID: 4813934732554600278}
-  - component: {fileID: 9132770697416454547}
   - component: {fileID: 3812440976105530281}
+  - component: {fileID: 9132770697416454547}
   - component: {fileID: 7734512098443006152}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,20 +141,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.25, y: 0.25}
   m_EdgeRadius: 0
---- !u!114 &9132770697416454547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5213728265378786909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bfa601900c780948a8d1485ea55920d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Combat.Bullet
-  _speed: 12
-  _lifeTime: 5
 --- !u!50 &3812440976105530281
 Rigidbody2D:
   serializedVersion: 5
@@ -182,6 +168,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &9132770697416454547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5213728265378786909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfa601900c780948a8d1485ea55920d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Combat.Bullet
+  _speed: 12
+  _lifeTime: 5
 --- !u!114 &7734512098443006152
 MonoBehaviour:
   m_ObjectHideFlags: 0

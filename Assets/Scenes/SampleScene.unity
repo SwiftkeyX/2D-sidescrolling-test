@@ -2443,8 +2443,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7159746836127688828, guid: 4e6963d7a75383c4e912d40ba6ac7ad5, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6632525961391194356, guid: 4e6963d7a75383c4e912d40ba6ac7ad5, type: 3}
     m_AddedGameObjects:
@@ -3526,7 +3525,7 @@ GameObject:
   - component: {fileID: 1606350633}
   - component: {fileID: 1606350635}
   - component: {fileID: 1606350634}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
