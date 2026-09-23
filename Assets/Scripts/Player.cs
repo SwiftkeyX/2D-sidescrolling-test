@@ -26,6 +26,7 @@ namespace SideScroller.Characters
         private Collider2D _collider;
         private Rigidbody2D _body;
         private SpriteRenderer _playerSprite;
+        private Camera _camera;
         private ContactFilter2D _groundFilter;
         private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[1];
 
@@ -59,11 +60,28 @@ namespace SideScroller.Characters
         public void Equip(EquipmentSO equipment) => _equipmentSlot.Equip(equipment);
         public void Unequip() => _equipmentSlot.Unequip();
 
+        // ====== 5. aim ======
+        public float FacingDirection => _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
+
+        // get direction from the player toward the pointer
+        public Vector2 GetAimDirection()
+        {
+            if (_camera == null) return new Vector2(FacingDirection, 0f);
+
+            Vector3 screen = PlayerInputSystem.PointerScreenPosition;
+            screen.z = -_camera.transform.position.z;
+
+            Vector2 aim = _camera.ScreenToWorldPoint(screen) - transform.position;
+
+            return aim.normalized;
+        }
+
         // ======================================== unity ========================================
         void Awake()
         {
             _body = GetComponent<Rigidbody2D>();
             _playerSprite = GetComponent<SpriteRenderer>();
+            _camera = Camera.main;
             _collider = GetComponent<Collider2D>();
 
             _groundFilter = new ContactFilter2D();
@@ -122,8 +140,7 @@ namespace SideScroller.Characters
             if (_equipmentSlot.Current == null) return;
             if (_equipmentSlot.Current.Type != _equipment.Type) return;
 
-            float facingDirection = _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
-            _equipment.Activate(facingDirection);
+            _equipment.Activate(GetAimDirection());
         }
 
         // ==== other ====

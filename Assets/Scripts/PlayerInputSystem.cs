@@ -28,5 +28,6 @@ namespace SideScroller.Input
         public static float MoveAxis => Actions.Player.Move.ReadValue<Vector2>().x;
         public static bool JumpPressedThisFrame => Actions.Player.Jump.WasPressedThisFrame();
         public static bool AttackPressedThisFrame => Actions.Player.Attack.WasPressedThisFrame();
+        public static Vector2 PointerScreenPosition => Mouse.current == null ? Vector2.zero : Mouse.current.position.ReadValue();
     }
 }

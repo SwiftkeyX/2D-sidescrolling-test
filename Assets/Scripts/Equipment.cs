@@ -9,6 +9,6 @@ namespace SideScroller.Equipments
         public EquipmentSO Data => _data;
         public EquipmentTypeEnum Type => _data == null ? default : _data.Type;
 
-        public abstract void Activate(float facing);
+        public abstract void Activate(Vector2 direction);
     }
 }
