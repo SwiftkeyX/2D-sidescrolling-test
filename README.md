@@ -100,6 +100,7 @@ I am not confidence in making inventory. So I'll start with what I am confidence
 
     implement slime part 1 (1hr):
         [] copy player controller to slime = idle, patrol, Chase. how are we going to make slime patrol?
+            (10:00) implement slime by copying from player controller
         [] attach hitbox to slime
         [] when he walk, he actually use jump animation. Could we make the animation drive hitbox?
 
