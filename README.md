@@ -144,7 +144,7 @@ I am not confidence in making inventory. So I'll start with what I am confidence
     wire dead event from stat.cs to statemachine
 - [ ] when player die, teleport player back to home, reset HP
   - (16:40) add dead state to player. when player die he no longer can move or interact.  
-    create gameobject for home.
+            create gameobject for home.
 
 ## Design time hop mechanic
 

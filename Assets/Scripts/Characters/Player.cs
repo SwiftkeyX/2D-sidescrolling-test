@@ -34,6 +34,8 @@ namespace SideScroller.Characters
         // ======================================== Etc ========================================
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _jumpForce = 9f;
+        [SerializeField] private Transform _checkpoint;
+        [SerializeField] private float _respawnDelay = 1.5f;
 
 
         private const float GroundCheckDistance = 0.05f;
@@ -54,14 +56,17 @@ namespace SideScroller.Characters
         public bool IsGrounded => _collider.Cast(Vector2.down, _groundFilter, _groundHits, GroundCheckDistance) > 0;
         public float VerticalVelocity => _body.linearVelocity.y;
 
-        // ====== 4. equipment ======
+        // ====== 4. dying ======
+        public float RespawnDelay => _respawnDelay;
+
+        // ====== 5. equipment ======
         public EquipmentSO EquippedItem => _equipmentSlot.Current;
         public bool HasEquipment => _equipmentSlot.HasEquipment;
 
         public void Equip(EquipmentSO equipment) => _equipmentSlot.Equip(equipment);
         public void Unequip() => _equipmentSlot.Unequip();
 
-        // ====== 5. aim ======
+        // ====== 6. aim ======
         public float FacingDirection => _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
 
         // get direction from the player toward the pointer
@@ -149,6 +154,15 @@ namespace SideScroller.Characters
             if (_equipmentSlot.Current.Type != _equipment.Type) return;
 
             _equipment.Activate(GetAimDirection());
+        }
+
+        // ==== dying ====
+        // Respawn player at the checkpoint
+        public void Respawn()
+        {
+            if (_checkpoint != null) transform.position = _checkpoint.position;
+
+            if (_stat != null) _stat.ResetHealth();
         }
 
         // ==== other ====
