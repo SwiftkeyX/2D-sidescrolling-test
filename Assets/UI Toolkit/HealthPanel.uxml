@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Overlay.uss?fileID=7433441132597879392&amp;guid=2a6f58d0b3e74c81af9d64e05b71c832&amp;type=3#Overlay"/>
+    <ui:VisualElement name="HealthPanel" picking-mode="Ignore" class="health" style="padding-left: 40px; padding-right: 0; padding-top: 20px; padding-bottom: 20px;">
+        <ui:VisualElement name="HealthTrack" picking-mode="Ignore" class="health__track" style="background-color: rgba(56, 56, 56, 0); height: 34px; width: 30%;">
+            <ui:VisualElement name="HealthFill" picking-mode="Ignore" class="health__fill"/>
+            <ui:Label name="HealthValue" picking-mode="Ignore" text="30 / 30" class="health__value" style="position: absolute;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,59 @@
+/* The player overlay: health now, the clock and inventory later. One stylesheet so the
+   panels read as one UI rather than three that happened to land on the same screen.
+
+   NOTE: UI Builder deletes every comment in a file it saves. If you open this there to
+   nudge one number, git diff afterwards and put the prose back. */
+
+/* Every panel hides through this one class, set by PanelController.SetShown. */
+.is-hidden {
+    display: none;
+}
+
+/* ================================ health ================================ */
+
+.health {
+    /* width: 220px;
+    margin-left: 16px;
+    margin-top: 16px;
+    flex-direction: column; */
+}
+
+/* The track is the dark socket the fill slides inside. overflow: hidden is what keeps
+   the fill's square corners from poking out through the rounded ones. */
+.health__track {
+    height: 22px;
+    background-color: rgba(10, 9, 16, 0.85);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(255, 255, 255, 0.18);
+    border-right-color: rgba(255, 255, 255, 0.18);
+    border-top-color: rgba(255, 255, 255, 0.18);
+    border-bottom-color: rgba(255, 255, 255, 0.18);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    overflow: hidden;
+}
+
+/* width is the only thing the controller writes, as a percent. */
+.health__fill {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(78, 201, 96);
+}
+
+/* Sits on top of the fill rather than beside it, so the bar keeps its full width. */
+.health__value {
+    /* position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    font-size: 13px;
+    color: rgb(255, 255, 255); */
+}
