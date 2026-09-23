@@ -1,4 +1,4 @@
 namespace SideScroller.Enemies.States
 {
-    public enum SlimeStateEnum { Idle, Chase }
+    public enum SlimeStateEnum { Idle, Patrol, Chase }
 }

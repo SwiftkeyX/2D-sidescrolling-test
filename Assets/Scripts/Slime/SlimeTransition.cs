@@ -25,5 +25,11 @@ namespace SideScroller.Enemies.States
         {
             return !_me.HasTarget || _me.DistanceToTarget > _me.DetectRange * LoseSightMultiplier;
         }
+
+        // ahead is blocked
+        public bool BlockedAhead()
+        {
+            return  _me.HasWallAhead;
+        }
     }
 }

@@ -91,7 +91,7 @@ I am not confidence in making inventory. So I'll start with what I am confidence
             (8:50)  implement Equipment class & ScritableObject for the equipment
         [x] (tempo) let player switch between wand, shovel, watering-can, and axes using "tab".
             (9:15)  I don't think it make sense. Ditch this one.
-        [] implement a wand:
+        [x] implement a wand:
             (9:15)  make it shoot a cube that drive itself forward
                     the cube have its own class, "bullet". it drive itself forward and destroy after 5 sec.
             (9:30)  implement wand class
@@ -100,7 +100,11 @@ I am not confidence in making inventory. So I'll start with what I am confidence
 
     implement slime part 1 (1hr):
         [] copy player controller to slime = idle, patrol, Chase. how are we going to make slime patrol?
-            (10:00) implement slime by copying from player controller
+            (10:00) implement slime by copying from player controller: implement idle and chase state
+            (10:50) implement patrol state
+                    make slime patrol by walking straight forward, if found wall, turn around
+            (11:00) implement cinemachine to the player
+                    re-test slime patrol 
         [] attach hitbox to slime
         [] when he walk, he actually use jump animation. Could we make the animation drive hitbox?
 

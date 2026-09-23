@@ -7,6 +7,7 @@ namespace SideScroller.Enemies.States
     internal class SlimeStateMachine
     {
         private readonly SlimeIdle _idle;
+        private readonly SlimePatrol _patrol;
         private readonly SlimeChase _chase;
 
         public SlimeState Current { get; private set; }
@@ -19,6 +20,7 @@ namespace SideScroller.Enemies.States
             SlimeTransition transition = new SlimeTransition(slime);
 
             _idle = new SlimeIdle(slime, transition);
+            _patrol = new SlimePatrol(slime, transition);
             _chase = new SlimeChase(slime, transition);
         }
 
@@ -51,6 +53,7 @@ namespace SideScroller.Enemies.States
             switch (type)
             {
                 case SlimeStateEnum.Idle: return _idle;
+                case SlimeStateEnum.Patrol: return _patrol;
                 case SlimeStateEnum.Chase: return _chase;
                 default: return _idle;
             }

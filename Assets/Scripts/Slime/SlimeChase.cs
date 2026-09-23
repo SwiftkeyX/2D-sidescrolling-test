@@ -1,9 +1,6 @@
 
 namespace SideScroller.Enemies.States
 {
-    /// <summary>
-    /// Walks straight at the player for as long as it can still see them.
-    /// </summary>
     internal class SlimeChase : SlimeState
     {
         public SlimeChase(Slime me, SlimeTransition transition) : base(me, transition) { }
