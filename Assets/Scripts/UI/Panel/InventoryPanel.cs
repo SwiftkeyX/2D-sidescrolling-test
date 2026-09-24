@@ -9,7 +9,7 @@ namespace SideScroller.UI
 
     // Inventory panel also let the player arrange the item by moving the item sprite around
     // when that happen Inventory.cs is the one listen to the changed and change itself accordingly.
-    internal abstract class InventoryPanelController : PanelController
+    internal abstract class InventoryPanel : PanelController
     {
         private const string CellClass = "inventory__cell";
         private const string IconClass = "inventory__icon";

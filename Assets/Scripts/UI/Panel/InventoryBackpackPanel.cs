@@ -11,7 +11,7 @@ namespace SideScroller.UI
     /// 1) open/close with O
     /// 2) drag to re-arrange
     /// 3) drag out to drop.
-    internal class InventoryBackpackPanel : InventoryPanelController
+    internal class InventoryBackpackPanel : InventoryPanel
     {
         [SerializeField] private bool _startShown;
 

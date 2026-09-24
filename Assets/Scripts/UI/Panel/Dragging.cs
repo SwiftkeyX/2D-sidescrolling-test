@@ -16,7 +16,7 @@ namespace SideScroller.UI
         private readonly Action<Inventory, int> _releasedOutside;
 
         // every panel the item can move between
-        private readonly InventoryPanelController[] _panels;
+        private readonly InventoryPanel[] _panels;
         // which panel slot is currently being hold
         private PanelSlot _held;
 
@@ -27,7 +27,7 @@ namespace SideScroller.UI
         // ============================= getter =============================
         public bool IsHolding => _held != null;
 
-        public Dragging(InventoryPanelController[] panels, VisualElement ghost, bool canRearrange, Action<Inventory, int> releasedOutside)
+        public Dragging(InventoryPanel[] panels, VisualElement ghost, bool canRearrange, Action<Inventory, int> releasedOutside)
         {
             _panels = panels;
             _ghost = ghost;
@@ -81,7 +81,7 @@ namespace SideScroller.UI
             slot.Panel.ShowHeld(slot.Index, true);
 
             // when item is held, other inventory panel turn green to indicate it can be interacted with.
-            foreach (InventoryPanelController panel in _panels)
+            foreach (InventoryPanel panel in _panels)
             {
                 if (panel != slot.Panel) panel.ShowDroppable(true);
             }
@@ -148,7 +148,7 @@ namespace SideScroller.UI
         {
             if (IsHolding) _held.Panel.ShowHeld(_held.Index, false);
 
-            foreach (InventoryPanelController panel in _panels) panel.ShowDroppable(false);
+            foreach (InventoryPanel panel in _panels) panel.ShowDroppable(false);
 
             _ghost.style.display = DisplayStyle.None;
             _held = null;
@@ -158,7 +158,7 @@ namespace SideScroller.UI
         // which slot, in which panel, is under the pointer?
         private PanelSlot FindSlot(Vector2 panelPos)
         {
-            foreach (InventoryPanelController panel in _panels)
+            foreach (InventoryPanel panel in _panels)
             {
                 int index = panel.SlotAt(panelPos);
                 if (index >= 0) return new PanelSlot(panel, index);
@@ -170,7 +170,7 @@ namespace SideScroller.UI
         // is player's pointer outside every panel?
         private bool IsPointerOutsidePanels(Vector2 panelPos)
         {
-            foreach (InventoryPanelController panel in _panels)
+            foreach (InventoryPanel panel in _panels)
             {
                 if (panel.IsPointerInside(panelPos)) return false;
             }
@@ -187,11 +187,11 @@ namespace SideScroller.UI
         // 2) which index of the said panel? 
         private class PanelSlot
         {
-            public InventoryPanelController Panel { get; }
+            public InventoryPanel Panel { get; }
             public int Index { get; }
             public IInventoryable Item => Panel.Inventory.Get(Index);
 
-            public PanelSlot(InventoryPanelController panel, int index)
+            public PanelSlot(InventoryPanel panel, int index)
             {
                 Panel = panel;
                 Index = index;

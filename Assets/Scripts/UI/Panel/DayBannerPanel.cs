@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 namespace SideScroller.UI
 {
     /// The centred day banner. Shows on the Evening -> Morning turn, then fades out
-    internal class DayBannerController : PanelController
+    internal class DayBannerPanel : PanelController
     {
         private const string ShownClass = "banner--shown";
 

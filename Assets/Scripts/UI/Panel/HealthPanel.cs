@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 namespace SideScroller.UI
 {
     /// The player's health bar, top-left of the overlay.
-    internal class HealthPanelController : PanelController
+    internal class HealthPanel : PanelController
     {
         [SerializeField] private Stat _health;
 

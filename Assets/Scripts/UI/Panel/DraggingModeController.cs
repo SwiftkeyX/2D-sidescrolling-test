@@ -82,9 +82,9 @@ namespace SideScroller.UI
             if (_hotbarPanel != null && _hotbarPanel.Inventory == null) return false;
 
             // basic guard + send backpack & hotbar to InventoryPanel
-            InventoryPanelController[] arrangePanels = _hotbarPanel == null
-                ? new InventoryPanelController[] { _backpackPanel }
-                : new InventoryPanelController[] { _backpackPanel, _hotbarPanel };
+            InventoryPanel[] arrangePanels = _hotbarPanel == null
+                ? new InventoryPanel[] { _backpackPanel }
+                : new InventoryPanel[] { _backpackPanel, _hotbarPanel };
 
             // init ghost
             _ghost = BuildGhost();
@@ -99,7 +99,7 @@ namespace SideScroller.UI
 
             // init use mode 
             _use = new Dragging(
-                panels: new InventoryPanelController[] { _hotbarPanel }, // use mode only wanat hotbar
+                panels: new InventoryPanel[] { _hotbarPanel }, // use mode only wanat hotbar
                 ghost: _ghost,
                 canRearrange: false,
                 releasedOutside: _player.UseItem    // dropping outside mean to use item

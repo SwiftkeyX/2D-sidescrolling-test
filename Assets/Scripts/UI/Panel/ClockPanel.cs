@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 namespace SideScroller.UI
 {
     /// The clock in the top-right of the overlay. listen to GameClock
-    internal class ClockPanelController : PanelController
+    internal class ClockPanel : PanelController
     {
         [SerializeField] private GameClock _clock;
 
