@@ -213,7 +213,10 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     seed = carrot seed, red berry seed, corn seed  
     crafted item = Storage Chest, Golden Veggie, Broccoli
     (2hr break)
-    (17:00) let ItemSO be a parent of all 4 categorize. Begin by making existing EquipmentSO a child to ItemSO.
+  - (17:00) let ItemSO be a parent of all 4 categorize. Begin by making existing EquipmentSO a child to ItemSO.
+  - (17:15) add each ItemSO as planned. 
+  implement SeedSO
+  re-organized file for ItemSO using their categorized
   - (??) drag tools/seed/resource/crafted item from a bar outside the bound to use them
   - (??) active for each tools  
     draggin tool out of bound, equip the tool to the player. when equip, player activate tool using left click.
