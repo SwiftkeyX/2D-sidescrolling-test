@@ -61,10 +61,18 @@ namespace SideScroller.UI
         protected sealed override void OnMounted(VisualElement panel)
         {
             _grid = panel.Q<VisualElement>(GridName);
-            if (_grid == null) return;
+            if (_grid == null)
+            {
+                Debug.LogWarning($"{GetType().Name}: no element named '{GridName}' in the uxml, so this panel shows nothing.", this);
+                return;
+            }
 
             if (_player == null) _player = FindFirstObjectByType<Player>();
-            if (_player == null) return;
+            if (_player == null)
+            {
+                Debug.LogWarning($"{GetType().Name}: no Player in the scene, so this panel shows nothing.", this);
+                return;
+            }
 
             Inventory = PickInventory(_player);
             Inventory.SlotChanged += SetItem;

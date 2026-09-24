@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/Overlay.uss?fileID=7433441132597879392&amp;guid=2a6f58d0b3e74c81af9d64e05b71c832&amp;type=3#Overlay"/>
     <ui:VisualElement name="InventoryPanel" class="inventory">
         <ui:Label name="InventoryTitle" picking-mode="Ignore" text="Inventory" class="inventory__title"/>
-        <ui:VisualElement name="InventoryGrid" class="inventory__grid">
+        <ui:VisualElement name="BackpackGrid" class="inventory__grid">
             <ui:VisualElement name="Cell0" class="inventory__cell">
                 <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
             </ui:VisualElement>
