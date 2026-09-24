@@ -166,7 +166,7 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
 
 **player can collect/use/remove/organize items**
 
-- [ ] make simple grid UI overlay for inventory window
+- [x] make simple grid UI overlay for inventory window
   - (7:50) Each cell can be put the item sprite inside - make a simple interface inventoryable - need sprite to put in the cell 
   let open it with "O"
   - (8:00) When player collect item, the item was added into the very first available grid.
@@ -177,7 +177,19 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
   player can organize the inventory by dragging item to each cell.
   - (10:30) the drop item should be drop to the floor, not delete.
   the ghost doesn't work correctly. the ghost doesn't follow player's mouse.
-  - (??) Inventory have 2 part: 1. the big inventory window open by "O" and 2. a overlay bar at the bottom for quick access
+- [ ] Inventory have 2 part: 1. the big inventory window open by "O" and 2. a overlay bar at the bottom for quick access
+  The idea is:
+      When the inventory is open:
+      1) player can drag item from inventory & access bar to re-arrange item, drop item.
+      2) but player can't use any active item: tool/seed/etc...
+
+      if inventory is closed: player can use drag item from the access bar.
+      1) (deferred) drag tool outside of bound to equip it
+      2) (deferred) drag seed on to the ground to plant it
+      3) but player can't drag item to re-arrage or drop.
+  (10:40) Make additional quick access bar at bottom right of the screen. Let it have 5 cell.
+  When holding the item in inventory, make quick access bar green to indicate it can be interact with by putting item inside it.
+  (11:00) make dragging between inventory and hotbar possible
 - [ ] inventory can hold resources, tools, crafted objects, and seeds.
   - (??) make at least 3 items in each category  
         resource = lumber, carrot, red berry, corn  
@@ -204,5 +216,6 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
 - [ ] cleanup:
   - Item can be drop on the world - when the item was drop let it float up and down a little
   - implement .asmdef to force clean architecture
-
+  - dragging is left click, so it also trigger wand's attack. fix later.
+  - what is the difference between letting a item be a prefab and SO.
 # Day 3 Wrap thing up

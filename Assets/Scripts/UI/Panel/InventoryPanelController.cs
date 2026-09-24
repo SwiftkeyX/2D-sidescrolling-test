@@ -20,8 +20,8 @@ namespace SideScroller.UI
         private bool _shown;
         private Inventory _inventory;
         private VisualElement _grid;    // the containter for every cells
-        private VisualElement[] _cells; // cell contain 
-        private VisualElement[] _icons; // icon
+        private VisualElement[] _cells; // cell was ordered to create a grid visually. each cell contain icon 
+        private VisualElement[] _icons; // icon contain a item sprite
         private VisualElement _ghost;
         private InventoryDragging _dragging;
 

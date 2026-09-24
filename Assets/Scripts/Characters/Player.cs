@@ -16,15 +16,19 @@ namespace SideScroller.Characters
     public class Player : MonoBehaviour
     {
         // ======================================== Dependency ========================================
-        // ===== classes =====
         private PlayerStateMachine _stateMachine;
         private Stat _stat;
+        // === equipment ===
         private EquipmentSlot _equipmentSlot;
         [SerializeField] private Equipment _equipment;
         [SerializeField] private EquipmentSO _startingEquipment;
         [SerializeField] private SpriteRenderer _equipmentRenderer;
+        // === inventory ===
         private Inventory _inventory;
         [SerializeField] private int _inventorySize = 10;
+        // === hotbar ===
+        private Inventory _hotbar;
+        [SerializeField] private int _hotbarSize = 5;
         [SerializeField] private float _dropDistance = 1.5f;
 
         // ===== unity =====
@@ -72,6 +76,7 @@ namespace SideScroller.Characters
 
         // ====== 6. inventory ======
         public Inventory Inventory => _inventory ??= new Inventory(_inventorySize);
+        public Inventory Hotbar => _hotbar ??= new Inventory(_hotbarSize);
 
         // ====== 7. aim ======
         public float FacingDirection => _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
@@ -104,8 +109,8 @@ namespace SideScroller.Characters
             _equipmentSlot = new EquipmentSlot(_equipmentRenderer);
             if (_startingEquipment != null) _equipmentSlot.Equip(_startingEquipment);
 
-            // init starting tool into inventory
-            if (_startingEquipment != null) Inventory.TryAdd(_startingEquipment);
+            // init starting tool into the hotbar, the equipped tool lives in the quick access bar
+            if (_startingEquipment != null) Hotbar.TryAdd(_startingEquipment);
 
             _stateMachine = new PlayerStateMachine(this, _stat);
         }

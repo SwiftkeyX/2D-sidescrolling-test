@@ -10732,7 +10732,7 @@ MonoBehaviour:
   _startingEquipment: {fileID: 11400000, guid: 85614674b0e633a48b56226ca77dca94, type: 2}
   _equipmentRenderer: {fileID: 1794785076}
   _inventorySize: 10
-  _pickupPrefab: {fileID: 4432730442637593014, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+  _hotbarSize: 5
   _dropDistance: 1.5
   _moveSpeed: 5
   _jumpForce: 9
@@ -12176,6 +12176,7 @@ GameObject:
   - component: {fileID: 2058672591}
   - component: {fileID: 2058672592}
   - component: {fileID: 2058672593}
+  - component: {fileID: 2058672594}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -12277,8 +12278,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SideScroller.UI.InventoryPanelController
   _panelAsset: {fileID: 9197481963319205126, guid: 0c9b1f7a11de7ae48a5e4bad7dfcedf4, type: 3}
-  _player: {fileID: 0}
+  _player: {fileID: 1136419350}
   _startShown: 0
+--- !u!114 &2058672594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058672587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c66b5f9b4741ba458098489aaa7e88f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.UI.HotbarPanelController
+  _panelAsset: {fileID: 9197481963319205126, guid: 926be44878b2e46459d251a9e1e12c91, type: 3}
+  _player: {fileID: 0}
 --- !u!1001 &2110996812
 PrefabInstance:
   m_ObjectHideFlags: 0

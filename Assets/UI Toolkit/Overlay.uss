@@ -237,3 +237,34 @@
     height: 52px;
     -unity-background-scale-mode: scale-to-fit;
 }
+
+/* ================================ hotbar ================================ */
+
+/* The quick access bar. Same box look as the inventory window; the cells reuse
+   .inventory__cell and .inventory__icon so a slot looks the same in both. */
+.hotbar {
+    margin-right: 16px;
+    margin-bottom: 16px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: rgba(10, 9, 16, 0.85);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(255, 255, 255, 0.18);
+    border-right-color: rgba(255, 255, 255, 0.18);
+    border-top-color: rgba(255, 255, 255, 0.18);
+    border-bottom-color: rgba(255, 255, 255, 0.18);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* One row, never wraps. */
+.hotbar__grid {
+    flex-direction: row;
+}
