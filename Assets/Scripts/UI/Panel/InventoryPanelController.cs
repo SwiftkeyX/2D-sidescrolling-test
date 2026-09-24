@@ -116,6 +116,7 @@ namespace SideScroller.UI
             ghost.AddToClassList(GhostClass);
             ghost.style.display = DisplayStyle.None;
 
+            // FIXLATER: This is kinda messy. It happen because the .uss isn't organize.
             // the ghost lives outside this panel, so it doesn't inherit the panel's .uss. hand it the same sheets
             for (int i = 0; i < Panel.styleSheets.count; i++)
             {
