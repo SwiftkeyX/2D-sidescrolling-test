@@ -6,28 +6,30 @@ using UnityEngine.UIElements;
 
 namespace SideScroller.UI
 {
-    // Picking items up with the pointer, dragging around, and putting them down again.
+    // Item in Inventory can be dragged. The drag it to achive those function:
+    // 1) Picking items up with the pointer
+    // 2) dragging item around to re-arrange them
+    // 3) removing the item by dropping them
     internal class InventoryDragging
     {
-        private const string HeldClass = "inventory__cell--held";
+        private readonly Player _player;
 
-        private readonly Inventory _inventory;
-        private readonly Player _player;            
-        private readonly VisualElement _inventoryWindow;     // the inventory bound. drop outside it = drop the item
-        private readonly VisualElement[] _cells;
-        private readonly VisualElement _ghost;      // the icon that follows the pointer
+        // every panel the item can move between
+        private readonly InventoryPanelController[] _panels;   
+        // which panel slot is currently being hold
+        private PanelSlot _held;    
+        
+        // the icon that follows the pointer
+        private readonly VisualElement _ghost;                  
 
-        private int _held = -1;
 
         // ============================= getter =============================
-        public bool IsHolding => _held >= 0;
+        public bool IsHolding => _held != null;
 
-        public InventoryDragging(Inventory inventory, Player player, VisualElement window, VisualElement[] cells, VisualElement ghost)
+        public InventoryDragging(Player player, InventoryPanelController[] panels, VisualElement ghost)
         {
-            _inventory = inventory;
             _player = player;
-            _inventoryWindow = window;
-            _cells = cells;
+            _panels = panels;
             _ghost = ghost;
         }
 
@@ -35,7 +37,7 @@ namespace SideScroller.UI
         // pickup, drag, drop item
         public void Tick()
         {
-            Vector2 panelPos = Picker.ToPanel(_inventoryWindow.panel, PlayerInputSystem.PointerScreenPosition);
+            Vector2 panelPos = Picker.ToPanel(_ghost.panel, PlayerInputSystem.PointerScreenPosition);
 
             // if not holding anything, polling until something was holded
             if (!IsHolding)
@@ -61,31 +63,29 @@ namespace SideScroller.UI
         {
             if (!PlayerInputSystem.DragPressedThisFrame) return;
 
-            int slot = TryPickItem(panelPos);
-            if (slot >= 0) Grab(slot);
+            // if not pointing at a slot with an item, nothing to grab
+            PanelSlot slot = FindSlot(panelPos);
+            if (slot == null || slot.Item == null) return;
+
+            Grab(slot);
         }
 
-        // get the item from the slot that was under the pointer
-        private int TryPickItem(Vector2 panelPos)
-        {
-            int slot = Picker.At(_inventoryWindow.panel, panelPos, _cells);
-
-            // if not picking up anything, return -1 
-            if (slot < 0 || _inventory.Get(slot) == null) return -1;
-
-            return slot;
-        }
-
-        // the item is holded by the player. 
-        private void Grab(int slot)
+        // grab the item using PanelSlot data
+        private void Grab(PanelSlot slot)
         {
             _held = slot;
 
-            // add heldclass to the cell. making it visually dim. indicate that this slot was currenly held.
-            _cells[slot].AddToClassList(HeldClass);
+            // dim the cell where item is from. indicate that this item slot was currenly held.
+            slot.Panel.ShowHeld(slot.Index, true);
 
-            // ghost copy the item icon. ghost will follow the player's pointer to create visaully object dragging.
-            _ghost.style.backgroundImage = new StyleBackground(_inventory.Get(slot).Icon);
+            // when item is held, other inventory panel turn green to indicate it can be interacted with.
+            foreach (InventoryPanelController panel in _panels)
+            {
+                if (panel != slot.Panel) panel.ShowDroppable(true);
+            }
+
+            // ghost copy the item icon. 
+            _ghost.style.backgroundImage = new StyleBackground(slot.Item.Icon);
             _ghost.style.display = DisplayStyle.Flex;
         }
 
@@ -99,24 +99,24 @@ namespace SideScroller.UI
 
         // ============================================= drop =============================================
         // an item can be dropped on 2 thing:
-        // 1) a cell => move it there, swap if the cell already have item
-        // 2) outside the inventory window => drop the item
+        // 1) a cell, in any panel => move it there, swap if the cell already have item
+        // 2) outside every panel => drop the item on the floor
         private void Drop(Vector2 panelPos)
         {
-            int targetSlot = Picker.At(_inventoryWindow.panel, panelPos, _cells);
+            PanelSlot target = FindSlot(panelPos);
 
             // released on a cell = put the item there
-            if (targetSlot >= 0)
+            if (target != null)
             {
-                PlaceAndSwap(_held, targetSlot);
+                PlaceAndSwap(target);
                 Release();
                 return;
             }
 
-            // released outside the window = drop the item
-            if (IsPointerOutsideWindow(panelPos))
+            // released outside every panel = drop the item
+            if (IsPointerOutsidePanels(panelPos))
             {
-                DropItem(_held);
+                DropItem();
                 Release();
                 return;
             }
@@ -125,19 +125,17 @@ namespace SideScroller.UI
             Cancel();
         }
 
-        // place the item on the target slot
+        // place the held item on the target slot
         // if the target slot already have item, swap the slot.
-        private void PlaceAndSwap(int holded, int targetSlot)
+        private void PlaceAndSwap(PanelSlot target)
         {
-            if (holded == targetSlot) return;
-
-            _inventory.Swap(holded, targetSlot);
+            Inventory.SwapBetweenInventory(_held.Panel.Inventory, _held.Index, target.Panel.Inventory, target.Index);
         }
 
         // the player drop item on the floor
-        private void DropItem(int slot)
+        private void DropItem()
         {
-            _player.DropItem(slot);
+            _player.DropItem(_held.Panel.Inventory, _held.Index);
         }
 
         // put back whatever is held
@@ -150,17 +148,56 @@ namespace SideScroller.UI
         // when stop holding, reset var
         private void Release()
         {
-            if (IsHolding) _cells[_held].RemoveFromClassList(HeldClass);
+            if (IsHolding) _held.Panel.ShowHeld(_held.Index, false);
+
+            foreach (InventoryPanelController panel in _panels) panel.ShowDroppable(false);
 
             _ghost.style.display = DisplayStyle.None;
-            _held = -1;
+            _held = null;
         }
 
-        // ============================================= window bound =============================================
-        // is player's pointer outside inventory boundary?
-        private bool IsPointerOutsideWindow(Vector2 panelPos)
+        // ============================================= pointer =============================================
+        // which slot, in which panel, is under the pointer?
+        private PanelSlot FindSlot(Vector2 panelPos)
         {
-            return !_inventoryWindow.worldBound.Contains(panelPos);
+            foreach (InventoryPanelController panel in _panels)
+            {
+                int index = panel.SlotAt(panelPos);
+                if (index >= 0) return new PanelSlot(panel, index);
+            }
+
+            return null;
+        }
+
+        // is player's pointer outside every panel?
+        private bool IsPointerOutsidePanels(Vector2 panelPos)
+        {
+            foreach (InventoryPanelController panel in _panels)
+            {
+                if (panel.IsPointerInside(panelPos)) return false;
+            }
+
+            return true;
+        }
+
+        // ============================================= held information =============================================
+        // context: we have more than 1 inventory and those inventory should be able to swap item. 
+        // so we need a way those inventory talk to each other.
+        // this class, "PanelSlot" dedicated itself to answer above question: where is this held item come from? 
+        // To be more specific: 
+        // 1) which invenntory panel this item belong to? 
+        // 2) which index of the said panel? 
+        private class PanelSlot
+        {
+            public InventoryPanelController Panel { get; }
+            public int Index { get; }
+            public IInventoryable Item => Panel.Inventory.Get(Index);
+
+            public PanelSlot(InventoryPanelController panel, int index)
+            {
+                Panel = panel;
+                Index = index;
+            }
         }
     }
 }

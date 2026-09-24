@@ -16,6 +16,7 @@ namespace SideScroller.UI
         private const string GhostClass = "inventory__ghost";
 
         [SerializeField] private bool _startShown;
+        [SerializeField] private InventoryHotbarPanel _hotbarPanel;    // items can be dragged between the backpack and this
 
         private bool _shown;
         private VisualElement _ghost;
@@ -42,7 +43,14 @@ namespace SideScroller.UI
             SetShown(_shown);
 
             _ghost = BuildGhost();
-            _dragging = new InventoryDragging(Inventory, Player, panel, Cells, _ghost);
+
+            // drag between the backpack and the hotbar
+            if (_hotbarPanel == null) _hotbarPanel = FindFirstObjectByType<InventoryHotbarPanel>();
+            InventoryPanelController[] panels = _hotbarPanel == null
+                ? new InventoryPanelController[] { this }
+                : new InventoryPanelController[] { this, _hotbarPanel };
+
+            _dragging = new InventoryDragging(Player, panels, _ghost);
         }
 
         void Update()

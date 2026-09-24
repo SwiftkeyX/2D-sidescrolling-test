@@ -37,7 +37,7 @@ namespace SideScroller.Inventories
             Set(index, null);
         }
 
-        // swap 2 slots. an empty slot swapping = moving the item
+        // swap item slot
         public void Swap(int a, int b)
         {
             if (!IsValid(a) || !IsValid(b)) return;
@@ -45,6 +45,26 @@ namespace SideScroller.Inventories
             IInventoryable itemA = _slots[a];
             Set(a, _slots[b]);
             Set(b, itemA);
+        }
+
+        // swap item slot between 2 inventories
+        // e.g. backpack slot 2 <-> hotbar slot 0
+        public static void SwapBetweenInventory(Inventory a, int slotA, Inventory b, int slotB)
+        {
+            // same inventory = the normal swap
+            if (a == b)
+            {
+                a.Swap(slotA, slotB);
+                return;
+            }
+
+            // guard
+            if (!a.IsValid(slotA) || !b.IsValid(slotB)) return;
+
+            // swap between inventory
+            IInventoryable itemA = a._slots[slotA];
+            a.Set(slotA, b._slots[slotB]);
+            b.Set(slotB, itemA);
         }
 
         // ==================== private ====================

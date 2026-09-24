@@ -268,3 +268,14 @@
 .hotbar__grid {
     flex-direction: row;
 }
+
+/* Added to a panel (backpack or hotbar) while an item is dragged from the other one:
+   it lights up green to say "you can put it here". Removed on release. Kept last in the
+   file so it wins over .inventory and .hotbar. */
+.slots--droppable {
+    background-color: rgba(40, 110, 50, 0.85);
+    border-left-color: rgb(78, 201, 96);
+    border-right-color: rgb(78, 201, 96);
+    border-top-color: rgb(78, 201, 96);
+    border-bottom-color: rgb(78, 201, 96);
+}

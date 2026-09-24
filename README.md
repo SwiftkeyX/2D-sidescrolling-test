@@ -200,7 +200,7 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     Functionality are from the UI part. So let make InventoryPanel a mother. 
     Make 2 child: InventoryWindow & InventoryHotbar.
     Rename the player's inventory to Backpack to prevent confusion.
-  - (13:40)  
+  - (13:45) Implement Hotbar panel to re-arrage with Backpack panel
 
 - [ ] inventory can hold resources, tools, crafted objects, and seeds.
   - (??) make at least 3 items in each category  

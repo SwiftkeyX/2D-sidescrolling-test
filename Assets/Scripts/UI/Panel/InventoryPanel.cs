@@ -13,6 +13,8 @@ namespace SideScroller.UI
     {
         private const string CellClass = "inventory__cell";
         private const string IconClass = "inventory__icon";
+        private const string HeldClass = "inventory__cell--held";
+        private const string DroppableClass = "slots--droppable";
 
         [SerializeField] private Player _player;
 
@@ -22,7 +24,7 @@ namespace SideScroller.UI
 
         // ============================= for children =============================
         protected Player Player => _player;
-        protected Inventory Inventory { get; private set; }     // the data this panel shows
+        public Inventory Inventory { get; private set; }        // the data this panel shows
         protected VisualElement[] Cells => _cells;
 
         // this uxml name 
@@ -56,6 +58,29 @@ namespace SideScroller.UI
 
         // remove item sprite from the cell index
         public void ClearItem(int index) => SetItem(index, null);
+
+        // ============================= for dragging =============================
+        // which slot is under the pointer? -1 = none
+        public int SlotAt(Vector2 panelPos)
+        {
+            if (_cells == null || Panel == null) return -1;
+
+            return Picker.At(Panel.panel, panelPos, _cells);
+        }
+
+        // is the pointer inside this panel's box?
+        public bool IsPointerInside(Vector2 panelPos) => Panel != null && Panel.worldBound.Contains(panelPos);
+
+        // dim the cell whose item is being dragged
+        public void ShowHeld(int slot, bool held)
+        {
+            if (_cells == null || slot < 0 || slot >= _cells.Length) return;
+
+            _cells[slot].EnableInClassList(HeldClass, held);
+        }
+
+        // light the panel up green: "the held item can be put here"
+        public void ShowDroppable(bool droppable) => Panel?.EnableInClassList(DroppableClass, droppable);
 
         // =================================== Life cycle ===================================
         protected sealed override void OnMounted(VisualElement panel)

@@ -185,18 +185,18 @@ namespace SideScroller.Characters
 
         // ==== inventory ====
         // take the item out of the slot and drop it on the floor in front of the player
-        public void DropItem(int slot)
+        public void DropItem(Inventory from, int slot)
         {
-            IInventoryable item = Backpack.Get(slot);
+            IInventoryable item = from.Get(slot);
             if (item == null) return;
 
             Vector2 front = (Vector2)transform.position + new Vector2(FacingDirection * _dropDistance, 0f);
 
             // drop item = spawn item into the world
-            // if nothing spawned, the item stays in the backpack
+            // if nothing spawned, the item stays where it was
             if (ItemPickup.Spawn(item, front) == null) return;
 
-            Backpack.Remove(slot);
+            from.Remove(slot);
         }
 
         // ==== other ====
