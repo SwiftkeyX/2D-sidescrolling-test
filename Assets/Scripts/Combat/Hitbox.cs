@@ -24,8 +24,8 @@ namespace SideScroller.Combat
         {
             if (Time.time - _lastHitAt < _hitCooldown) return;
 
-            // FIXME: change this to normal getcomponent 
-            // the collider may be a child, health lives further up
+            // the collider could also be or not be a child
+            // GetComponentInParent = check both the parent and the child
             IDamageable target = other.GetComponentInParent<IDamageable>();
             if (target == null) return;
 
