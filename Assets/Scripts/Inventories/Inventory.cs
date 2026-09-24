@@ -37,6 +37,16 @@ namespace SideScroller.Inventories
             Set(index, null);
         }
 
+        // swap 2 slots. an empty slot swapping = moving the item
+        public void Swap(int a, int b)
+        {
+            if (!IsValid(a) || !IsValid(b)) return;
+
+            IInventoryable itemA = _slots[a];
+            Set(a, _slots[b]);
+            Set(b, itemA);
+        }
+
         // ==================== private ====================
         private int FirstEmptySlot()
         {

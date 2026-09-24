@@ -171,8 +171,9 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
   let open it with "O"
   - (8:00) When player collect item, the item was added into the very first available grid.
   player pick item up by walking on top of them.
-  - (??) Player can drag items sprite around in the inventory, can replace/swap each items by dragging on top of them
-  let player drop the item too by draggin it out of inventory bound.
+  - (8:30) Player can drag items sprite around in the inventory, can replace/swap each items by dragging on top of them
+  trying to get my old dragging code port here.
+  let player drop the item too by dragging it out of inventory bound.
   player can organize the inventory by dragging item to each cell.
   - (??) Inventory have 2 part: 1. the big inventory window open by "O" and 2. a overlay bar at the bottom for quick access
 - [ ] inventory can hold resources, tools, crafted objects, and seeds.

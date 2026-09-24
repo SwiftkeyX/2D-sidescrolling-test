@@ -223,3 +223,17 @@
     flex-grow: 1;
     -unity-background-scale-mode: scale-to-fit;
 }
+
+/* The cell an item is being dragged out of. Its icon stays, dimmed, until the drop lands. */
+.inventory__cell--held > .inventory__icon {
+    opacity: 0.3;
+}
+
+/* The icon riding the pointer while dragging. InventoryDragging sets left/top every frame;
+   it sits on the main panel so it can leave the window to be dropped outside. */
+.inventory__ghost {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    -unity-background-scale-mode: scale-to-fit;
+}

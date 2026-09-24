@@ -12,14 +12,18 @@ namespace SideScroller.UI
     {
         private const string CellClass = "inventory__cell";
         private const string IconClass = "inventory__icon";
+        private const string GhostClass = "inventory__ghost";
 
         [SerializeField] private Player _player;
         [SerializeField] private bool _startShown;
 
         private bool _shown;
         private Inventory _inventory;
-        private VisualElement _grid;
-        private VisualElement[] _icons;
+        private VisualElement _grid;    // the containter for every cells
+        private VisualElement[] _cells; // cell contain 
+        private VisualElement[] _icons; // icon
+        private VisualElement _ghost;
+        private InventoryDragging _dragging;
 
         // =================================== public ===================================
         // put the item sprite inside the cell
@@ -28,9 +32,12 @@ namespace SideScroller.UI
             if (_icons == null || index < 0 || index >= _icons.Length) return;
 
             VisualElement icon = _icons[index];
-            Sprite sprite = item?.Icon;
+            Sprite newSprite = item?.Icon;
 
-            icon.style.backgroundImage = sprite == null ? new StyleBackground(StyleKeyword.None) : new StyleBackground(sprite);
+            // copy the sprite to current icon
+            icon.style.backgroundImage = newSprite == null ? new StyleBackground(StyleKeyword.None) : new StyleBackground(newSprite);
+            
+            // show tooltip
             icon.tooltip = item?.DisplayName;
         }
 
@@ -41,6 +48,9 @@ namespace SideScroller.UI
         {
             _shown = !_shown;
             SetShown(_shown);
+
+            // closing the window mid-drag put the item back
+            if (!_shown) _dragging?.Cancel();
         }
 
         // =================================== Life cycle ===================================
@@ -58,38 +68,56 @@ namespace SideScroller.UI
             _inventory = _player.Inventory;
             _inventory.SlotChanged += SetItem;
 
-            BuildCells(_inventory.Size);
+            FindCells();
             InitItem();
+
+            _ghost = BuildGhost();
+            _dragging = new InventoryDragging(_inventory, panel, _cells, _ghost);
         }
 
         void Update()
         {
             if (PlayerInputSystem.InventoryPressedThisFrame) Toggle();
+
+            if (_shown) _dragging?.Tick();
         }
 
         void OnDisable()
         {
             if (_inventory != null) _inventory.SlotChanged -= SetItem;
+
+            _dragging?.Cancel();
+            _ghost?.RemoveFromHierarchy();
         }
 
         // =================================== private ===================================
-        private void BuildCells(int count)
+        // the cells are authored in InventoryPanel.uxml, in slot order: Cell0 = slot 0, Cell1 = slot 1...
+        private void FindCells()
         {
-            _grid.Clear();
-            _icons = new VisualElement[count];
+            _cells = _grid.Query<VisualElement>(className: CellClass).ToList().ToArray();
+            _icons = new VisualElement[_cells.Length];
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < _cells.Length; i++)
             {
-                VisualElement cell = new VisualElement { name = $"Cell{i}" };
-                cell.AddToClassList(CellClass);
-
-                VisualElement icon = new VisualElement { pickingMode = PickingMode.Ignore };
-                icon.AddToClassList(IconClass);
-
-                cell.Add(icon);
-                _grid.Add(cell);
-                _icons[i] = icon;
+                _icons[i] = _cells[i].Q<VisualElement>(className: IconClass);
             }
+
+            // the uxml and the inventory should agree on how many slots there are
+            if (_cells.Length != _inventory.Size)
+            {
+                Debug.LogWarning($"InventoryPanel: uxml has {_cells.Length} cells but the inventory has {_inventory.Size} slots.");
+            }
+        }
+
+        // the dragged icon
+        private VisualElement BuildGhost()
+        {
+            VisualElement ghost = new VisualElement { pickingMode = PickingMode.Ignore };
+            ghost.AddToClassList(GhostClass);
+            ghost.style.display = DisplayStyle.None;
+
+            MainPanel.Add(ghost);
+            return ghost;
         }
 
         // draw whatever the inventory already hold, e.g. the starting tool

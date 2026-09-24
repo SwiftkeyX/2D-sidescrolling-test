@@ -24,10 +24,17 @@ namespace SideScroller.Input
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetStatics() => _actions = null;
 
+        // keyboard
         public static float MoveAxis => Actions.Player.Move.ReadValue<Vector2>().x;
         public static bool JumpPressedThisFrame => Actions.Player.Jump.WasPressedThisFrame();
         public static bool AttackPressedThisFrame => Actions.Player.Attack.WasPressedThisFrame();
         public static bool InventoryPressedThisFrame => Actions.Player.Inventory.WasPressedThisFrame();
+        
+        // left/right click 
+        public static bool IsPointerDown => Mouse.current != null && Mouse.current.leftButton.isPressed;
+        public static bool DragPressedThisFrame => Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame;
+        public static bool DragReleasedThisFrame => Mouse.current != null && Mouse.current.leftButton.wasReleasedThisFrame;
+
         public static Vector2 PointerScreenPosition => Mouse.current == null ? Vector2.zero : Mouse.current.position.ReadValue();
     }
 }
