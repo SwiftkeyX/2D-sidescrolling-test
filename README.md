@@ -176,7 +176,7 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
   let player drop the item too by dragging it out of inventory bound.
   player can organize the inventory by dragging item to each cell.
   - (10:30) the drop item should be drop to the floor, not delete.
-  - (??) the ghost doesn't work correctly. the ghost doesn't follow player's mouse.
+  the ghost doesn't work correctly. the ghost doesn't follow player's mouse.
   - (??) Inventory have 2 part: 1. the big inventory window open by "O" and 2. a overlay bar at the bottom for quick access
 - [ ] inventory can hold resources, tools, crafted objects, and seeds.
   - (??) make at least 3 items in each category  
@@ -203,4 +203,6 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
 
 - [ ] cleanup:
   - Item can be drop on the world - when the item was drop let it float up and down a little
+  - implement .asmdef to force clean architecture
+
 # Day 3 Wrap thing up
