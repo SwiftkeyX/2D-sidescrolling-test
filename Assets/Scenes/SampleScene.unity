@@ -10731,7 +10731,7 @@ MonoBehaviour:
   _equipment: {fileID: 1136419355}
   _startingEquipment: {fileID: 11400000, guid: 85614674b0e633a48b56226ca77dca94, type: 2}
   _equipmentRenderer: {fileID: 1794785076}
-  _inventorySize: 10
+  _backpackSize: 10
   _hotbarSize: 5
   _dropDistance: 1.5
   _moveSpeed: 5
@@ -12177,6 +12177,7 @@ GameObject:
   - component: {fileID: 2058672592}
   - component: {fileID: 2058672593}
   - component: {fileID: 2058672594}
+  - component: {fileID: 2058672595}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -12293,7 +12294,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SideScroller.UI.HotbarPanelController
   _panelAsset: {fileID: 9197481963319205126, guid: 926be44878b2e46459d251a9e1e12c91, type: 3}
-  _player: {fileID: 0}
+  _player: {fileID: 1136419350}
+--- !u!114 &2058672595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058672587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4655f64536412a748bc734743428f1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.UI.InventoryDragController
+  _player: {fileID: 1136419350}
+  _backpackPanel: {fileID: 2058672593}
+  _hotbarPanel: {fileID: 2058672594}
+  _ghostStyle: {fileID: 7433441132597879392, guid: 2a6f58d0b3e74c81af9d64e05b71c832, type: 3}
 --- !u!1001 &2110996812
 PrefabInstance:
   m_ObjectHideFlags: 0

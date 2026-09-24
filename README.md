@@ -201,6 +201,7 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     Make 2 child: InventoryWindow & InventoryHotbar.
     Rename the player's inventory to Backpack to prevent confusion.
   - (13:45) Implement Hotbar panel to re-arrage with Backpack panel
+  - (14:20) Get Dragging.cs init out of backpack since it's no longer belong there since hotbar also use Dragging
 
 - [ ] inventory can hold resources, tools, crafted objects, and seeds.
   - (??) make at least 3 items in each category  
