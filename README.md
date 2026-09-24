@@ -189,6 +189,19 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
   - (10:40) Make additional quick access bar at bottom right of the screen. Let it have 5 cell.  
     When holding the item in inventory, make quick access bar green to indicate it can be interact with by putting item inside it.
   - (11:00) make dragging between inventory and hotbar possible
+    I need to check new dragging.cs and check SlotGroup.cs too.
+    SlotGroup.cs look weird. Why does the inventory get init in the UI? it was init in player which is alright.
+  - (13:00) naming convetion is too confusing. We now have both inventory.cs that was inventory and hotbar. we also have UI that was name inventory.
+    The dragging.cs become too messy. It's no longer readable. Let discarded this.
+    Inventory and Hotbar are both inventory. Need better name to distinct them.
+  - (13:05) Okay, the functionality of inventory window & hotbar are similar but hotbar can do a bit more:
+      Inventory window can drag for re-arrange.
+      Hotbar can drag re-arrange & drag for item activation too. 
+    Functionality are from the UI part. So let make InventoryPanel a mother. 
+    Make 2 child: InventoryWindow & InventoryHotbar.
+    Rename the player's inventory to Backpack to prevent confusion.
+  - (13:40)  
+
 - [ ] inventory can hold resources, tools, crafted objects, and seeds.
   - (??) make at least 3 items in each category  
     resource = lumber, carrot, red berry, corn  

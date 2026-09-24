@@ -4,6 +4,7 @@ using SideScroller.Equipments;
 using SideScroller.Input;
 using SideScroller.Inventories;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SideScroller.Characters
 {
@@ -23,9 +24,11 @@ namespace SideScroller.Characters
         [SerializeField] private Equipment _equipment;
         [SerializeField] private EquipmentSO _startingEquipment;
         [SerializeField] private SpriteRenderer _equipmentRenderer;
-        // === inventory ===
-        private Inventory _inventory;
-        [SerializeField] private int _inventorySize = 10;
+        // === backpack ===
+        // FIXLATER:
+        private Inventory _backpack;
+        [FormerlySerializedAs("_inventorySize")]
+        [SerializeField] private int _backpackSize = 10;
         // === hotbar ===
         private Inventory _hotbar;
         [SerializeField] private int _hotbarSize = 5;
@@ -75,7 +78,7 @@ namespace SideScroller.Characters
         public void Unequip() => _equipmentSlot.Unequip();
 
         // ====== 6. inventory ======
-        public Inventory Inventory => _inventory ??= new Inventory(_inventorySize);
+        public Inventory Backpack => _backpack ??= new Inventory(_backpackSize);
         public Inventory Hotbar => _hotbar ??= new Inventory(_hotbarSize);
 
         // ====== 7. aim ======
@@ -184,16 +187,16 @@ namespace SideScroller.Characters
         // take the item out of the slot and drop it on the floor in front of the player
         public void DropItem(int slot)
         {
-            IInventoryable item = Inventory.Get(slot);
+            IInventoryable item = Backpack.Get(slot);
             if (item == null) return;
 
             Vector2 front = (Vector2)transform.position + new Vector2(FacingDirection * _dropDistance, 0f);
 
             // drop item = spawn item into the world
-            // if nothing spawned, the item stays in the inventory
+            // if nothing spawned, the item stays in the backpack
             if (ItemPickup.Spawn(item, front) == null) return;
 
-            Inventory.Remove(slot);
+            Backpack.Remove(slot);
         }
 
         // ==== other ====

@@ -36,7 +36,7 @@ namespace SideScroller.Inventories
             Player player = other.GetComponentInParent<Player>();
             if (player == null) return;
 
-            if (player.Inventory.TryAdd(Item)) Destroy(gameObject);
+            if (player.Backpack.TryAdd(Item)) Destroy(gameObject);
         }
 
         // ================================= drop item =================================
