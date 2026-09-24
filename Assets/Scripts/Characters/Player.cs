@@ -2,6 +2,7 @@ using SideScroller.Characters.States;
 using SideScroller.Combat;
 using SideScroller.Equipments;
 using SideScroller.Input;
+using SideScroller.Inventories;
 using UnityEngine;
 
 namespace SideScroller.Characters
@@ -22,6 +23,8 @@ namespace SideScroller.Characters
         [SerializeField] private Equipment _equipment;
         [SerializeField] private EquipmentSO _startingEquipment;
         [SerializeField] private SpriteRenderer _equipmentRenderer;
+        private Inventory _inventory;
+        [SerializeField] private int _inventorySize = 10;
 
         // ===== unity =====
         private Collider2D _collider;
@@ -66,7 +69,10 @@ namespace SideScroller.Characters
         public void Equip(EquipmentSO equipment) => _equipmentSlot.Equip(equipment);
         public void Unequip() => _equipmentSlot.Unequip();
 
-        // ====== 6. aim ======
+        // ====== 6. inventory ======
+        public Inventory Inventory => _inventory ??= new Inventory(_inventorySize);
+
+        // ====== 7. aim ======
         public float FacingDirection => _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
 
         // get direction from the player toward the pointer
@@ -96,6 +102,9 @@ namespace SideScroller.Characters
 
             _equipmentSlot = new EquipmentSlot(_equipmentRenderer);
             if (_startingEquipment != null) _equipmentSlot.Equip(_startingEquipment);
+
+            // init starting tool into inventory
+            if (_startingEquipment != null) Inventory.TryAdd(_startingEquipment);
 
             _stateMachine = new PlayerStateMachine(this, _stat);
         }
