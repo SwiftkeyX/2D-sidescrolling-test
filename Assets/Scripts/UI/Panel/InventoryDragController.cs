@@ -1,4 +1,5 @@
 using SideScroller.Characters;
+using SideScroller.Input;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -28,6 +29,11 @@ namespace SideScroller.UI
             if (_dragging == null) _dragging = TryBuild();
             if (_dragging == null) return;
 
+            // lock player's tool when:
+            // 1) player's backpack is open
+            // 2) player's pointer on the hotbar
+            _player.ToolsLocked = _backpackPanel.IsShown || IsPointerOnHotbar();
+
             // if backpack open, ticking to allow re-arrange, drop
             if (_backpackPanel.IsShown)
             {
@@ -41,6 +47,8 @@ namespace SideScroller.UI
 
         void OnDisable()
         {
+            if (_player != null) _player.ToolsLocked = false;
+
             _dragging?.Cancel();
             _ghost?.RemoveFromHierarchy();
 
@@ -67,6 +75,15 @@ namespace SideScroller.UI
 
             _ghost = BuildGhost();
             return new InventoryDragging(_player, panels, _ghost);
+        }
+
+        // is the pointer over the hotbar? 
+        private bool IsPointerOnHotbar()
+        {
+            if (_hotbarPanel == null || _ghost?.panel == null) return false;
+
+            Vector2 panelPos = Picker.ToPanel(_ghost.panel, PlayerInputSystem.PointerScreenPosition);
+            return _hotbarPanel.IsPointerInside(panelPos);
         }
 
         // context: ghost = the icon that copy style from the item sprite. and can move follow player's pointer.

@@ -81,6 +81,10 @@ namespace SideScroller.Characters
         public Inventory Backpack => _backpack ??= new Inventory(_backpackSize);
         public Inventory Hotbar => _hotbar ??= new Inventory(_hotbarSize);
 
+        // while UI is open, player's tools is locked from activate
+        // e.g. if backpack is open, wand can't attack 
+        public bool ToolsLocked { get; set; }
+
         // ====== 7. aim ======
         public float FacingDirection => _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
 
@@ -135,7 +139,7 @@ namespace SideScroller.Characters
 
             if (StateType == PlayerStateEnum.Dead) return;
 
-            if (AttackPressed) ActivateTool();
+            if (AttackPressed && !ToolsLocked) ActivateTool();
         }
 
         // ======================================== state machine ========================================
