@@ -1,3 +1,4 @@
+using SideScroller.Characters;
 using SideScroller.Input;
 using SideScroller.Inventories;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace SideScroller.UI
         private const string HeldClass = "inventory__cell--held";
 
         private readonly Inventory _inventory;
+        private readonly Player _player;            
         private readonly VisualElement _inventoryWindow;     // the inventory bound. drop outside it = drop the item
         private readonly VisualElement[] _cells;
         private readonly VisualElement _ghost;      // the icon that follows the pointer
@@ -20,9 +22,10 @@ namespace SideScroller.UI
         // ============================= getter =============================
         public bool IsHolding => _held >= 0;
 
-        public InventoryDragging(Inventory inventory, VisualElement window, VisualElement[] cells, VisualElement ghost)
+        public InventoryDragging(Inventory inventory, Player player, VisualElement window, VisualElement[] cells, VisualElement ghost)
         {
             _inventory = inventory;
+            _player = player;
             _inventoryWindow = window;
             _cells = cells;
             _ghost = ghost;
@@ -131,10 +134,10 @@ namespace SideScroller.UI
             _inventory.Swap(holded, targetSlot);
         }
 
-        // FIXME: the item is gone for good. should spawn an ItemPickup into the world
+        // the player drop item on the floor
         private void DropItem(int slot)
         {
-            _inventory.Remove(slot);
+            _player.DropItem(slot);
         }
 
         // put back whatever is held

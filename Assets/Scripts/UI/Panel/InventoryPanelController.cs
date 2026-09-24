@@ -72,7 +72,7 @@ namespace SideScroller.UI
             InitItem();
 
             _ghost = BuildGhost();
-            _dragging = new InventoryDragging(_inventory, panel, _cells, _ghost);
+            _dragging = new InventoryDragging(_inventory, _player, panel, _cells, _ghost);
         }
 
         void Update()

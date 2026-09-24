@@ -25,6 +25,7 @@ namespace SideScroller.Characters
         [SerializeField] private SpriteRenderer _equipmentRenderer;
         private Inventory _inventory;
         [SerializeField] private int _inventorySize = 10;
+        [SerializeField] private float _dropDistance = 1.5f;
 
         // ===== unity =====
         private Collider2D _collider;
@@ -172,6 +173,22 @@ namespace SideScroller.Characters
             if (_checkpoint != null) transform.position = _checkpoint.position;
 
             if (_stat != null) _stat.ResetHealth();
+        }
+
+        // ==== inventory ====
+        // take the item out of the slot and drop it on the floor in front of the player
+        public void DropItem(int slot)
+        {
+            IInventoryable item = Inventory.Get(slot);
+            if (item == null) return;
+
+            Vector2 front = (Vector2)transform.position + new Vector2(FacingDirection * _dropDistance, 0f);
+
+            // drop item = spawn item into the world
+            // if nothing spawned, the item stays in the inventory
+            if (ItemPickup.Spawn(item, front) == null) return;
+
+            Inventory.Remove(slot);
         }
 
         // ==== other ====
