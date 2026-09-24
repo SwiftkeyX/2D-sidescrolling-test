@@ -93,12 +93,20 @@ namespace SideScroller.Characters
         {
             if (_camera == null) return new Vector2(FacingDirection, 0f);
 
+            Vector2 aim = GetPointerWorldPosition() - (Vector2)transform.position;
+
+            return aim.normalized;
+        }
+
+        // where the pointer is in the world 
+        public Vector2 GetPointerWorldPosition()
+        {
+            if (_camera == null) return transform.position;
+
             Vector3 screen = PlayerInputSystem.PointerScreenPosition;
             screen.z = -_camera.transform.position.z;
 
-            Vector2 aim = _camera.ScreenToWorldPoint(screen) - transform.position;
-
-            return aim.normalized;
+            return _camera.ScreenToWorldPoint(screen);
         }
 
         // ======================================== unity ========================================
@@ -187,7 +195,12 @@ namespace SideScroller.Characters
             if (_stat != null) _stat.ResetHealth();
         }
 
-        // ==== inventory ====
+        // ==== animator ====
+        // no Animator yet
+        public void PlayAnimation(PlayerStateEnum state) { }
+
+
+        // ======================================== inventory ========================================
         // take the item out of the slot and drop it on the floor in front of the player
         public void DropItem(Inventory from, int slot)
         {
@@ -203,8 +216,33 @@ namespace SideScroller.Characters
             from.Remove(slot);
         }
 
-        // ==== other ====
-        // no Animator yet
-        public void PlayAnimation(PlayerStateEnum state) { }
+        // use the item in the slot. what "use" means depends on the item's category:
+        // Tool     => equip it. it stays in the slot, left click uses it
+        // Seed     => plant it where the pointer is
+        // Resource, Crafted => nothing, it stays in the slot
+        public void UseItem(Inventory from, int slot)
+        {
+            IInventoryable item = from.Get(slot);
+            if (item == null) return;
+
+            switch (item.Category)
+            {
+                case ItemCategoryEnum.Tool:
+                    if (item is EquipmentSO tool) Equip(tool);
+                    break;
+
+                case ItemCategoryEnum.Seed:
+                    TryPlant(from, slot, GetPointerWorldPosition());
+                    break;
+            }
+        }
+
+        // FIXME: stub. planting comes with the Plant (D2, D3). for now the seed stays in the slot
+        private void TryPlant(Inventory from, int slot, Vector2 worldPos)
+        {
+            Debug.Log($"[Player] planting {from.Get(slot)?.DisplayName} at {worldPos} is not implemented yet.");
+        }
+
+
     }
 }

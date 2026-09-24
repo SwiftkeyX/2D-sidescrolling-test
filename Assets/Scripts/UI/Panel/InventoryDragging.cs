@@ -1,4 +1,4 @@
-using SideScroller.Characters;
+using System;
 using SideScroller.Input;
 using SideScroller.Inventories;
 using UnityEngine;
@@ -9,28 +9,30 @@ namespace SideScroller.UI
     // Item in Inventory can be dragged. The drag it to achive those function:
     // 1) Picking items up with the pointer
     // 2) dragging item around to re-arrange them
-    // 3) removing the item by dropping them
-    internal class InventoryDragging
+    // 3) releasing it outside e.g. drop it, use it depending on the mode
+    internal class Dragging
     {
-        private readonly Player _player;
+        private readonly bool _canRearrange;
+        private readonly Action<Inventory, int> _releasedOutside;
 
         // every panel the item can move between
-        private readonly InventoryPanelController[] _panels;   
+        private readonly InventoryPanelController[] _panels;
         // which panel slot is currently being hold
-        private PanelSlot _held;    
-        
+        private PanelSlot _held;
+
         // the icon that follows the pointer
-        private readonly VisualElement _ghost;                  
+        private readonly VisualElement _ghost;
 
 
         // ============================= getter =============================
         public bool IsHolding => _held != null;
 
-        public InventoryDragging(Player player, InventoryPanelController[] panels, VisualElement ghost)
+        public Dragging(InventoryPanelController[] panels, VisualElement ghost, bool canRearrange, Action<Inventory, int> releasedOutside)
         {
-            _player = player;
             _panels = panels;
             _ghost = ghost;
+            _canRearrange = canRearrange;
+            _releasedOutside = releasedOutside;
         }
 
         // =================================== life cycle ===================================
@@ -99,24 +101,26 @@ namespace SideScroller.UI
 
         // ============================================= drop =============================================
         // an item can be dropped on 2 thing:
-        // 1) a cell, in any panel => move it there, swap if the cell already have item
-        // 2) outside every panel => drop the item on the floor
+        // 1) a cell, in any panel => move it there, swap if the cell already have item (if re-arranging is allowed)
+        // 2) outside panel => hand resposibility to the owner 
+        // the function could either be to "drop it on the floor" or to "use it"
         private void Drop(Vector2 panelPos)
         {
             PanelSlot target = FindSlot(panelPos);
 
             // released on a cell = put the item there
-            if (target != null)
+            if (target != null && _canRearrange)
             {
                 PlaceAndSwap(target);
                 Release();
                 return;
             }
 
-            // released outside every panel = drop the item
-            if (IsPointerOutsidePanels(panelPos))
+            // released outside every panel = let the owner decide
+            // the owner = the one who set function to _releaseOutside
+            if (target == null && IsPointerOutsidePanels(panelPos))
             {
-                DropItem();
+                _releasedOutside?.Invoke(_held.Panel.Inventory, _held.Index);
                 Release();
                 return;
             }
@@ -130,12 +134,6 @@ namespace SideScroller.UI
         private void PlaceAndSwap(PanelSlot target)
         {
             Inventory.SwapBetweenInventory(_held.Panel.Inventory, _held.Index, target.Panel.Inventory, target.Index);
-        }
-
-        // the player drop item on the floor
-        private void DropItem()
-        {
-            _player.DropItem(_held.Panel.Inventory, _held.Index);
         }
 
         // put back whatever is held
