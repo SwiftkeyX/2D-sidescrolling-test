@@ -167,23 +167,31 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
 **player can collect/use/remove/organize items**
 
 - [ ] make simple grid UI overlay for inventory window
-  - Each cell can be put the item sprite inside
-  - When player collect item, the item was added into the very first available grid.
+  - (7:50) Each cell can be put the item sprite inside - make a simple interface inventoryable - need sprite to put in the cell 
+  When player collect item, the item was added into the very first available grid.
   - Player can drag items sprite around in the inventory, can replace/swap each items by dragging on top of them
-
-
-   2. inventory can hold resources, tools, crafted objects, and seeds.
-      - [ ] Have several items in the game. Those items also was categorized.
-      - [ ] make at least 3 items in each category  
+  - Inventory have 2 part: 1. the big inventory window open by "O" and 2. a overlay bar at the bottom for quick access
+- [ ] inventory can hold resources, tools, crafted objects, and seeds.
+  - make at least 3 items in each category  
         resource = lumber, carrot, red berry, corn  
-        tools = watering can, shovel, axes  
+        tools = wand, watering can, axes  
         seed = carrot seed, red berry seed, corn seed  
         crafted item = Storage Chest, Golden Veggie, Broccoli
-   3. inventory bar - a overlay bar at the bottom for quick access e.g. equipable, usable, or placeable
-      - [ ] use simple grid UI overlay like inventory window
-      - [ ] drag seeds from a bar on the ground to place it
-      - [ ] drag shovel from a bar on the seed, make the seed grow to flower
-      - [ ] that mean a seed is the class of it own. It have several variation of sprite when it was growth.
-   4. items can stack and have limit at 10 max
-      - [ ] Each cell in inventory keep a list<Stack>. Stack is class that keep a items variable and a number of the stack.
+  - drag tools/seed/resource/crafted item from a bar outside the bound to equip
+  - active for each tools
+        wand - shoot cube
+        watering can - water seed - grow vegetable
+        axes - cut tree - for lumber
+  - behaviour for seed
+        all seed act the same. put on the ground. can grow by watering. if grow max, can be keep by player. 
+        that mean a seed is the class of it own. It have several variation of sprite when it was growth.
+  - resource doesn nothing but can be crafted
+  - (deferred) crafted item was other mechanic
+  - (deferred) make recipe
+        x10 lumber = storage chest
+        carrot + red berry + corn = golden veggie
+        x3 golden veggie = broccoli
+- [ ] items can stack and have limit at 10 max
+  - each cell in inventory keep a list<Stack>. Stack is class that keep a items variable and a number of the stack.
+
 # Day 3 Wrap thing up

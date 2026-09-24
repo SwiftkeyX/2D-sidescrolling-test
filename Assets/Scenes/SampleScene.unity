@@ -10480,11 +10480,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8905712532588802422, guid: 4e6963d7a75383c4e912d40ba6ac7ad5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.63
+      value: 13.62
       objectReference: {fileID: 0}
     - target: {fileID: 8905712532588802422, guid: 4e6963d7a75383c4e912d40ba6ac7ad5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.77
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 8905712532588802422, guid: 4e6963d7a75383c4e912d40ba6ac7ad5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11716,6 +11716,7 @@ GameObject:
   - component: {fileID: 2058672588}
   - component: {fileID: 2058672591}
   - component: {fileID: 2058672592}
+  - component: {fileID: 2058672593}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -11804,6 +11805,22 @@ MonoBehaviour:
   _panelAsset: {fileID: 9197481963319205126, guid: b39f07c1e4a5426d81cf902b7e5a4d16, type: 3}
   _clock: {fileID: 484291504}
   _holdSeconds: 1.5
+--- !u!114 &2058672593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058672587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cba9c993422d7944a8a7772e3ab5490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.UI.InventoryPanelController
+  _panelAsset: {fileID: 9197481963319205126, guid: 0c9b1f7a11de7ae48a5e4bad7dfcedf4, type: 3}
+  _cellCount: 10
+  _previewItems:
+  - {fileID: 11400000, guid: 85614674b0e633a48b56226ca77dca94, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

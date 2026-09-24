@@ -1,3 +1,4 @@
+using SideScroller.Inventories;
 using UnityEngine;
 
 namespace SideScroller.Equipments
@@ -6,7 +7,7 @@ namespace SideScroller.Equipments
     /// Data for one equippable thing. A new tool is a new asset, not new code.
     /// </summary>
     [CreateAssetMenu(fileName = "Equipment", menuName = "SideScroller/Equipment")]
-    public class EquipmentSO : ScriptableObject
+    public class EquipmentSO : ScriptableObject, IInventoryable
     {
         [SerializeField] private string _displayName;
         [SerializeField] private Sprite _icon;
