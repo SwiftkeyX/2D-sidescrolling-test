@@ -164,9 +164,9 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
 
 ## Design inventory 
 
-**player can collect/use/remove/organize items**
+**player can collect/use/remove/organize items (6.30hr)**
 
-- [x] make simple grid UI overlay for inventory window
+- [x] make simple grid UI overlay for inventory window (2.30hr)
   - (7:50) Each cell can be put the item sprite inside - make a simple interface inventoryable - need sprite to put in the cell  
     let open it with "O"
   - (8:00) When player collect item, the item was added into the very first available grid.  
@@ -177,8 +177,9 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     player can organize the inventory by dragging item to each cell.
   - (10:30) the drop item should be drop to the floor, not delete.  
     the ghost doesn't work correctly. the ghost doesn't follow player's mouse.
-- [ ] Inventory have 2 part: 1. the big inventory window open by "O" and 2. a overlay bar at the bottom for quick access  
-  The idea is:
+
+- [x] Inventory have 2 part: 1. the big inventory window open by "O" and 2. a overlay bar at the bottom for quick access  
+  The idea is (4hr)
   - When the inventory is open:  
     1\) player can drag item from inventory & access bar to re-arrange item, drop item.  
     2\) but player can't use any active item: tool/seed/etc...
@@ -201,20 +202,26 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     Make 2 child: InventoryWindow & InventoryHotbar.
     Rename the player's inventory to Backpack to prevent confusion.
   - (13:45) Implement Hotbar panel to re-arrage with Backpack panel
-  - (14:20) Get Dragging.cs init out of backpack since it's no longer belong there since hotbar also use Dragging
+  - (14:20) Get Dragging.cs init out of backpack since it's no longer belong there since hotbar also use Dragging.cs
+  - (14:30) Add quality of lift: Block attacks while the backpack is open, and when clicking the hotbar
 
+**items can be separated into resources, tools, crafted objects, and seeds**
 - [ ] inventory can hold resources, tools, crafted objects, and seeds.
-  - (??) make at least 3 items in each category  
+  - (14:40) make at least 3 items in each category  
     resource = lumber, carrot, red berry, corn  
     tools = wand, watering can, axes  
     seed = carrot seed, red berry seed, corn seed  
     crafted item = Storage Chest, Golden Veggie, Broccoli
-  - (??) drag tools/seed/resource/crafted item from a bar outside the bound to equip
+    (2hr break)
+    (17:00) let ItemSO be a parent of all 4 categorize. Begin by making existing EquipmentSO a child to ItemSO.
+  - (??) drag tools/seed/resource/crafted item from a bar outside the bound to use them
   - (??) active for each tools  
+    draggin tool out of bound, equip the tool to the player. when equip, player activate tool using left click.
     wand - shoot cube  
     watering can - water seed - grow vegetable  
     axes - cut tree - for lumber
   - (??) behaviour for seed  
+    place the seed on the ground near releasing pointer.
     all seed act the same. put on the ground. can grow by watering. if grow max, can be keep by player.  
     that mean a seed is the class of it own. It have several variation of sprite when it was growth.
   - (??) resource doesn nothing but can be crafted
@@ -223,6 +230,7 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     x10 lumber = storage chest  
     carrot + red berry + corn = golden veggie  
     x3 golden veggie = broccoli
+
 - [ ] items can stack and have limit at 10 max
   - (??) each cell in inventory keep a list<Stack>. Stack is class that keep a items variable and a number of the stack.
 

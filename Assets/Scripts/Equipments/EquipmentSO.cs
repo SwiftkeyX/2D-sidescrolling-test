@@ -4,17 +4,16 @@ using UnityEngine;
 namespace SideScroller.Equipments
 {
     /// <summary>
-    /// Data for one equippable thing. A new tool is a new asset, not new code.
+    /// Data for one equippable thing
     /// </summary>
     [CreateAssetMenu(fileName = "Equipment", menuName = "SideScroller/Equipment")]
-    public class EquipmentSO : ScriptableObject, IInventoryable
+    public class EquipmentSO : ItemSO
     {
-        [SerializeField] private string _displayName;
-        [SerializeField] private Sprite _icon;
         [SerializeField] private EquipmentTypeEnum _type;
 
-        public string DisplayName => _displayName;
-        public Sprite Icon => _icon;
         public EquipmentTypeEnum Type => _type;
+
+        // equipable things is categorized as tool
+        public override ItemCategoryEnum Category => ItemCategoryEnum.Tool;
     }
 }
