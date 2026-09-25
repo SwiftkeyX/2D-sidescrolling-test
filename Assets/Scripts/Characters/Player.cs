@@ -4,7 +4,6 @@ using SideScroller.Crafting;
 using SideScroller.Equipments;
 using SideScroller.Farming;
 using SideScroller.Input;
-using SideScroller.Interactions;
 using SideScroller.Inventories;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -18,6 +17,7 @@ namespace SideScroller.Characters
     /// Player is split over several files (partial class):
     /// - Player.cs              : Inspector fields, Unity life cycle, input, equipment, inventory
     /// - Player.StateMachine.cs : what the states machine use - movement, ground check, respawn, animation
+    /// - Player.Interact.cs     : pressing E on the closest interactable thing
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D))]
     public partial class Player : MonoBehaviour
@@ -166,32 +166,6 @@ namespace SideScroller.Characters
             if (tool == null) return;
 
             tool.Activate(GetAimDirection());
-        }
-
-        // ======================================== interact ========================================
-        // press E on the closest interactable thing within reach
-        public void TryInteract()
-        {
-            Vector2 from = transform.position;
-            IInteractable closest = null;
-            float best = float.MaxValue;
-
-            // chcek if my position reach any interactable 
-            foreach (Collider2D hit in Physics2D.OverlapCircleAll(from, _interactReach))
-            {
-                IInteractable target = hit.GetComponentInParent<IInteractable>();
-                if (target == null) continue;
-
-                // measured to the collider's edge
-                float distance = Vector2.Distance(from, hit.ClosestPoint(from));
-                if (distance >= best) continue;
-
-                best = distance;
-                closest = target;
-            }
-
-            // interact with the cloest one
-            closest?.Interact(this);
         }
 
         // ======================================== inventory ========================================
