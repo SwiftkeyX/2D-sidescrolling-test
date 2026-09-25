@@ -1,5 +1,5 @@
 using System;
-using SideScroller.Inventories;
+using SideScroller.Items;
 using UnityEngine;
 
 namespace SideScroller.Crafting

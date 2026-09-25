@@ -1,4 +1,5 @@
 using System;
+using SideScroller.Items;
 
 namespace SideScroller.Inventories
 {

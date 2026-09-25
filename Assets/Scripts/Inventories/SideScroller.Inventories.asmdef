@@ -1,7 +1,9 @@
 {
     "name": "SideScroller.Inventories",
     "rootNamespace": "SideScroller.Inventories",
-    "references": [],
+    "references": [
+        "SideScroller.Items"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

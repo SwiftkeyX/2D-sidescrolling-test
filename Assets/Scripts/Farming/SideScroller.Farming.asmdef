@@ -2,9 +2,9 @@
     "name": "SideScroller.Farming",
     "rootNamespace": "SideScroller.Farming",
     "references": [
-        "SideScroller.Equipments",
         "SideScroller.Interactions",
-        "SideScroller.Inventories"
+        "SideScroller.Inventories",
+        "SideScroller.Items"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,4 +1,4 @@
-using SideScroller.Equipments;
+using SideScroller.Items;
 using UnityEngine;
 
 namespace SideScroller.Woodcutting

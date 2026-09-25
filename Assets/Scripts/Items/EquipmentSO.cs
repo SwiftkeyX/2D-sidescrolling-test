@@ -1,8 +1,7 @@
-using SideScroller.Inventories;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace SideScroller.Equipments
+namespace SideScroller.Items
 {
     /// <summary>
     /// Data for one equippable thing

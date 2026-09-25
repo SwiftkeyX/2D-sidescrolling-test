@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SideScroller.Inventories
+namespace SideScroller.Items
 {
     /// <summary>
     /// Data for an item that can be put down in the world 

@@ -1,3 +1,4 @@
+using SideScroller.Items;
 using UnityEngine;
 
 namespace SideScroller.Inventories

@@ -1,3 +1,5 @@
+using SideScroller.Items;
+
 namespace SideScroller.Inventories
 {
     // ItemStack is what keep in the Inventory.cs

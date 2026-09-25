@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SideScroller.Equipments
+namespace SideScroller.Items
 {
     /// <summary>
     /// The behaviour of an equipped tool. Lives on its own prefab, referenced by EquipmentSO.

@@ -1,15 +1,15 @@
 using SideScroller.Characters.States;
 using SideScroller.Combat;
 using SideScroller.Crafting;
-using SideScroller.Equipments;
 using SideScroller.Input;
 using SideScroller.Inventories;
+using SideScroller.Items;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace SideScroller.Characters
 {
-    /// <summary>
+    /// <summary>   
     /// Player don't have any logic inside it BUT:
     /// 1) It's the ONLY Monobehavior for the Player, so it's here so we could make player interact with Unity.
     /// 2) it act like a glue, which mean itself don't contain any real logic.

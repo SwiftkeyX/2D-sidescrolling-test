@@ -1,4 +1,5 @@
-using SideScroller.Equipments;
+
+using SideScroller.Items;
 
 namespace SideScroller.Characters
 {

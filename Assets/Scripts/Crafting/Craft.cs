@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using SideScroller.Inventories;
+using SideScroller.Items;
 using UnityEngine;
 
 namespace SideScroller.Crafting

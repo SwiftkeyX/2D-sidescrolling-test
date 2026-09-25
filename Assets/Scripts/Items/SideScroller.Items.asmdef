@@ -1,9 +1,7 @@
 {
-    "name": "SideScroller.Equipments",
-    "rootNamespace": "SideScroller.Equipments",
-    "references": [
-        "SideScroller.Inventories"
-    ],
+    "name": "SideScroller.Items",
+    "rootNamespace": "SideScroller.Items",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

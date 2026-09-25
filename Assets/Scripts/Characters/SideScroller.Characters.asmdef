@@ -4,11 +4,11 @@
     "references": [
         "SideScroller.Combat",
         "SideScroller.Crafting",
-        "SideScroller.Equipments",
         "SideScroller.Farming",
         "SideScroller.Input",
         "SideScroller.Interactions",
-        "SideScroller.Inventories"
+        "SideScroller.Inventories",
+        "SideScroller.Items"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

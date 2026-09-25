@@ -2,8 +2,8 @@
     "name": "SideScroller.Woodcutting",
     "rootNamespace": "SideScroller.Woodcutting",
     "references": [
-        "SideScroller.Equipments",
-        "SideScroller.Inventories"
+        "SideScroller.Inventories",
+        "SideScroller.Items"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

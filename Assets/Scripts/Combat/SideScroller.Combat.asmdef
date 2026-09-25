@@ -2,7 +2,7 @@
     "name": "SideScroller.Combat",
     "rootNamespace": "SideScroller.Combat",
     "references": [
-        "SideScroller.Equipments"
+        "SideScroller.Items"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,3 +1,5 @@
+using SideScroller.Items;
+
 namespace SideScroller.Inventories
 {
     // anything that can pick up an item lying in the world 

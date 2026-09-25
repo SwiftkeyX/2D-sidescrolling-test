@@ -3,7 +3,8 @@
     "rootNamespace": "SideScroller.Storage",
     "references": [
         "SideScroller.Interactions",
-        "SideScroller.Inventories"
+        "SideScroller.Inventories",
+        "SideScroller.Items"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

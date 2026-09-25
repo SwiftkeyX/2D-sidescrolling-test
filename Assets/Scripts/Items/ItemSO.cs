@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SideScroller.Inventories
+namespace SideScroller.Items
 {
     /// Data for one item (lumber, carrot, storage chest...).
     /// Mother of every item data. children add what only their kind needs

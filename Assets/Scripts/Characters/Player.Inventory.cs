@@ -1,6 +1,6 @@
-using SideScroller.Equipments;
 using SideScroller.Farming;
 using SideScroller.Inventories;
+using SideScroller.Items;
 using UnityEngine;
 
 namespace SideScroller.Characters

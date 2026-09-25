@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SideScroller.Inventories
+namespace SideScroller.Items
 {
     // anything that can sit in an inventory cell. the cell only needs a sprite to draw
     public interface IInventoryable

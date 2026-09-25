@@ -1,5 +1,6 @@
 using SideScroller.Characters;
 using SideScroller.Inventories;
+using SideScroller.Items;
 using UnityEngine;
 using UnityEngine.UIElements;
 

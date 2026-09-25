@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace SideScroller.Inventories
+namespace SideScroller.Items
 {
     // this is for pre-author the item, specficially inside inspector.
     // an item and its count, authored in the Inspector

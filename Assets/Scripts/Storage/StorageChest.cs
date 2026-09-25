@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using SideScroller.Interactions;
 using SideScroller.Inventories;
+using SideScroller.Items;
 using UnityEngine;
 
 namespace SideScroller.Storage
