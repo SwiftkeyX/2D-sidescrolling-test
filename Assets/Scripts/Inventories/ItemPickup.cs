@@ -115,7 +115,6 @@ namespace SideScroller.Inventories
 
             if (_renderer == null) _renderer = GetComponent<SpriteRenderer>();
 
-            // ASKING: what is this
 #if UNITY_EDITOR
             // unity forbids changing the renderer inside OnValidate, so wait one editor tick
             UnityEditor.EditorApplication.delayCall += () =>

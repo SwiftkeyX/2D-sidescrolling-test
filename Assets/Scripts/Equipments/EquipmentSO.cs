@@ -11,6 +11,7 @@ namespace SideScroller.Equipments
     public class EquipmentSO : ItemSO
     {
         [SerializeField] private EquipmentTypeEnum _type;
+        // FIXLATER:
         [FormerlySerializedAs("_behaviourPrefab")]
         [SerializeField] private Equipment _equipment;
 
