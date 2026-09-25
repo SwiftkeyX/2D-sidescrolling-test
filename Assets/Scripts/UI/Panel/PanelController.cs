@@ -36,6 +36,9 @@ namespace SideScroller.UI
         // The panel is still in the tree: find what panel this tree holds, wire that panel inside main panel.
         protected abstract void OnMounted(VisualElement panel);
 
+        // is this panel on screen?
+        public bool IsShown => Panel != null && !Panel.ClassListContains(HiddenClass);
+
         // show/hide this panel. 
         public void SetShown(bool shown)
         {

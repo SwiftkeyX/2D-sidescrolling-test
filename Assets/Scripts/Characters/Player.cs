@@ -1,11 +1,16 @@
 using SideScroller.Characters.States;
 using SideScroller.Combat;
 using SideScroller.Equipments;
+using SideScroller.Farming;
 using SideScroller.Input;
+using SideScroller.Interactions;
+using SideScroller.Inventories;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SideScroller.Characters
 {
+    // FIXLATER: Player is begin to be too big. Let's separate it smaller later.
     /// <summary>
     /// Player don't have any logic inside it BUT:
     /// 1) It's the ONLY Monobehavior for the Player, so it's here so we could make player interact with Unity.
@@ -15,13 +20,21 @@ namespace SideScroller.Characters
     public class Player : MonoBehaviour
     {
         // ======================================== Dependency ========================================
-        // ===== classes =====
         private PlayerStateMachine _stateMachine;
         private Stat _stat;
+        // === equipment ===
         private EquipmentSlot _equipmentSlot;
-        [SerializeField] private Equipment _equipment;
         [SerializeField] private EquipmentSO _startingEquipment;
         [SerializeField] private SpriteRenderer _equipmentRenderer;
+        // === backpack ===
+        // FIXLATER:
+        private Inventory _backpack;
+        [FormerlySerializedAs("_inventorySize")]
+        [SerializeField] private int _backpackSize = 10;
+        // === hotbar ===
+        private Inventory _hotbar;
+        [SerializeField] private int _hotbarSize = 5;
+        [SerializeField] private float _dropDistance = 1.5f;
 
         // ===== unity =====
         private Collider2D _collider;
@@ -36,15 +49,18 @@ namespace SideScroller.Characters
         [SerializeField] private float _jumpForce = 9f;
         [SerializeField] private Transform _checkpoint;
         [SerializeField] private float _respawnDelay = 1.5f;
+        [SerializeField] private float _interactReach = 1.5f;
 
 
-        private const float GroundCheckDistance = 0.05f;
+        private const float GroundCheckDistance = 0.05f;    // distance used by raycast to check the ground
+        private const float DropSpread = 0.3f;              // gap between items when a stack is dropped
 
         // ======================================== getter ========================================
         // ====== 1. input ======
         public float MoveInput => PlayerInputSystem.MoveAxis;
         public bool JumpPressed => PlayerInputSystem.JumpPressedThisFrame;
-        public bool AttackPressed => PlayerInputSystem.AttackPressedThisFrame;
+        public bool LeftClickPressed => PlayerInputSystem.AttackPressedThisFrame;
+        public bool InteractPressed => PlayerInputSystem.InteractPressedThisFrame;
 
         // ====== 2. state ======
         public void ChangeState(PlayerStateEnum next) => _stateMachine.ChangeState(next);
@@ -60,13 +76,21 @@ namespace SideScroller.Characters
         public float RespawnDelay => _respawnDelay;
 
         // ====== 5. equipment ======
-        public EquipmentSO EquippedItem => _equipmentSlot.Current;
+        public EquipmentSO EquippedItem => _equipmentSlot.SO;
         public bool HasEquipment => _equipmentSlot.HasEquipment;
 
         public void Equip(EquipmentSO equipment) => _equipmentSlot.Equip(equipment);
         public void Unequip() => _equipmentSlot.Unequip();
 
-        // ====== 6. aim ======
+        // ====== 6. inventory ======
+        public Inventory Backpack => _backpack ??= new Inventory(_backpackSize);
+        public Inventory Hotbar => _hotbar ??= new Inventory(_hotbarSize);
+
+        // while UI is open, player's tools is locked from activate
+        // e.g. if backpack is open, wand can't attack 
+        public bool ToolsLocked { get; set; }
+
+        // ====== 7. aim ======
         public float FacingDirection => _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
 
         // get direction from the player toward the pointer
@@ -74,12 +98,20 @@ namespace SideScroller.Characters
         {
             if (_camera == null) return new Vector2(FacingDirection, 0f);
 
+            Vector2 aim = GetPointerWorldPosition() - (Vector2)transform.position;
+
+            return aim.normalized;
+        }
+
+        // where the pointer is in the world 
+        public Vector2 GetPointerWorldPosition()
+        {
+            if (_camera == null) return transform.position;
+
             Vector3 screen = PlayerInputSystem.PointerScreenPosition;
             screen.z = -_camera.transform.position.z;
 
-            Vector2 aim = _camera.ScreenToWorldPoint(screen) - transform.position;
-
-            return aim.normalized;
+            return _camera.ScreenToWorldPoint(screen);
         }
 
         // ======================================== unity ========================================
@@ -94,8 +126,11 @@ namespace SideScroller.Characters
             _groundFilter = new ContactFilter2D();
             _groundFilter.useTriggers = false;
 
-            _equipmentSlot = new EquipmentSlot(_equipmentRenderer);
+            _equipmentSlot = new EquipmentSlot(_equipmentRenderer, transform);
             if (_startingEquipment != null) _equipmentSlot.Equip(_startingEquipment);
+
+            // init starting tool into the hotbar, the equipped tool lives in the quick access bar
+            if (_startingEquipment != null) Hotbar.TryAdd(_startingEquipment);
 
             _stateMachine = new PlayerStateMachine(this, _stat);
         }
@@ -117,7 +152,11 @@ namespace SideScroller.Characters
 
             if (StateType == PlayerStateEnum.Dead) return;
 
-            if (AttackPressed) ActivateTool();
+            // try activate tool e.g. wand, axes
+            if (LeftClickPressed && !ToolsLocked) ActivateTool();
+
+            // try interact with Iinteractable e.g. Storage, Plant
+            if (InteractPressed) TryInteract();
         }
 
         // ======================================== state machine ========================================
@@ -149,11 +188,11 @@ namespace SideScroller.Characters
         // every tool activates the same way, the tool decides what that means
         public void ActivateTool()
         {
-            if (_equipment == null) return;
-            if (_equipmentSlot.Current == null) return;
-            if (_equipmentSlot.Current.Type != _equipment.Type) return;
+            // the equipped item's behaviour, spawned by the slot
+            Equipment tool = _equipmentSlot.CurrentEquipment;
+            if (tool == null) return;
 
-            _equipment.Activate(GetAimDirection());
+            tool.Activate(GetAimDirection());
         }
 
         // ==== dying ====
@@ -165,8 +204,112 @@ namespace SideScroller.Characters
             if (_stat != null) _stat.ResetHealth();
         }
 
-        // ==== other ====
+        // ==== animator ====
         // no Animator yet
         public void PlayAnimation(PlayerStateEnum state) { }
+
+
+        // ======================================== interact ========================================
+        // press E on the closest interactable thing within reach
+        public void TryInteract()
+        {
+            Vector2 from = transform.position;
+            IInteractable closest = null;
+            float best = float.MaxValue;
+
+            // chcek if my position reach any interactable 
+            foreach (Collider2D hit in Physics2D.OverlapCircleAll(from, _interactReach))
+            {
+                IInteractable target = hit.GetComponentInParent<IInteractable>();
+                if (target == null) continue;
+
+                // measured to the collider's edge
+                float distance = Vector2.Distance(from, hit.ClosestPoint(from));
+                if (distance >= best) continue;
+
+                best = distance;
+                closest = target;
+            }
+
+            // interact with the cloest one
+            closest?.Interact(this);
+        }
+
+        // ======================================== inventory ========================================
+        // take the whole stack out of the slot and drop it on the floor in front of the player
+        public void DropItem(Inventory from, int slot)
+        {
+            ItemStack stack = from.GetStack(slot);
+            if (stack == null) return;
+
+            Vector2 front = (Vector2)transform.position + new Vector2(FacingDirection * _dropDistance, 0f);
+
+            // drop item = spawn item into the world
+            int dropped = 0;
+            for (int i = 0; i < stack.Count; i++)
+            {
+                if (ItemPickup.Spawn(stack.Item, front + new Vector2(i * DropSpread, 0f)) == null) break;
+                dropped++;
+            }
+
+            // remove dropped item from inventory
+            if (dropped > 0) from.Remove(slot, dropped);
+        }
+
+        // use the item in the slot. what "use" means depends on the item's category:
+        // Tool     => equip it. it stays in the slot, left click uses it
+        // Seed     => plant it where the pointer is
+        // Crafted  => placeable ones (e.g. Storage Chest) are put down where the pointer is
+        // Resource => nothing, it stays in the slot
+        public void UseItem(Inventory from, int slot)
+        {
+            IInventoryable item = from.Get(slot);
+            if (item == null) return;
+
+            switch (item.Category)
+            {
+                case ItemCategoryEnum.Tool:
+                    if (item is EquipmentSO tool) Equip(tool);
+                    break;
+
+                case ItemCategoryEnum.Seed:
+                    TryPlant(from, slot, GetPointerWorldPosition());
+                    break;
+
+                // FIXME: all crafted item shouldn't be able to placed. 
+                // the storage chest should have another categorize "Building"
+                // let Building be the category to able to be placed.
+                case ItemCategoryEnum.Crafted:
+                    TryPlace(from, slot, GetPointerWorldPosition());
+                    break;
+            }
+        }
+
+        // plant the seed on the ground near the pointer. 
+        private void TryPlant(Inventory from, int slot, Vector2 worldPos)
+        {
+            // check if it was a seed
+            if (from.Get(slot) is not SeedSO seed) return;
+
+            // try plant it
+            if (Plant.TryPlant(seed, worldPos) == null) return;
+
+            // if success, take one seed off the stack
+            from.Remove(slot);
+        }
+
+        // put the item down on the ground near the pointer 
+        // e.g. a storage chest
+        private void TryPlace(Inventory from, int slot, Vector2 worldPos)
+        {
+            // check it it was placeable
+            if (from.Get(slot) is not PlaceableSO placeable) return;
+
+            // try place 
+            if (placeable.TryPlace(worldPos) == null) return;
+
+            // if success, the placed item leaves the slot
+            from.Remove(slot);
+        }
     }
 }

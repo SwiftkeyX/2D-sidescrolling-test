@@ -1,19 +1,27 @@
+using SideScroller.Inventories;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SideScroller.Equipments
 {
     /// <summary>
-    /// Data for one equippable thing. A new tool is a new asset, not new code.
+    /// Data for one equippable thing
     /// </summary>
     [CreateAssetMenu(fileName = "Equipment", menuName = "SideScroller/Equipment")]
-    public class EquipmentSO : ScriptableObject
+    public class EquipmentSO : ItemSO
     {
-        [SerializeField] private string _displayName;
-        [SerializeField] private Sprite _icon;
         [SerializeField] private EquipmentTypeEnum _type;
+        // FIXLATER:
+        [FormerlySerializedAs("_behaviourPrefab")]
+        [SerializeField] private Equipment _equipment;
 
-        public string DisplayName => _displayName;
-        public Sprite Icon => _icon;
         public EquipmentTypeEnum Type => _type;
+        public Equipment BehaviourPrefab => _equipment;
+
+        // equipable things is categorized as tool
+        public override ItemCategoryEnum Category => ItemCategoryEnum.Tool;
+
+        // tools never stack
+        public override int MaxStack => 1;
     }
 }

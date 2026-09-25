@@ -11,8 +11,11 @@
                 <ui:Instance template="ClockPanel"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="HotbarPanel" picking-mode="Ignore" style="position: absolute; left: 0; right: 0; bottom: 0; align-items: center;"/>
-        <ui:VisualElement name="InventoryPanel" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; align-items: center; justify-content: center;"/>
+        <ui:VisualElement name="HotbarPanel" picking-mode="Ignore" style="position: absolute; left: 0; right: 0; bottom: 0; align-items: flex-end;"/>
+        <ui:VisualElement name="Windows" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; flex-direction: row; align-items: center; justify-content: center;">
+            <ui:VisualElement name="InventoryPanel" picking-mode="Ignore"/>
+            <ui:VisualElement name="StoragePanel" picking-mode="Ignore" style="margin-left: 16px;"/>
+        </ui:VisualElement>
         <ui:VisualElement name="DayBannerPanel" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
             <ui:Instance template="DayBannerPanel"/>
         </ui:VisualElement>

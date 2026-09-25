@@ -144,3 +144,156 @@
     -unity-text-align: middle-center;
     color: rgb(240, 240, 248);
 }
+
+/* ============================== inventory ============================== */
+
+/* The window itself. Sits in the centre slot MainScreen already reserved for it. */
+.inventory {
+    align-items: center;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 8px;
+    padding-bottom: 12px;
+    background-color: rgba(10, 9, 16, 0.85);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(255, 255, 255, 0.18);
+    border-right-color: rgba(255, 255, 255, 0.18);
+    border-top-color: rgba(255, 255, 255, 0.18);
+    border-bottom-color: rgba(255, 255, 255, 0.18);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.inventory__title {
+    font-size: 20px;
+    -unity-font-style: bold;
+    color: rgb(240, 240, 248);
+    margin-bottom: 8px;
+}
+
+/* Cells wrap onto the next row. The width is 5 cells (64px + 2 x 4px margin each),
+   so 10 cells lay out as 5 x 2. */
+.inventory__grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 360px;
+}
+
+.inventory__cell {
+    width: 64px;
+    height: 64px;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(255, 255, 255, 0.18);
+    border-right-color: rgba(255, 255, 255, 0.18);
+    border-top-color: rgba(255, 255, 255, 0.18);
+    border-bottom-color: rgba(255, 255, 255, 0.18);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.inventory__cell:hover {
+    border-left-color: rgba(255, 255, 255, 0.5);
+    border-right-color: rgba(255, 255, 255, 0.5);
+    border-top-color: rgba(255, 255, 255, 0.5);
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+/* The item sprite. The controller only sets background-image; scale-to-fit keeps
+   odd-shaped sprites from stretching. */
+.inventory__icon {
+    flex-grow: 1;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* The storage chest window: 30 cells laid out 6 x 5, so it stands next to the backpack
+   without running off a small screen. */
+.inventory__grid--storage {
+    width: 432px;
+}
+
+/* Stack size, bottom-right of the cell. Created in code by InventoryPanel, empty when the stack is 1. */
+.inventory__count {
+    position: absolute;
+    right: 4px;
+    bottom: 2px;
+    font-size: 14px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+/* The cell an item is being dragged out of. Its icon stays, dimmed, until the drop lands. */
+.inventory__cell--held > .inventory__icon {
+    opacity: 0.3;
+}
+
+/* The icon riding the pointer while dragging. InventoryDragging sets left/top every frame;
+   it sits on the main panel so it can leave the window to be dropped outside. */
+.inventory__ghost {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* ================================ hotbar ================================ */
+
+/* The quick access bar. Same box look as the inventory window; the cells reuse
+   .inventory__cell and .inventory__icon so a slot looks the same in both. */
+.hotbar {
+    margin-right: 16px;
+    margin-bottom: 16px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: rgba(10, 9, 16, 0.85);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(255, 255, 255, 0.18);
+    border-right-color: rgba(255, 255, 255, 0.18);
+    border-top-color: rgba(255, 255, 255, 0.18);
+    border-bottom-color: rgba(255, 255, 255, 0.18);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* One row, never wraps. */
+.hotbar__grid {
+    flex-direction: row;
+}
+
+/* Added to a panel (backpack or hotbar) while an item is dragged from the other one:
+   it lights up green to say "you can put it here". Removed on release. Kept last in the
+   file so it wins over .inventory and .hotbar. */
+.slots--droppable {
+    background-color: rgba(40, 110, 50, 0.85);
+    border-left-color: rgb(78, 201, 96);
+    border-right-color: rgb(78, 201, 96);
+    border-top-color: rgb(78, 201, 96);
+    border-bottom-color: rgb(78, 201, 96);
+}

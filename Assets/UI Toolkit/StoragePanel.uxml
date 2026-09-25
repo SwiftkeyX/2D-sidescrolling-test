@@ -1,0 +1,98 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Overlay.uss?fileID=7433441132597879392&amp;guid=2a6f58d0b3e74c81af9d64e05b71c832&amp;type=3#Overlay"/>
+    <ui:VisualElement name="StoragePanel" class="inventory">
+        <ui:Label name="StorageTitle" picking-mode="Ignore" text="Storage Chest" class="inventory__title"/>
+        <ui:VisualElement name="StorageGrid" class="inventory__grid inventory__grid--storage">
+            <ui:VisualElement name="Cell0" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell1" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell2" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell3" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell4" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell5" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell6" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell7" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell8" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell9" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell10" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell11" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell12" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell13" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell14" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell15" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell16" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell17" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell18" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell19" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell20" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell21" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell22" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell23" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell24" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell25" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell26" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell27" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell28" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Cell29" class="inventory__cell">
+                <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

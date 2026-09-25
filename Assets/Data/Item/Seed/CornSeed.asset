@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4938a5a1eb9bcc4f9e99a34ee70b390, type: 3}
+  m_Name: CornSeed
+  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Farming.SeedSO
+  _displayName: Corn Seed
+  _icon: {fileID: 21300000, guid: f7553b61a6a55a74f83e6ac9c36bfc76, type: 2}
+  _category: 2
+  _growthStages:
+  - {fileID: 21300000, guid: f7553b61a6a55a74f83e6ac9c36bfc76, type: 2}
+  - {fileID: 21300000, guid: 55ee664ea24ff624dba944a69e6fb770, type: 2}
+  - {fileID: 21300000, guid: 1ff0411c10a99d6499e16bcc3ee2b19a, type: 2}
+  _harvest: {fileID: 11400000, guid: 08bee07b24078ac4db9cf8acae4ab37e, type: 2}

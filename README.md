@@ -144,17 +144,17 @@ I am not confidence in making inventory. So I'll start with what I am confidence
     wire dead event from stat.cs to statemachine
 - [x] when player die, teleport player back to home, reset HP
   - (16:40) add dead state to player. when player die he no longer can move or interact.  
-            create gameobject for home.
+    create gameobject for home.
 
 ## Design time hop mechanic
 
 **implement time hop (2hr):**
 
 - [x] make simple overlay using UI document to show current time. (Morning/Afternoon/Evening)
-  - (18:30) add text panel to UI document
-            implement time interval (Morning/Afternoon/Evening). 5 minute is 1 interval.
-            When the time is met, the light turn brighter/dimmer ? - no idea how to make daytime/nighttime in 2D game.
-            when the new day come, let text UI show current day in the center of the screen. And slowly fade away. 
+  - (18:30) add text panel to UI document  
+    implement time interval (Morning/Afternoon/Evening). 5 minute is 1 interval.  
+    When the time is met, the light turn brighter/dimmer ? - no idea how to make daytime/nighttime in 2D game.  
+    when the new day come, let text UI show current day in the center of the screen. And slowly fade away.
 - [x] simple collider for testing time hop mechanic. when player walk into it, skip to next interval.
   - (19:00) use the same trick to slime
 
@@ -164,26 +164,107 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
 
 ## Design inventory 
 
-**player can collect/use/remove/organize items**
+**player can collect/use/remove/organize items (6.30hr)**
 
-- [ ] make simple grid UI overlay for inventory window
-  - Each cell can be put the item sprite inside
-  - When player collect item, the item was added into the very first available grid.
-  - Player can drag items sprite around in the inventory, can replace/swap each items by dragging on top of them
+- [x] make simple grid UI overlay for inventory window (2.30hr)
+  - (7:50) Each cell can be put the item sprite inside - make a simple interface inventoryable - need sprite to put in the cell  
+    let open it with "O"
+  - (8:00) When player collect item, the item was added into the very first available grid.  
+    player pick item up by walking on top of them.
+  - (8:30) Player can drag items sprite around in the inventory, can replace/swap each items by dragging on top of them  
+    trying to get my old dragging code port here.  
+    let player drop the item too by dragging it out of inventory bound.  
+    player can organize the inventory by dragging item to each cell.
+  - (10:30) the drop item should be drop to the floor, not delete.  
+    the ghost doesn't work correctly. the ghost doesn't follow player's mouse.
 
+- [x] Inventory have 2 part: 1. the big inventory window open by "O" and 2. a overlay bar at the bottom for quick access  
+  The idea is (4hr)
+  - When the inventory is open:  
+    1\) player can drag item from inventory & access bar to re-arrange item, drop item.  
+    2\) but player can't use any active item: tool/seed/etc...
+  - if inventory is closed: player can use drag item from the access bar.  
+    1\) (deferred) drag tool outside of bound to equip it  
+    2\) (deferred) drag seed on to the ground to plant it  
+    3\) but player can't drag item to re-arrage or drop.
+  - (10:40) Make additional quick access bar at bottom right of the screen. Let it have 5 cell.  
+    When holding the item in inventory, make quick access bar green to indicate it can be interact with by putting item inside it.
+  - (11:00) make dragging between inventory and hotbar possible
+    I need to check new dragging.cs and check SlotGroup.cs too.
+    SlotGroup.cs look weird. Why does the inventory get init in the UI? it was init in player which is alright.
+  - (13:00) naming convetion is too confusing. We now have both inventory.cs that was inventory and hotbar. we also have UI that was name inventory.
+    The dragging.cs become too messy. It's no longer readable. Let discarded this.
+    Inventory and Hotbar are both inventory. Need better name to distinct them.
+  - (13:05) Okay, the functionality of inventory window & hotbar are similar but hotbar can do a bit more:
+      Inventory window can drag for re-arrange.
+      Hotbar can drag re-arrange & drag for item activation too. 
+    Functionality are from the UI part. So let make InventoryPanel a mother. 
+    Make 2 child: InventoryWindow & InventoryHotbar.
+    Rename the player's inventory to Backpack to prevent confusion.
+  - (13:45) Implement Hotbar panel to re-arrage with Backpack panel
+  - (14:20) Get Dragging.cs init out of backpack since it's no longer belong there since hotbar also use Dragging.cs
+  - (14:30) Add quality of lift: Block attacks while the backpack is open, and when clicking the hotbar
 
-   2. inventory can hold resources, tools, crafted objects, and seeds.
-      - [ ] Have several items in the game. Those items also was categorized.
-      - [ ] make at least 3 items in each category  
-        resource = lumber, carrot, red berry, corn  
-        tools = watering can, shovel, axes  
-        seed = carrot seed, red berry seed, corn seed  
-        crafted item = Storage Chest, Golden Veggie, Broccoli
-   3. inventory bar - a overlay bar at the bottom for quick access e.g. equipable, usable, or placeable
-      - [ ] use simple grid UI overlay like inventory window
-      - [ ] drag seeds from a bar on the ground to place it
-      - [ ] drag shovel from a bar on the seed, make the seed grow to flower
-      - [ ] that mean a seed is the class of it own. It have several variation of sprite when it was growth.
-   4. items can stack and have limit at 10 max
-      - [ ] Each cell in inventory keep a list<Stack>. Stack is class that keep a items variable and a number of the stack.
-# Day 3 Wrap thing up
+**items can be separated into resources, tools, crafted objects, and seeds (3hr)**
+- [x] inventory can hold resources, tools, crafted objects, and seeds.
+  - (14:40) make at least 3 items in each category  
+    resource = lumber, carrot, red berry, corn  
+    tools = wand, watering can, axes  
+    seed = carrot seed, red berry seed, corn seed  
+    crafted item = Storage Chest, Golden Veggie, Broccoli
+    (2hr break)
+  - (17:00) let ItemSO be a parent of all 4 categorize. Begin by making existing EquipmentSO a child to ItemSO.
+  - (17:15) add each ItemSO as planned. 
+  implement SeedSO.
+  re-organized file for ItemSO using their categorized.
+- [x] drag tools/seed/resource/crafted item from a bar outside the bound to use them
+  - (17:30) active for each tools  
+    draggin tool out of bound, equip the tool to the player. when equip, player activate tool using left click.
+    wand - shoot cube  
+    watering can - water seed - grow vegetable  
+    axes - cut tree - for lumber
+  - (18:30) behaviour for seed  
+    place the seed on the ground near releasing pointer.
+    all seed act the same. put on the ground. can grow by watering. if grow max, can be keep by player.  
+    that mean a seed is the class of it own. It have several variation of sprite when it was growth.
+  - resource does nothing but can be crafted
+  - (deferred) crafted item was other mechanic
+  - (deferred) make recipe  
+    x10 lumber = storage chest  
+    carrot + red berry + corn = golden veggie  
+    x3 golden veggie = broccoli
+
+- [ ] cleanup:
+  - Item can be drop on the world - when the item was drop let it float up and down a little
+  - implement .asmdef to force clean architecture
+  - dragging is left click, so it also trigger wand's attack. fix later.
+  - what is the difference between letting a item be a prefab and SO.
+  a prefab can have position and exist in the world. SO can't. 
+  In this case, ItemSO don't need the position in the world so it don't have to be prefab.
+  If it was a prefab, most of the item would just be a same gameobject with different sprite.
+  Only some of the item could be a prefab because it have different behaviour e.g. wand shooting cube. 
+
+# Day 3 
+
+## Design inventory
+ **?**
+- [x] cleanup from yesterday
+  - (7:30) continue make seed be able to planted/grow/harvest.
+  - (7:50) implment axes behaviour to cut the tree
+  implement tree prefab
+  when the tree is cut, the tree should drop x3 Lumber
+- [x] items can stack and have limit at 10 max
+  - (8:30) each cell in inventory keep a list<Stack>. Stack is class that keep a items variable and a number of the stack.
+  change to let the Item itself have a amount variable.
+  for simplicity, let Lumber the only 1 can stack more than 1.
+  when pickup item, it should be added to the very first cell. if the cell happen to be the same item, add them together.
+  - (9:50) implement storage chest
+  - (12:00) cleanup and refactor some code
+
+## Design Craft mechanic 
+- [ ] crafting is available from the "inventory" and "station crafting"
+  - (??) Make a Recipe class that hold every combination of each items. Let assume the crafting use only 3 item in total. The order while crafting doesn't matter.
+  - (??) Let station craftign have 3 craft cell
+  - (??) Let Inventory have 2 craft cell
+- [ ] requirement
+  - (??) A Storage Chest requiring 10x Lumber, which can hold 30 items when crafted and placed
