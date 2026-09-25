@@ -18,6 +18,7 @@ namespace SideScroller.Characters
     /// - Player.StateMachine.cs : what the states machine use - movement, ground check, respawn, animation
     /// - Player.Interact.cs     : pressing E on the closest interactable thing
     /// - Player.Inventory.cs    : backpack & hotbar, drop/use an item from a slot
+    /// - Player.Combat.cs       : left click uses the equipped tool
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D))]
     public partial class Player : MonoBehaviour
@@ -146,17 +147,6 @@ namespace SideScroller.Characters
 
             // try interact with Iinteractable e.g. Storage, Plant
             if (InteractPressed) TryInteract();
-        }
-
-        // ======================================== combat ========================================
-        // every tool activates the same way, the tool decides what that means
-        public void ActivateTool()
-        {
-            // the equipped item's behaviour, spawned by the slot
-            Equipment tool = _equipmentSlot.CurrentEquipment;
-            if (tool == null) return;
-
-            tool.Activate(GetAimDirection());
         }
     }
 }
