@@ -7,27 +7,52 @@ namespace SideScroller.Equipments
     public class EquipmentSlot
     {
         private readonly SpriteRenderer _renderer;
+        private readonly Transform _holder;     // the spawned behaviour is parented here
 
-        public EquipmentSO Current { get; private set; }
-        public Sprite Icon => Current == null ? null : Current.Icon;
-        public bool HasEquipment => Current != null;
+        public EquipmentSO SO { get; private set; }
+        public Equipment CurrentEquipment { get; private set; }
+        public Sprite Icon => SO == null ? null : SO.Icon;
+        public bool HasEquipment => SO != null;
 
-        public EquipmentSlot(SpriteRenderer renderer)
+        public EquipmentSlot(SpriteRenderer renderer, Transform holder)
         {
             _renderer = renderer;
+            _holder = holder;
             Refresh();
         }
 
         public void Equip(EquipmentSO equipment)
         {
-            Current = equipment;
+            // re-equipping the same tool keeps its behaviour
+            if (equipment == SO) return;
+
+            DespawnTool();
+            SO = equipment;
+            SpawnTool();
             Refresh();
         }
 
         public void Unequip()
         {
-            Current = null;
+            DespawnTool();
+            SO = null;
             Refresh();
+        }
+
+        // switch current equipment to set SO, and put it on the head
+        private void SpawnTool()
+        {
+            if (SO == null || SO.BehaviourPrefab == null) return;
+
+            CurrentEquipment = Object.Instantiate(SO.BehaviourPrefab, _holder);
+            CurrentEquipment.transform.localPosition = Vector3.zero;
+        }
+
+        // destroy current equipment
+        private void DespawnTool()
+        {
+            if (CurrentEquipment != null) Object.Destroy(CurrentEquipment.gameObject);
+            CurrentEquipment = null;
         }
 
         // renderer is switched off with empty hands, the anchor keeps following the player either way

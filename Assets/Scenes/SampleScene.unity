@@ -1001,6 +1001,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+--- !u!1001 &428142411
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2623900298174610656, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b80f9f5856bfbbf438f68766acc6f4e6, type: 2}
+    - target: {fileID: 4432730442637593014, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: _item
+      value: 
+      objectReference: {fileID: 11400000, guid: a17fea4007c498e4d93a9bfdd56dfea2, type: 2}
+    - target: {fileID: 6098393868027939047, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.2000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098393868027939047, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098393868027939047, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098393868027939047, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098393868027939047, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098393868027939047, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098393868027939047, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098393868027939047, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098393868027939047, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098393868027939047, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046252109861870055, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
+      propertyPath: m_Name
+      value: Carrot Seed
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3475221680c64cc47bf921cc49e9b592, type: 3}
 --- !u!1001 &436209601
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11493,8 +11558,6 @@ GameObject:
   - component: {fileID: 1136419353}
   - component: {fileID: 1136419350}
   - component: {fileID: 1136419356}
-  - component: {fileID: 1136419358}
-  - component: {fileID: 1136419357}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -11676,35 +11739,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Combat.Health
   _maxHealth: 30
   _team: 0
---- !u!114 &1136419357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136419348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbf611df7f07b41419506d5c5235de3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Farming.WateringCan
-  _data: {fileID: 11400000, guid: fa57a980328417143b9e2205227f3291, type: 2}
-  _reach: 3
-  _aimRadius: 0.5
---- !u!114 &1136419358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136419348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d65ea1c06c5d4a498e0a53a057cfb1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Combat.Wand
-  _data: {fileID: 11400000, guid: 85614674b0e633a48b56226ca77dca94, type: 2}
-  _bulletPrefab: {fileID: 9132770697416454547, guid: d04b80e9f8e14f04a846bd69e9da0a3c, type: 3}
 --- !u!1001 &1300219345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13456,3 +13490,4 @@ SceneRoots:
   - {fileID: 1696465618}
   - {fileID: 374589121}
   - {fileID: 58013499}
+  - {fileID: 428142411}

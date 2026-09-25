@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Equipments.EquipmentSO
   _displayName: WateringCan
   _icon: {fileID: 21300000, guid: 6e357de6cf16c6043b6c87aa86e2da44, type: 2}
+  _category: 0
   _type: 2
+  _behaviourPrefab: {fileID: 8830809683439624397, guid: f6b51f50253e8b841a7fea4470a1bfc9, type: 3}

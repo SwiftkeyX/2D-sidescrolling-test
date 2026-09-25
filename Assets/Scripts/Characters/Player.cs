@@ -22,7 +22,6 @@ namespace SideScroller.Characters
         private Stat _stat;
         // === equipment ===
         private EquipmentSlot _equipmentSlot;
-        private Equipment[] _tools;     
         [SerializeField] private EquipmentSO _startingEquipment;
         [SerializeField] private SpriteRenderer _equipmentRenderer;
         // === backpack ===
@@ -72,7 +71,7 @@ namespace SideScroller.Characters
         public float RespawnDelay => _respawnDelay;
 
         // ====== 5. equipment ======
-        public EquipmentSO EquippedItem => _equipmentSlot.Current;
+        public EquipmentSO EquippedItem => _equipmentSlot.SO;
         public bool HasEquipment => _equipmentSlot.HasEquipment;
 
         public void Equip(EquipmentSO equipment) => _equipmentSlot.Equip(equipment);
@@ -118,12 +117,11 @@ namespace SideScroller.Characters
             _camera = Camera.main;
             _collider = GetComponent<Collider2D>();
             _stat = GetComponent<Stat>();
-            _tools = GetComponents<Equipment>();
 
             _groundFilter = new ContactFilter2D();
             _groundFilter.useTriggers = false;
 
-            _equipmentSlot = new EquipmentSlot(_equipmentRenderer);
+            _equipmentSlot = new EquipmentSlot(_equipmentRenderer, transform);
             if (_startingEquipment != null) _equipmentSlot.Equip(_startingEquipment);
 
             // init starting tool into the hotbar, the equipped tool lives in the quick access bar
@@ -181,16 +179,11 @@ namespace SideScroller.Characters
         // every tool activates the same way, the tool decides what that means
         public void ActivateTool()
         {
-            if (_equipmentSlot.Current == null) return;
+            // the equipped item's behaviour, spawned by the slot
+            Equipment tool = _equipmentSlot.CurrentEquipment;
+            if (tool == null) return;
 
-            // the tool component matching what is equipped.
-            foreach (Equipment tool in _tools)
-            {
-                if (tool.Type != _equipmentSlot.Current.Type) continue;
-
-                tool.Activate(GetAimDirection());
-                return;
-            }
+            tool.Activate(GetAimDirection());
         }
 
         // ==== dying ====
@@ -249,7 +242,7 @@ namespace SideScroller.Characters
         {
             // check if it was a seed
             if (from.Get(slot) is not SeedSO seed) return;
-            
+
             // try plant it
             if (Plant.TryPlant(seed, worldPos) == null) return;
 

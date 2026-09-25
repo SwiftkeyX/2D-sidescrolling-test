@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Equipments.EquipmentSO
   _displayName: wand
   _icon: {fileID: 21300000, guid: fe91c840ae12f6a4780219f9f3f42593, type: 2}
+  _category: 0
   _type: 0
+  _behaviourPrefab: {fileID: 2386444493695451034, guid: cacb3ec40c11b1d488139b160c699b6b, type: 3}
