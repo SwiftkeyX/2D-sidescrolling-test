@@ -15,9 +15,12 @@ namespace SideScroller.Characters
     /// Player don't have any logic inside it BUT:
     /// 1) It's the ONLY Monobehavior for the Player, so it's here so we could make player interact with Unity.
     /// 2) it act like a glue, which mean itself don't contain any real logic.
+    /// Player is split over several files (partial class):
+    /// - Player.cs              : Inspector fields, Unity life cycle, input, equipment, inventory
+    /// - Player.StateMachine.cs : what the states machine use - movement, ground check, respawn, animation
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Player : MonoBehaviour
+    public partial class Player : MonoBehaviour
     {
         // ======================================== Dependency ========================================
         private PlayerStateMachine _stateMachine;
@@ -44,8 +47,6 @@ namespace SideScroller.Characters
         private Rigidbody2D _body;
         private SpriteRenderer _playerSprite;
         private Camera _camera;
-        private ContactFilter2D _groundFilter;
-        private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[1];
 
         // ======================================== Etc ========================================
         [SerializeField] private float _moveSpeed = 5f;
@@ -55,7 +56,6 @@ namespace SideScroller.Characters
         [SerializeField] private float _interactReach = 1.5f;
 
 
-        private const float GroundCheckDistance = 0.05f;    // distance used by raycast to check the ground
         private const float DropSpread = 0.3f;              // gap between items when a stack is dropped
 
         // ======================================== getter ========================================
@@ -70,15 +70,7 @@ namespace SideScroller.Characters
         public PlayerStateEnum PreviousStateType => _stateMachine.PreviousType;
         public PlayerStateEnum StateType => _stateMachine.CurrentType;
 
-        // ====== 3. jump state ======
-        // Cast collider below to check ground state
-        public bool IsGrounded => _collider.Cast(Vector2.down, _groundFilter, _groundHits, GroundCheckDistance) > 0;
-        public float VerticalVelocity => _body.linearVelocity.y;
-
-        // ====== 4. dying ======
-        public float RespawnDelay => _respawnDelay;
-
-        // ====== 5. equipment ======
+        // ====== 3. equipment ======
         public EquipmentSO EquippedItem => _equipmentSlot.SO;
         public bool HasEquipment => _equipmentSlot.HasEquipment;
 
@@ -86,18 +78,18 @@ namespace SideScroller.Characters
         public void Unequip() => _equipmentSlot.Unequip();
         public bool ToolsLocked { get; set; }
 
-        // ====== 6. inventory ======
+        // ====== 4. inventory ======
         public Inventory Backpack => _backpack ??= new Inventory(_backpackSize);
         public Inventory Hotbar => _hotbar ??= new Inventory(_hotbarSize);
 
-        // ====== 7. crafting ======
+        // ====== 5. crafting ======
         public Inventory CraftGrid => _craftGrid ??= new Inventory(_craftGridSize);
         public RecipeBookSO RecipeBook => _recipeBook;
 
         public Recipe LookupRecipe(Inventory grid) => _recipeBook == null ? null : _recipeBook.LookupRecipe(grid);
         public bool TryCraft(Inventory grid) => _recipeBook != null && _recipeBook.TryCraft(grid, Backpack);
 
-        // ====== 8. aim ======
+        // ====== 6. aim ======
         public float FacingDirection => _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
 
         // get direction from the player toward the pointer
@@ -130,10 +122,7 @@ namespace SideScroller.Characters
             _collider = GetComponent<Collider2D>();
             _stat = GetComponent<Stat>();
 
-            // only the Ground layer counts as ground, so the player can't jump off trees, slimes, etc.
-            _groundFilter = new ContactFilter2D();
-            _groundFilter.useTriggers = false;
-            _groundFilter.SetLayerMask(LayerMask.GetMask("Ground"));
+            InitGroundCheck();
 
             _equipmentSlot = new EquipmentSlot(_equipmentRenderer, transform);
             if (_startingEquipment != null) _equipmentSlot.Equip(_startingEquipment);
@@ -168,32 +157,7 @@ namespace SideScroller.Characters
             if (InteractPressed) TryInteract();
         }
 
-        // ======================================== state machine ========================================
-        // ==== movement ====
-        public void MoveHorizontal(float input)
-        {
-            _body.linearVelocity = new Vector2(input * _moveSpeed, _body.linearVelocity.y);
-        }
-
-        public void StopHorizontal()
-        {
-            _body.linearVelocity = new Vector2(0f, _body.linearVelocity.y);
-        }
-
-        public void ApplyJumpForce()
-        {
-            _body.linearVelocity = new Vector2(_body.linearVelocity.x, _jumpForce);
-        }
-
-        public void FaceMoveDirection(float input)
-        {
-            if (_playerSprite == null) return;
-            if (Mathf.Approximately(input, 0f)) return;
-
-            _playerSprite.flipX = input < 0f;
-        }
-
-        // ==== combat ====
+        // ======================================== combat ========================================
         // every tool activates the same way, the tool decides what that means
         public void ActivateTool()
         {
@@ -203,20 +167,6 @@ namespace SideScroller.Characters
 
             tool.Activate(GetAimDirection());
         }
-
-        // ==== dying ====
-        // Respawn player at the checkpoint
-        public void Respawn()
-        {
-            if (_checkpoint != null) transform.position = _checkpoint.position;
-
-            if (_stat != null) _stat.ResetHealth();
-        }
-
-        // ==== animator ====
-        // no Animator yet
-        public void PlayAnimation(PlayerStateEnum state) { }
-
 
         // ======================================== interact ========================================
         // press E on the closest interactable thing within reach
