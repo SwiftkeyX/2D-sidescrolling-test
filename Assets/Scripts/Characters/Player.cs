@@ -11,7 +11,6 @@ using UnityEngine.Serialization;
 
 namespace SideScroller.Characters
 {
-    // FIXLATER: Player is begin to be too big. Let's separate it smaller later.
     /// <summary>
     /// Player don't have any logic inside it BUT:
     /// 1) It's the ONLY Monobehavior for the Player, so it's here so we could make player interact with Unity.
@@ -28,7 +27,6 @@ namespace SideScroller.Characters
         [SerializeField] private EquipmentSO _startingEquipment;
         [SerializeField] private SpriteRenderer _equipmentRenderer;
         // === backpack ===
-        // FIXLATER:
         private Inventory _backpack;
         [FormerlySerializedAs("_inventorySize")]
         [SerializeField] private int _backpackSize = 10;

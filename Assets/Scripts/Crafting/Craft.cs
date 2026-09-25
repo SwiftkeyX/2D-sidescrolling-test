@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace SideScroller.Crafting
 {
-    /// FIXLATER: let rename this to Recipe later
     /// This class, "Craft" is to check if the ingredient match the correct ingredient.
     /// the order of items in the craft cells doesn't matter.
     [Serializable]
