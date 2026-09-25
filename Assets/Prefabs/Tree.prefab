@@ -739,6 +739,7 @@ GameObject:
   - component: {fileID: 3278020652388066334}
   - component: {fileID: 7604554616281643353}
   - component: {fileID: 4740946724008306974}
+  - component: {fileID: 1942766327390705647}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -862,6 +863,22 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &1942766327390705647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7628223515604232005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc3db9681377c940a036d6544fef130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Woodcutting.ChoppableTree
+  _hitsToCut: 3
+  _drop: {fileID: 11400000, guid: 4742b08feaa92cc45a045b8b979a8329, type: 2}
+  _dropCount: 3
+  _dropSpread: 0.6
 --- !u!1 &7772295738423094538
 GameObject:
   m_ObjectHideFlags: 0

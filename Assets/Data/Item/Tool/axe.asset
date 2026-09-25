@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Equipments.EquipmentSO
   _displayName: Axe
   _icon: {fileID: 21300000, guid: 0aba474174a3ff347ba9533ce33b7b78, type: 2}
+  _category: 0
   _type: 3
+  _equipment: {fileID: 5795101470217651144, guid: 4a046562c2e15ae4e830ed1590a5943e, type: 3}

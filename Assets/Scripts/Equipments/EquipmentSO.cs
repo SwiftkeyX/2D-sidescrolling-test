@@ -1,5 +1,6 @@
 using SideScroller.Inventories;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SideScroller.Equipments
 {
@@ -10,6 +11,7 @@ namespace SideScroller.Equipments
     public class EquipmentSO : ItemSO
     {
         [SerializeField] private EquipmentTypeEnum _type;
+        [FormerlySerializedAs("_behaviourPrefab")]
         [SerializeField] private Equipment _equipment;
 
         public EquipmentTypeEnum Type => _type;
