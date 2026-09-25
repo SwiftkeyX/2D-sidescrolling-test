@@ -1,6 +1,7 @@
 using SideScroller.Characters.States;
 using SideScroller.Combat;
 using SideScroller.Equipments;
+using SideScroller.Farming;
 using SideScroller.Input;
 using SideScroller.Inventories;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace SideScroller.Characters
         private Stat _stat;
         // === equipment ===
         private EquipmentSlot _equipmentSlot;
-        [SerializeField] private Equipment _equipment;
+        private Equipment[] _tools;     
         [SerializeField] private EquipmentSO _startingEquipment;
         [SerializeField] private SpriteRenderer _equipmentRenderer;
         // === backpack ===
@@ -117,6 +118,7 @@ namespace SideScroller.Characters
             _camera = Camera.main;
             _collider = GetComponent<Collider2D>();
             _stat = GetComponent<Stat>();
+            _tools = GetComponents<Equipment>();
 
             _groundFilter = new ContactFilter2D();
             _groundFilter.useTriggers = false;
@@ -179,11 +181,16 @@ namespace SideScroller.Characters
         // every tool activates the same way, the tool decides what that means
         public void ActivateTool()
         {
-            if (_equipment == null) return;
             if (_equipmentSlot.Current == null) return;
-            if (_equipmentSlot.Current.Type != _equipment.Type) return;
 
-            _equipment.Activate(GetAimDirection());
+            // the tool component matching what is equipped.
+            foreach (Equipment tool in _tools)
+            {
+                if (tool.Type != _equipmentSlot.Current.Type) continue;
+
+                tool.Activate(GetAimDirection());
+                return;
+            }
         }
 
         // ==== dying ====
@@ -237,10 +244,17 @@ namespace SideScroller.Characters
             }
         }
 
-        // FIXME: stub. planting comes with the Plant (D2, D3). for now the seed stays in the slot
+        // plant the seed on the ground near the pointer. 
         private void TryPlant(Inventory from, int slot, Vector2 worldPos)
         {
-            Debug.Log($"[Player] planting {from.Get(slot)?.DisplayName} at {worldPos} is not implemented yet.");
+            // check if it was a seed
+            if (from.Get(slot) is not SeedSO seed) return;
+            
+            // try plant it
+            if (Plant.TryPlant(seed, worldPos) == null) return;
+
+            // if success, remove that seed from the backpack 
+            from.Remove(slot);
         }
 
 
