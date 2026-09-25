@@ -18,9 +18,13 @@ namespace SideScroller.Farming
         // e.g. Carrot
         [SerializeField] private ItemSO _harvest;
 
+        // when harvest, drop x amount of seed
+        [SerializeField, Min(0)] private int _seedsOnHarvest = 3;
+
         public int StageCount => _growthStages == null ? 0 : _growthStages.Length;
         public int GrownStage => StageCount - 1;
         public ItemSO Harvest => _harvest;
+        public int SeedsOnHarvest => _seedsOnHarvest;
 
         // the sprite for one growth stage. null if there is no such stage
         public Sprite StageSprite(int stage)

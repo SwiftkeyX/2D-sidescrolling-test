@@ -1,5 +1,6 @@
 using SideScroller.Characters;
 using SideScroller.Interactions;
+using SideScroller.Inventories;
 using UnityEngine;
 
 namespace SideScroller.Farming
@@ -8,13 +9,14 @@ namespace SideScroller.Farming
     /// the SeedSO.cs decides the look and when to harvest:
     /// 1) planted near the pointer, standing on the ground
     /// 2) each watering grows it one stage
-    /// 3) fully grown + player walks into it = the harvest goes into the backpack, the plant is gone
+    /// 3) fully grown + player presses E on it = the harvest goes into the backpack, 3 seeds drop on the ground, the plant is gone
     [RequireComponent(typeof(Collider2D))]
     public class Plant : MonoBehaviour, IInteractable
     {
         private const string PrefabPath = "Plant";          // path to /Resource and loaded into scene
         private const float SpaceCheckRadius = 0.4f;        // one plant per spot
         private const float GroundSearchDistance = 4f;
+        private const float SeedDropSpread = 0.5f;          // gap between the seeds dropped on harvest
 
         [SerializeField] private SpriteRenderer _renderer;
 
@@ -50,12 +52,12 @@ namespace SideScroller.Farming
 
             // instantiate to world
             Plant plant = Instantiate(prefab, ground.point, Quaternion.identity);
-            
+
             // set the gameobject's seed to the right one
             plant.name = seed.DisplayName;
             plant._seed = seed;
             plant._stage = 0;
-            
+
             // render the seed sprite, and place it
             plant.ShowStage();
             plant.PlaceOn(ground.point.y);
@@ -74,13 +76,27 @@ namespace SideScroller.Farming
         }
 
         // ================================= 3. harvest =================================
-        // if the plant is grown, player press E on it, the plant is collected into player's backpack
+        // if the plant is grown, player press E on it:
+        // the harvest is collected into player's backpack, and some of its seed drop on the ground
         public void Interact(Player player)
         {
             if (!IsGrown) return;
 
-            // backpack full = the plant waits
-            if (player.Backpack.TryAdd(_seed.Harvest)) Destroy(gameObject);
+            ItemPickup.Spawn(_seed.Harvest, transform.position);
+            DropSeeds();
+            Destroy(gameObject);
+        }
+
+        private void DropSeeds()
+        {
+            int count = _seed.SeedsOnHarvest;
+            Vector2 origin = (Vector2)transform.position + Vector2.up * 0.5f;
+            float first = -(count - 1) * SeedDropSpread / 2f;
+
+            for (int i = 0; i < count; i++)
+            {
+                ItemPickup.Spawn(_seed, origin + new Vector2(first + i * SeedDropSpread, 0f));
+            }
         }
 
         // ================================= private =================================
