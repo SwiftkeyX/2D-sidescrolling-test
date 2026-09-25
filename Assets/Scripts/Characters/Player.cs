@@ -225,7 +225,8 @@ namespace SideScroller.Characters
         // use the item in the slot. what "use" means depends on the item's category:
         // Tool     => equip it. it stays in the slot, left click uses it
         // Seed     => plant it where the pointer is
-        // Resource, Crafted => nothing, it stays in the slot
+        // Crafted  => placeable ones (e.g. Storage Chest) are put down where the pointer is
+        // Resource => nothing, it stays in the slot
         public void UseItem(Inventory from, int slot)
         {
             IInventoryable item = from.Get(slot);
@@ -239,6 +240,13 @@ namespace SideScroller.Characters
 
                 case ItemCategoryEnum.Seed:
                     TryPlant(from, slot, GetPointerWorldPosition());
+                    break;
+
+                // FIXME: all crafted item shouldn't be able to placed. 
+                // the storage chest should have another categorize "Building"
+                // let Building be the category to able to be placed.
+                case ItemCategoryEnum.Crafted:
+                    TryPlace(from, slot, GetPointerWorldPosition());
                     break;
             }
         }
@@ -256,6 +264,18 @@ namespace SideScroller.Characters
             from.Remove(slot);
         }
 
+        // put the item down on the ground near the pointer 
+        // e.g. a storage chest
+        private void TryPlace(Inventory from, int slot, Vector2 worldPos)
+        {
+            // check it it was placeable
+            if (from.Get(slot) is not PlaceableSO placeable) return;
 
+            // try place 
+            if (placeable.TryPlace(worldPos) == null) return;
+
+            // if success, the placed item leaves the slot
+            from.Remove(slot);
+        }
     }
 }

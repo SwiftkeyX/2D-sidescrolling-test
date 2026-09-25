@@ -15,27 +15,17 @@ namespace SideScroller.UI
     {
         [SerializeField] private bool _startShown;
 
-        private bool _shown;
-
         protected override string GridName => "BackpackGrid";
         protected override Inventory PickInventory(Player player) => player.Backpack;
 
         // =================================== public ===================================
-        // is the window open? dragging is only allowed while it is
-        public bool IsShown => _shown;
-
-        // open/close the window
-        public void Toggle()
-        {
-            _shown = !_shown;
-            SetShown(_shown);
-        }
+        // open/close the window. dragging to re-arrange is only allowed while it is open (IsShown)
+        public void Toggle() => SetShown(!IsShown);
 
         // =================================== Life cycle ===================================
         protected override void OnInventoryMounted(VisualElement panel)
         {
-            _shown = _startShown;
-            SetShown(_shown);
+            SetShown(_startShown);
         }
 
         void Update()

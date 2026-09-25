@@ -66,13 +66,13 @@ namespace SideScroller.UI
         // which slot is under the pointer? -1 = none
         public int SlotAt(Vector2 panelPos)
         {
-            if (_cells == null || Panel == null) return -1;
+            if (_cells == null || Inventory == null || !IsShown) return -1;
 
             return Picker.At(Panel.panel, panelPos, _cells);
         }
 
         // is the pointer inside this panel's box?
-        public bool IsPointerInside(Vector2 panelPos) => Panel != null && Panel.worldBound.Contains(panelPos);
+        public bool IsPointerInside(Vector2 panelPos) => IsShown && Panel.worldBound.Contains(panelPos);
 
         // dim the cell whose item is being dragged
         public void ShowHeld(int slot, bool held)
@@ -102,13 +102,33 @@ namespace SideScroller.UI
                 return;
             }
 
-            Inventory = PickInventory(_player);
-            Inventory.SlotChanged += SetItem;
-
             FindCells();
-            InitItem();
+            BindPanelToInventory(PickInventory(_player));
 
             OnInventoryMounted(panel);
+        }
+
+        // Currently there's 3 type of inventory panel: Backpack, Hotbar, and Storage
+        // 1) BackpackPanel and HotbarPanel are bind once to their panel.
+        // 2) BUT StoragePanel can be rebind several time since we can have several storage at once.
+        // the StoragePanel need to be able to connect to all of them. 
+        protected void BindPanelToInventory(Inventory inventory)
+        {
+            if (Inventory != null) Inventory.SlotChanged -= SetItem;
+
+            Inventory = inventory;
+            if (Inventory != null)
+            {
+                Inventory.SlotChanged += SetItem;
+
+                // the uxml and the inventory should agree on how many slots there are
+                if (_cells.Length != Inventory.Size)
+                {
+                    Debug.LogWarning($"{GetType().Name}: uxml has {_cells.Length} cells but the inventory has {Inventory.Size} slots.");
+                }
+            }
+
+            InitItem();
         }
 
         protected virtual void OnDisable()
@@ -134,21 +154,15 @@ namespace SideScroller.UI
                 _counts[i].AddToClassList(CountClass);
                 _cells[i].Add(_counts[i]);
             }
-
-            // the uxml and the inventory should agree on how many slots there are
-            if (_cells.Length != Inventory.Size)
-            {
-                Debug.LogWarning($"{GetType().Name}: uxml has {_cells.Length} cells but the inventory has {Inventory.Size} slots.");
-            }
         }
 
         // init the item that this inventory already hold
         // e.g. the starting tool
         private void InitItem()
         {
-            for (int i = 0; i < Inventory.Size; i++)
+            for (int i = 0; i < _cells.Length; i++)
             {
-                SetItem(i, Inventory.GetStack(i));
+                SetItem(i, Inventory?.GetStack(i));
             }
         }
     }

@@ -224,6 +224,12 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+/* The storage chest window: 30 cells laid out 6 x 5, so it stands next to the backpack
+   without running off a small screen. */
+.inventory__grid--storage {
+    width: 432px;
+}
+
 /* Stack size, bottom-right of the cell. Created in code by InventoryPanel, empty when the stack is 1. */
 .inventory__count {
     position: absolute;

@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9aff747dd382ca47885830596613591, type: 3}
+  m_Script: {fileID: 11500000, guid: f8933559798c8344098365093c18e632, type: 3}
   m_Name: StorageChest
-  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Inventories.ItemSO
+  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Inventories.PlaceableSO
   _displayName: Storage Chest
   _icon: {fileID: 21300000, guid: 758d27c78d6d82e4a97ce80c18f5e06f, type: 2}
   _category: 3
+  _maxStack: 1
+  _prefab: {fileID: 6908162902315762201, guid: 535abdfb4d5c8554db65240084e14127, type: 3}

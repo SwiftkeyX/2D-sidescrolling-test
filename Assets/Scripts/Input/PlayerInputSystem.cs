@@ -29,6 +29,7 @@ namespace SideScroller.Input
         public static bool JumpPressedThisFrame => Actions.Player.Jump.WasPressedThisFrame();
         public static bool AttackPressedThisFrame => Actions.Player.Attack.WasPressedThisFrame();
         public static bool InventoryPressedThisFrame => Actions.Player.Inventory.WasPressedThisFrame();
+        public static bool InteractPressedThisFrame => Actions.Player.Interact.WasPressedThisFrame();
         
         // left/right click 
         public static bool IsPointerDown => Mouse.current != null && Mouse.current.leftButton.isPressed;

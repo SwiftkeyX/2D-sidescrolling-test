@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using SideScroller.Characters;
 using SideScroller.Input;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace SideScroller.UI
         [SerializeField] private Player _player;
         [SerializeField] private InventoryBackpackPanel _backpackPanel;
         [SerializeField] private InventoryHotbarPanel _hotbarPanel;
+        [SerializeField] private InventoryStoragePanel _storagePanel;
         [SerializeField] private StyleSheet _ghostStyle;
 
         private VisualElement _ghost;
@@ -76,22 +78,23 @@ namespace SideScroller.UI
             if (_player == null) _player = FindFirstObjectByType<Player>();
             if (_backpackPanel == null) _backpackPanel = FindFirstObjectByType<InventoryBackpackPanel>();
             if (_hotbarPanel == null) _hotbarPanel = FindFirstObjectByType<InventoryHotbarPanel>();
+            if (_storagePanel == null) _storagePanel = FindFirstObjectByType<InventoryStoragePanel>();
 
             // basic guard
             if (_player == null || _backpackPanel == null || _backpackPanel.Inventory == null) return false;
             if (_hotbarPanel != null && _hotbarPanel.Inventory == null) return false;
 
-            // basic guard + send backpack & hotbar to InventoryPanel
-            InventoryPanel[] arrangePanels = _hotbarPanel == null
-                ? new InventoryPanel[] { _backpackPanel }
-                : new InventoryPanel[] { _backpackPanel, _hotbarPanel };
+            // basic guard + send backpack & hotbar & storage to InventoryPanel
+            List<InventoryPanel> arrangePanels = new() { _backpackPanel };
+            if (_hotbarPanel != null) arrangePanels.Add(_hotbarPanel);
+            if (_storagePanel != null) arrangePanels.Add(_storagePanel);
 
             // init ghost
             _ghost = BuildGhost();
 
             // init arrange mode
             _arrange = new Dragging(
-                panels: arrangePanels,  // arrange mode need both backpack & hotbar 
+                panels: arrangePanels.ToArray(),  // arrange mode need backpack & hotbar & storage
                 ghost: _ghost,
                 canRearrange: true,
                 releasedOutside: _player.DropItem   // dropping outside mean dropping item on the floor
