@@ -268,13 +268,16 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     implement Ingredient for a ingredient in crafting mechanic.
     implement craft panel: 1) backpack 2) stationary
 
-- [ ] cleanup:
-  - (14:00) make other seed be able to stack too
+**cleanup overall (???)**
+- [x] (14:00) cleanup:
+  - make other seed be able to stack too
   - when seed was grow and pickup, let make it drop the additional x3 seed too.
   - the character can jump off the tree which is not intented.
   Likely because the collider's cast check for any collision without filtering. 
   - player is too big, let separate it into smaller class.
   - implement .asmdef to force clean architecture
+  how about adding item namespace and move item/equipment stuff inside it.
+  how about moving all interface into 1 place, contract namespace. skip.
 
 # NOTE
 What is the difference between letting a item be a prefab and SO.
