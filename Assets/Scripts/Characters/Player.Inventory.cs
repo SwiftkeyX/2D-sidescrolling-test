@@ -8,7 +8,7 @@ namespace SideScroller.Characters
     /// part of the Player: the backpack & hotbar, and what the player does with an item in a slot.
     /// 1) drop: the whole stack goes on the floor in front of the player
     /// 2) use: equip a tool / plant a seed / place a placeable
-    public partial class Player
+    public partial class Player : IItemCollector
     {
         private const float DropSpread = 0.3f;              // gap between items when a stack is dropped
 
@@ -19,6 +19,10 @@ namespace SideScroller.Characters
         // ======================================== getter ========================================
         public Inventory Backpack => _backpack ??= new Inventory(_backpackSize);
         public Inventory Hotbar => _hotbar ??= new Inventory(_hotbarSize);
+
+        // ======================================== interface ========================================
+        // walking into an item lying in the world, collect it into the backpack
+        public bool TryCollect(IInventoryable item) => Backpack.TryAdd(item);
 
 
         // ======================================== use ========================================
