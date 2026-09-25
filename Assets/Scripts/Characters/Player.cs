@@ -2,7 +2,6 @@ using SideScroller.Characters.States;
 using SideScroller.Combat;
 using SideScroller.Crafting;
 using SideScroller.Equipments;
-using SideScroller.Farming;
 using SideScroller.Input;
 using SideScroller.Inventories;
 using UnityEngine;
@@ -15,9 +14,10 @@ namespace SideScroller.Characters
     /// 1) It's the ONLY Monobehavior for the Player, so it's here so we could make player interact with Unity.
     /// 2) it act like a glue, which mean itself don't contain any real logic.
     /// Player is split over several files (partial class):
-    /// - Player.cs              : Inspector fields, Unity life cycle, input, equipment, inventory
+    /// - Player.cs              : Inspector fields, Unity life cycle, input, equipment, crafting, aim
     /// - Player.StateMachine.cs : what the states machine use - movement, ground check, respawn, animation
     /// - Player.Interact.cs     : pressing E on the closest interactable thing
+    /// - Player.Inventory.cs    : backpack & hotbar, drop/use an item from a slot
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D))]
     public partial class Player : MonoBehaviour
@@ -30,11 +30,9 @@ namespace SideScroller.Characters
         [SerializeField] private EquipmentSO _startingEquipment;
         [SerializeField] private SpriteRenderer _equipmentRenderer;
         // === backpack ===
-        private Inventory _backpack;
         [FormerlySerializedAs("_inventorySize")]
         [SerializeField] private int _backpackSize = 10;
         // === hotbar ===
-        private Inventory _hotbar;
         [SerializeField] private int _hotbarSize = 5;
         [SerializeField] private float _dropDistance = 1.5f;
         // === crafting ===
@@ -54,9 +52,6 @@ namespace SideScroller.Characters
         [SerializeField] private Transform _checkpoint;
         [SerializeField] private float _respawnDelay = 1.5f;
         [SerializeField] private float _interactReach = 1.5f;
-
-
-        private const float DropSpread = 0.3f;              // gap between items when a stack is dropped
 
         // ======================================== getter ========================================
         // ====== 1. input ======
@@ -78,18 +73,14 @@ namespace SideScroller.Characters
         public void Unequip() => _equipmentSlot.Unequip();
         public bool ToolsLocked { get; set; }
 
-        // ====== 4. inventory ======
-        public Inventory Backpack => _backpack ??= new Inventory(_backpackSize);
-        public Inventory Hotbar => _hotbar ??= new Inventory(_hotbarSize);
-
-        // ====== 5. crafting ======
+        // ====== 4. crafting ======
         public Inventory CraftGrid => _craftGrid ??= new Inventory(_craftGridSize);
         public RecipeBookSO RecipeBook => _recipeBook;
 
         public Recipe LookupRecipe(Inventory grid) => _recipeBook == null ? null : _recipeBook.LookupRecipe(grid);
         public bool TryCraft(Inventory grid) => _recipeBook != null && _recipeBook.TryCraft(grid, Backpack);
 
-        // ====== 6. aim ======
+        // ====== 5. aim ======
         public float FacingDirection => _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
 
         // get direction from the player toward the pointer
@@ -166,71 +157,6 @@ namespace SideScroller.Characters
             if (tool == null) return;
 
             tool.Activate(GetAimDirection());
-        }
-
-        // ======================================== inventory ========================================
-        // take the whole stack out of the slot and drop it on the floor in front of the player
-        public void DropItem(Inventory from, int slot)
-        {
-            ItemStack stack = from.GetStack(slot);
-            if (stack == null) return;
-
-            Vector2 front = (Vector2)transform.position + new Vector2(FacingDirection * _dropDistance, 0f);
-
-            // drop item = spawn item into the world
-            int dropped = 0;
-            for (int i = 0; i < stack.Count; i++)
-            {
-                if (ItemPickup.Spawn(stack.Item, front + new Vector2(i * DropSpread, 0f)) == null) break;
-                dropped++;
-            }
-
-            // remove dropped item from inventory
-            if (dropped > 0) from.Remove(slot, dropped);
-        }
-
-        // use the item in the slot. what "use" means depends on what kind of item it is (its type, not its category):
-        // EquipmentSO => equip it. it stays in the slot, left click uses it
-        // SeedSO      => plant it where the pointer is
-        // PlaceableSO => put it down where the pointer is, e.g. storage chest
-        // anything else, e.g. Lumber, Golden Veggie => nothing, it stays in the slot
-        public void UseItem(Inventory from, int slot)
-        {
-            switch (from.Get(slot))
-            {
-                case EquipmentSO tool:
-                    Equip(tool);
-                    break;
-
-                case SeedSO seed:
-                    TryPlant(seed, from, slot, GetPointerWorldPosition());
-                    break;
-
-                case PlaceableSO placeable:
-                    TryPlace(placeable, from, slot, GetPointerWorldPosition());
-                    break;
-            }
-        }
-
-        // plant the seed on the ground near the pointer. 
-        private void TryPlant(SeedSO seed, Inventory from, int slot, Vector2 worldPos)
-        {
-            // try plant it
-            if (Plant.TryPlant(seed, worldPos) == null) return;
-
-            // if success, take one seed off the stack
-            from.Remove(slot);
-        }
-
-        // put the item down on the ground near the pointer 
-        // e.g. a storage chest
-        private void TryPlace(PlaceableSO placeable, Inventory from, int slot, Vector2 worldPos)
-        {
-            // try place 
-            if (placeable.TryPlace(worldPos) == null) return;
-
-            // if success, the placed item leaves the slot
-            from.Remove(slot);
         }
     }
 }
