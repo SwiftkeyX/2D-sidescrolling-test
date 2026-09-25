@@ -2,11 +2,23 @@
 
 **Deadline:** 25/9/69
 
+- [Controls](#controls)
 - [Day 0 — Planning](#day-0-22969--planning)
 - [Day 1 — Player controller, combat, time hop](#day-1--player-controller-combat-time-hop)
 - [Day 2 — Inventory](#day-2--inventory)
 - [Day 3 — Inventory, crafting, cleanup](#day-3--inventory-crafting-cleanup)
 - [Notes](#notes)
+
+---
+
+# Controls
+
+| Key        | Action          |
+| ---------- | --------------- |
+| W A S D    | Walk            |
+| E          | Interact        |
+| O          | Inventory       |
+| Left Click | Activate tool   |
 
 ---
 
