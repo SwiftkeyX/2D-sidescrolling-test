@@ -265,41 +265,32 @@ namespace SideScroller.Characters
             if (dropped > 0) from.Remove(slot, dropped);
         }
 
-        // use the item in the slot. what "use" means depends on the item's category:
-        // Tool     => equip it. it stays in the slot, left click uses it
-        // Seed     => plant it where the pointer is
-        // Crafted  => placeable ones (e.g. Storage Chest) are put down where the pointer is
-        // Resource => nothing, it stays in the slot
+        // use the item in the slot. what "use" means depends on what kind of item it is (its type, not its category):
+        // EquipmentSO => equip it. it stays in the slot, left click uses it
+        // SeedSO      => plant it where the pointer is
+        // PlaceableSO => put it down where the pointer is, e.g. storage chest
+        // anything else, e.g. Lumber, Golden Veggie => nothing, it stays in the slot
         public void UseItem(Inventory from, int slot)
         {
-            IInventoryable item = from.Get(slot);
-            if (item == null) return;
-
-            switch (item.Category)
+            switch (from.Get(slot))
             {
-                case ItemCategoryEnum.Tool:
-                    if (item is EquipmentSO tool) Equip(tool);
+                case EquipmentSO tool:
+                    Equip(tool);
                     break;
 
-                case ItemCategoryEnum.Seed:
-                    TryPlant(from, slot, GetPointerWorldPosition());
+                case SeedSO seed:
+                    TryPlant(seed, from, slot, GetPointerWorldPosition());
                     break;
 
-                // FIXME: all crafted item shouldn't be able to placed. 
-                // the storage chest should have another categorize "Building"
-                // let Building be the category to able to be placed.
-                case ItemCategoryEnum.Crafted:
-                    TryPlace(from, slot, GetPointerWorldPosition());
+                case PlaceableSO placeable:
+                    TryPlace(placeable, from, slot, GetPointerWorldPosition());
                     break;
             }
         }
 
         // plant the seed on the ground near the pointer. 
-        private void TryPlant(Inventory from, int slot, Vector2 worldPos)
+        private void TryPlant(SeedSO seed, Inventory from, int slot, Vector2 worldPos)
         {
-            // check if it was a seed
-            if (from.Get(slot) is not SeedSO seed) return;
-
             // try plant it
             if (Plant.TryPlant(seed, worldPos) == null) return;
 
@@ -309,11 +300,8 @@ namespace SideScroller.Characters
 
         // put the item down on the ground near the pointer 
         // e.g. a storage chest
-        private void TryPlace(Inventory from, int slot, Vector2 worldPos)
+        private void TryPlace(PlaceableSO placeable, Inventory from, int slot, Vector2 worldPos)
         {
-            // check it it was placeable
-            if (from.Get(slot) is not PlaceableSO placeable) return;
-
             // try place 
             if (placeable.TryPlace(worldPos) == null) return;
 

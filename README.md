@@ -33,10 +33,10 @@ Feature 0. player can move, jump
    2. inventory can hold resources, tools, crafted objects, and seeds.
       - [ ] Have several items in the game. Those items also was categorized.
       - [ ] make at least 3 items in each category  
-            resource = lumber, carrot, red berry, corn  
-            tools = watering can, shovel, axes  
-            seed = carrot seed, red berry seed, corn seed  
-            crafted item = Storage Chest, Golden Veggie, Broccoli
+             resource = lumber, carrot, red berry, corn  
+             tools = watering can, shovel, axes  
+             seed = carrot seed, red berry seed, corn seed  
+             crafted item = Storage Chest, Golden Veggie, Broccoli
    3. inventory bar - a overlay bar at the bottom for quick access e.g. equipable, usable, or placeable
       - [ ] use simple grid UI overlay like inventory window
       - [ ] drag seeds from a bar on the ground to place it
@@ -179,7 +179,7 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     the ghost doesn't work correctly. the ghost doesn't follow player's mouse.
 
 - [x] Inventory have 2 part: 1. the big inventory window open by "O" and 2. a overlay bar at the bottom for quick access  
-      The idea is (4hr)
+       The idea is (4hr)
   - When the inventory is open:  
     1\) player can drag item from inventory & access bar to re-arrange item, drop item.  
     2\) but player can't use any active item: tool/seed/etc...
@@ -235,15 +235,6 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     carrot + red berry + corn = golden veggie  
     x3 golden veggie = broccoli
 
-- [ ] cleanup:
-  - Item can be drop on the world - when the item was drop let it float up and down a little
-  - implement .asmdef to force clean architecture
-  - dragging is left click, so it also trigger wand's attack. fix later.
-  - what is the difference between letting a item be a prefab and SO.
-    a prefab can have position and exist in the world. SO can't.
-    In this case, ItemSO don't need the position in the world so it don't have to be prefab.
-    If it was a prefab, most of the item would just be a same gameobject with different sprite.
-    Only some of the item could be a prefab because it have different behaviour e.g. wand shooting cube.
 
 # Day 3
 
@@ -269,12 +260,25 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
 
 ## Design Craft mechanic
 
+**crafting mechanic overall (2hr)**
+
 - [ ] crafting is available from the "inventory" and "station crafting"
   - (12:20) implement RecipeSO for listing all crafting recipe
-  implement Craft to check if the ingredient match the Recipe
-  implement Ingredient for a ingredient in crafting mechanic.
-  implement craft panel: 1) backpack 2) stationary
-  - (??) Let station craftign have 3 craft cell
-  - (??) Let Inventory have 2 craft cell
-- [ ] requirement
-  - (??) A Storage Chest requiring 10x Lumber, which can hold 30 items when crafted and placed
+    implement Craft to check if the ingredient match the Recipe
+    implement Ingredient for a ingredient in crafting mechanic.
+    implement craft panel: 1) backpack 2) stationary
+
+- [ ] cleanup:
+  - (??) make other seed be able to stack too
+  - when seed was grow and pickup, let make it drop the additional x3 seed too.
+  - the character can jump off the tree which is not intented.
+  - player is too big, let separate it into smaller class.
+  - Item can be drop on the world - when the item was drop let it float up and down a little
+  - implement .asmdef to force clean architecture
+
+# NOTE
+What is the difference between letting a item be a prefab and SO.
+  a prefab can have position and exist in the world. SO can't.
+  In this case, ItemSO don't need the position in the world so it don't have to be prefab.
+  If it was a prefab, most of the item would just be a same gameobject with different sprite.
+  Only some of the item could be a prefab because it have different behaviour e.g. wand shooting cube.
