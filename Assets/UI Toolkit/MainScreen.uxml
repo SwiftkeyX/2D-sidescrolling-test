@@ -2,6 +2,11 @@
     <ui:Template name="ClockPanel" src="project://database/Assets/UI%20Toolkit/ClockPanel.uxml?fileID=9197481963319205126&amp;guid=e10d4b8a629f4c73b5d28a07f61c93e5&amp;type=3#ClockPanel"/>
     <ui:Template name="HealthPanel" src="project://database/Assets/UI%20Toolkit/HealthPanel.uxml?fileID=9197481963319205126&amp;guid=8e043b71f6c24a9db538702ec1af49d6&amp;type=3#HealthPanel"/>
     <ui:Template name="DayBannerPanel" src="project://database/Assets/UI%20Toolkit/DayBannerPanel.uxml?fileID=9197481963319205126&amp;guid=b39f07c1e4a5426d81cf902b7e5a4d16&amp;type=3#DayBannerPanel"/>
+    <ui:Template name="HotbarPanel" src="project://database/Assets/UI%20Toolkit/HotbarPanel.uxml?fileID=9197481963319205126&amp;guid=926be44878b2e46459d251a9e1e12c91&amp;type=3#HotbarPanel"/>
+    <ui:Template name="InventoryPanel" src="project://database/Assets/UI%20Toolkit/InventoryPanel.uxml?fileID=9197481963319205126&amp;guid=0c9b1f7a11de7ae48a5e4bad7dfcedf4&amp;type=3#InventoryPanel"/>
+    <ui:Template name="CraftPanel" src="project://database/Assets/UI%20Toolkit/CraftPanel.uxml?fileID=9197481963319205126&amp;guid=76e2e36e83befb64a9e55fd28080ec36&amp;type=3#CraftPanel"/>
+    <ui:Template name="StoragePanel" src="project://database/Assets/UI%20Toolkit/StoragePanel.uxml?fileID=9197481963319205126&amp;guid=9a85747060398404e875b1753a5ae3fb&amp;type=3#StoragePanel"/>
+    <ui:Template name="StationCraftPanel" src="project://database/Assets/UI%20Toolkit/StationCraftPanel.uxml?fileID=9197481963319205126&amp;guid=020a1b3db182d7249bb8b9203863f7d7&amp;type=3#StationCraftPanel"/>
     <ui:VisualElement name="Root" picking-mode="Ignore" style="flex-grow: 1; width: 100%; height: 100%;">
         <ui:VisualElement name="Top" style="flex-grow: 1; height: auto; max-height: 10%; flex-direction: row;">
             <ui:VisualElement name="HealthPanel" picking-mode="Ignore" style="position: relative; left: auto; top: auto; flex-grow: 1;">
@@ -11,14 +16,24 @@
                 <ui:Instance template="ClockPanel"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="HotbarPanel" picking-mode="Ignore" style="position: absolute; left: 0; right: 0; bottom: 0; align-items: flex-end;"/>
+        <ui:VisualElement name="HotbarPanel" picking-mode="Ignore" style="position: absolute; left: 0; right: 0; bottom: 0; align-items: flex-end;">
+            <ui:Instance template="HotbarPanel"/>
+        </ui:VisualElement>
         <ui:VisualElement name="Windows" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; flex-direction: row; align-items: center; justify-content: center;">
             <ui:VisualElement name="BackpackColumn" picking-mode="Ignore" style="align-items: center;">
-                <ui:VisualElement name="InventoryPanel" picking-mode="Ignore"/>
-                <ui:VisualElement name="CraftPanel" picking-mode="Ignore" style="margin-top: 12px;"/>
+                <ui:VisualElement name="InventoryPanel" picking-mode="Ignore">
+                    <ui:Instance template="InventoryPanel"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="CraftPanel" picking-mode="Ignore" style="margin-top: 12px;">
+                    <ui:Instance template="CraftPanel"/>
+                </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="StoragePanel" picking-mode="Ignore" style="margin-left: 16px;"/>
-            <ui:VisualElement name="StationCraftPanel" picking-mode="Ignore" style="margin-left: 16px;"/>
+            <ui:VisualElement name="StoragePanel" picking-mode="Ignore" style="margin-left: 16px;">
+                <ui:Instance template="StoragePanel"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="StationCraftPanel" picking-mode="Ignore" style="margin-left: 16px;">
+                <ui:Instance template="StationCraftPanel"/>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="DayBannerPanel" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
             <ui:Instance template="DayBannerPanel"/>
