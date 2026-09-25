@@ -130,8 +130,10 @@ namespace SideScroller.Characters
             _collider = GetComponent<Collider2D>();
             _stat = GetComponent<Stat>();
 
+            // only the Ground layer counts as ground, so the player can't jump off trees, slimes, etc.
             _groundFilter = new ContactFilter2D();
             _groundFilter.useTriggers = false;
+            _groundFilter.SetLayerMask(LayerMask.GetMask("Ground"));
 
             _equipmentSlot = new EquipmentSlot(_equipmentRenderer, transform);
             if (_startingEquipment != null) _equipmentSlot.Equip(_startingEquipment);

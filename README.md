@@ -271,7 +271,6 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
 - [ ] cleanup:
   - (14:00) make other seed be able to stack too
   - when seed was grow and pickup, let make it drop the additional x3 seed too.
-  - Item can be drop on the world - when the item was drop let it float up and down a little
   - the character can jump off the tree which is not intented.
   Likely because the collider's cast check for any collision without filtering. 
   - player is too big, let separate it into smaller class.
