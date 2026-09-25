@@ -269,11 +269,11 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     implement craft panel: 1) backpack 2) stationary
 
 - [ ] cleanup:
-  - (??) make other seed be able to stack too
+  - (14:00) make other seed be able to stack too
   - when seed was grow and pickup, let make it drop the additional x3 seed too.
   - the character can jump off the tree which is not intented.
-  - player is too big, let separate it into smaller class.
   - Item can be drop on the world - when the item was drop let it float up and down a little
+  - player is too big, let separate it into smaller class.
   - implement .asmdef to force clean architecture
 
 # NOTE

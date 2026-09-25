@@ -15,6 +15,7 @@ MonoBehaviour:
   _displayName: Corn Seed
   _icon: {fileID: 21300000, guid: f7553b61a6a55a74f83e6ac9c36bfc76, type: 2}
   _category: 2
+  _maxStack: 10
   _growthStages:
   - {fileID: 21300000, guid: f7553b61a6a55a74f83e6ac9c36bfc76, type: 2}
   - {fileID: 21300000, guid: 55ee664ea24ff624dba944a69e6fb770, type: 2}
