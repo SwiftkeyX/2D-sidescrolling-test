@@ -205,8 +205,8 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
   - (14:20) Get Dragging.cs init out of backpack since it's no longer belong there since hotbar also use Dragging.cs
   - (14:30) Add quality of lift: Block attacks while the backpack is open, and when clicking the hotbar
 
-**items can be separated into resources, tools, crafted objects, and seeds**
-- [ ] inventory can hold resources, tools, crafted objects, and seeds.
+**items can be separated into resources, tools, crafted objects, and seeds (3hr)**
+- [x] inventory can hold resources, tools, crafted objects, and seeds.
   - (14:40) make at least 3 items in each category  
     resource = lumber, carrot, red berry, corn  
     tools = wand, watering can, axes  
@@ -215,32 +215,56 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     (2hr break)
   - (17:00) let ItemSO be a parent of all 4 categorize. Begin by making existing EquipmentSO a child to ItemSO.
   - (17:15) add each ItemSO as planned. 
-  implement SeedSO
-  re-organized file for ItemSO using their categorized
-  - (??) drag tools/seed/resource/crafted item from a bar outside the bound to use them
-  - (??) active for each tools  
+  implement SeedSO.
+  re-organized file for ItemSO using their categorized.
+- [x] drag tools/seed/resource/crafted item from a bar outside the bound to use them
+  - (17:30) active for each tools  
     draggin tool out of bound, equip the tool to the player. when equip, player activate tool using left click.
     wand - shoot cube  
     watering can - water seed - grow vegetable  
     axes - cut tree - for lumber
-  - (??) behaviour for seed  
+  - (18:30) behaviour for seed  
     place the seed on the ground near releasing pointer.
     all seed act the same. put on the ground. can grow by watering. if grow max, can be keep by player.  
     that mean a seed is the class of it own. It have several variation of sprite when it was growth.
-  - (??) resource doesn nothing but can be crafted
+  - resource does nothing but can be crafted
   - (deferred) crafted item was other mechanic
   - (deferred) make recipe  
     x10 lumber = storage chest  
     carrot + red berry + corn = golden veggie  
     x3 golden veggie = broccoli
 
-- [ ] items can stack and have limit at 10 max
-  - (??) each cell in inventory keep a list<Stack>. Stack is class that keep a items variable and a number of the stack.
-
 - [ ] cleanup:
   - Item can be drop on the world - when the item was drop let it float up and down a little
   - implement .asmdef to force clean architecture
   - dragging is left click, so it also trigger wand's attack. fix later.
   - what is the difference between letting a item be a prefab and SO.
+  a prefab can have position and exist in the world. SO can't. 
+  In this case, ItemSO don't need the position in the world so it don't have to be prefab.
+  If it was a prefab, most of the item would just be a same gameobject with different sprite.
+  Only some of the item could be a prefab because it have different behaviour e.g. wand shooting cube. 
 
-# Day 3 Wrap thing up
+# Day 3 
+
+## Design inventory
+ **?**
+- [x] cleanup from yesterday
+  - (7:30) continue make seed be able to planted/grow/harvest.
+  - (7:50) implment axes behaviour to cut the tree
+  implement tree prefab
+  when the tree is cut, the tree should drop x3 Lumber
+- [x] items can stack and have limit at 10 max
+  - (8:30) each cell in inventory keep a list<Stack>. Stack is class that keep a items variable and a number of the stack.
+  change to let the Item itself have a amount variable.
+  for simplicity, let Lumber the only 1 can stack more than 1.
+  when pickup item, it should be added to the very first cell. if the cell happen to be the same item, add them together.
+  - (9:50) implement storage chest
+  - (12:00) cleanup and refactor some code
+
+## Design Craft mechanic 
+- [ ] crafting is available from the "inventory" and "station crafting"
+  - (??) Make a Recipe class that hold every combination of each items. Let assume the crafting use only 3 item in total. The order while crafting doesn't matter.
+  - (??) Let station craftign have 3 craft cell
+  - (??) Let Inventory have 2 craft cell
+- [ ] requirement
+  - (??) A Storage Chest requiring 10x Lumber, which can hold 30 items when crafted and placed

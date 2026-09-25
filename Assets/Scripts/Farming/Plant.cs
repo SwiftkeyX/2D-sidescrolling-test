@@ -1,4 +1,5 @@
 using SideScroller.Characters;
+using SideScroller.Interactions;
 using UnityEngine;
 
 namespace SideScroller.Farming
@@ -9,7 +10,7 @@ namespace SideScroller.Farming
     /// 2) each watering grows it one stage
     /// 3) fully grown + player walks into it = the harvest goes into the backpack, the plant is gone
     [RequireComponent(typeof(Collider2D))]
-    public class Plant : MonoBehaviour
+    public class Plant : MonoBehaviour, IInteractable
     {
         private const string PrefabPath = "Plant";          // path to /Resource and loaded into scene
         private const float SpaceCheckRadius = 0.4f;        // one plant per spot
@@ -73,17 +74,10 @@ namespace SideScroller.Farming
         }
 
         // ================================= 3. harvest =================================
-        // if the plant is grown, when player walk into it, the plant is collected into player's backpack
-        void OnTriggerEnter2D(Collider2D other) => TryHarvest(other);
-        void OnTriggerStay2D(Collider2D other) => TryHarvest(other);
-
-        private void TryHarvest(Collider2D other)
+        // if the plant is grown, player press E on it, the plant is collected into player's backpack
+        public void Interact(Player player)
         {
             if (!IsGrown) return;
-
-            // if not player, return
-            Player player = other.GetComponentInParent<Player>();
-            if (player == null) return;
 
             // backpack full = the plant waits
             if (player.Backpack.TryAdd(_seed.Harvest)) Destroy(gameObject);

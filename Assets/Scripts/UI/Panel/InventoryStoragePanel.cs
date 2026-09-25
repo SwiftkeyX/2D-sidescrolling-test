@@ -1,5 +1,4 @@
 using SideScroller.Characters;
-using SideScroller.Input;
 using SideScroller.Inventories;
 using SideScroller.Storage;
 using UnityEngine;
@@ -15,7 +14,7 @@ namespace SideScroller.UI
     internal class InventoryStoragePanel : InventoryPanel
     {
         [SerializeField] private InventoryBackpackPanel _backpackPanel;
-        [SerializeField] private float _reach = 1.5f;      // how close the player has to stand to open a chest
+        [SerializeField] private float _closeDistance = 2.5f;     // walk further than this from the open chest = it closes
         private StorageChest _chest;
 
         protected override string GridName => "StorageGrid";
@@ -32,11 +31,12 @@ namespace SideScroller.UI
             _backpackPanel.SetShown(true);
         }
 
-        // close the storage
+        // close the storage, and the backpack that was opened with it
         public void Close()
         {
             _chest = null;
             SetShown(false);
+            _backpackPanel.SetShown(false);
         }
 
         // =================================== Life cycle ===================================
@@ -44,40 +44,33 @@ namespace SideScroller.UI
         {
             if (_backpackPanel == null) _backpackPanel = FindFirstObjectByType<InventoryBackpackPanel>();
 
+            StorageChest.Interacted += OnChestInteracted;
             SetShown(false);
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            StorageChest.Interacted -= OnChestInteracted;
         }
 
         void Update()
         {
-            if (Player == null || _backpackPanel == null) return;
+            if (_chest == null || Player == null) return;
 
             // when the player close backpack or the player walked away, close the storage too
-            if (_chest != null && (!_backpackPanel.IsShown || !InReach(_chest)))
-            {
-                Close();
-                _backpackPanel.SetShown(false);
-            }
+            if (!_backpackPanel.IsShown || !InReach(_chest)) Close();
+        }
 
-            // polling for interact input
-            if (!PlayerInputSystem.InteractPressedThisFrame) return;
-            bool isThisStorageBindToInventory = (_chest != null);
-
-            // if this storage is bind, close the storage window
-            if (isThisStorageBindToInventory)
-            {
-                Close();
-                _backpackPanel.SetShown(false);
-                return;
-            }
-            // if this storage is NOT bind, open the storage window
-            else
-            {
-                StorageChest nearest = StorageChest.FindNearest(Player.transform.position, _reach);
-                if (nearest != null) Open(nearest);
-            }
+        // =================================== private ===================================
+        // E on the open chest = close it, E on any other chest = show that one
+        private void OnChestInteracted(StorageChest chest)
+        {
+            if (chest == _chest) Close();
+            else Open(chest);
         }
 
         private bool InReach(StorageChest chest) =>
-            chest != null && Vector2.Distance(Player.transform.position, chest.transform.position) <= _reach;
+            chest != null && Vector2.Distance(Player.transform.position, chest.transform.position) <= _closeDistance;
     }
 }

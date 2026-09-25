@@ -3,12 +3,14 @@ using SideScroller.Combat;
 using SideScroller.Equipments;
 using SideScroller.Farming;
 using SideScroller.Input;
+using SideScroller.Interactions;
 using SideScroller.Inventories;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace SideScroller.Characters
 {
+    // FIXLATER: Player is begin to be too big. Let's separate it smaller later.
     /// <summary>
     /// Player don't have any logic inside it BUT:
     /// 1) It's the ONLY Monobehavior for the Player, so it's here so we could make player interact with Unity.
@@ -47,6 +49,7 @@ namespace SideScroller.Characters
         [SerializeField] private float _jumpForce = 9f;
         [SerializeField] private Transform _checkpoint;
         [SerializeField] private float _respawnDelay = 1.5f;
+        [SerializeField] private float _interactReach = 1.5f;
 
 
         private const float GroundCheckDistance = 0.05f;    // distance used by raycast to check the ground
@@ -56,7 +59,8 @@ namespace SideScroller.Characters
         // ====== 1. input ======
         public float MoveInput => PlayerInputSystem.MoveAxis;
         public bool JumpPressed => PlayerInputSystem.JumpPressedThisFrame;
-        public bool AttackPressed => PlayerInputSystem.AttackPressedThisFrame;
+        public bool LeftClickPressed => PlayerInputSystem.AttackPressedThisFrame;
+        public bool InteractPressed => PlayerInputSystem.InteractPressedThisFrame;
 
         // ====== 2. state ======
         public void ChangeState(PlayerStateEnum next) => _stateMachine.ChangeState(next);
@@ -148,7 +152,11 @@ namespace SideScroller.Characters
 
             if (StateType == PlayerStateEnum.Dead) return;
 
-            if (AttackPressed && !ToolsLocked) ActivateTool();
+            // try activate tool e.g. wand, axes
+            if (LeftClickPressed && !ToolsLocked) ActivateTool();
+
+            // try interact with Iinteractable e.g. Storage, Plant
+            if (InteractPressed) TryInteract();
         }
 
         // ======================================== state machine ========================================
@@ -200,6 +208,32 @@ namespace SideScroller.Characters
         // no Animator yet
         public void PlayAnimation(PlayerStateEnum state) { }
 
+
+        // ======================================== interact ========================================
+        // press E on the closest interactable thing within reach
+        public void TryInteract()
+        {
+            Vector2 from = transform.position;
+            IInteractable closest = null;
+            float best = float.MaxValue;
+
+            // chcek if my position reach any interactable 
+            foreach (Collider2D hit in Physics2D.OverlapCircleAll(from, _interactReach))
+            {
+                IInteractable target = hit.GetComponentInParent<IInteractable>();
+                if (target == null) continue;
+
+                // measured to the collider's edge
+                float distance = Vector2.Distance(from, hit.ClosestPoint(from));
+                if (distance >= best) continue;
+
+                best = distance;
+                closest = target;
+            }
+
+            // interact with the cloest one
+            closest?.Interact(this);
+        }
 
         // ======================================== inventory ========================================
         // take the whole stack out of the slot and drop it on the floor in front of the player
