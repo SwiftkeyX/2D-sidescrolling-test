@@ -18,34 +18,33 @@ namespace SideScroller.Inventories
         public ItemStack GetStack(int index) => IsValid(index) ? _slots[index] : null;
         public IInventoryable Get(int index) => GetStack(index)?.Item;
 
+        // ======================================== add item ========================================
         // put one item in the first slot that can hold it, a first slot could be:
         // 1. an empty slot
         // 2. a stack of the same item with room.
         public bool TryAdd(IInventoryable item)
         {
-            if (item == null) return false;
+            int i = FirstSlotFor(item);
+            if (i < 0) return false;
 
-            for (int i = 0; i < _slots.Length; i++)
+            // 1. an empty slot
+            if (_slots[i] == null)
             {
-                // 1. an empty slot
-                if (_slots[i] == null)
-                {
-                    Set(i, new ItemStack(item));
-                    return true;
-                }
-
-                // 2. a stack of the same item with room.
-                if (_slots[i].CanMerge(item))
-                {
-                    _slots[i].Count++;
-                    Set(i, _slots[i]);
-                    return true;
-                }
+                Set(i, new ItemStack(item));
+                return true;
             }
 
-            return false;
+            // 2. a stack of the same item with room.
+            _slots[i].Count++;
+            Set(i, _slots[i]);
+            return true;
         }
 
+        // would TryAdd succeed? 
+        // e.g. crafting checks there is room for the result before using the ingredients up
+        public bool CanAdd(IInventoryable item) => FirstSlotFor(item) >= 0;
+
+        // ======================================== remove item ========================================
         // take "amount" off the stack. 
         public void Remove(int index, int amount = 1)
         {
@@ -59,6 +58,7 @@ namespace SideScroller.Inventories
             Set(index, stack.Count > 0 ? stack : null);
         }
 
+        // ======================================== move item ========================================
         // move the stack from slot to another slot, in the same inventory
         public void Move(int from, int to) => MoveBetweenInventory(this, from, this, to);
 
@@ -91,7 +91,20 @@ namespace SideScroller.Inventories
             b.Set(slotB, moving);
         }
 
-        // ==================== private ====================
+        // ======================================== private ========================================
+        // the first slot "item" can go in: an empty slot, or a stack of the same item with room. -1 = full
+        private int FirstSlotFor(IInventoryable item)
+        {
+            if (item == null) return -1;
+
+            for (int i = 0; i < _slots.Length; i++)
+            {
+                if (_slots[i] == null || _slots[i].CanMerge(item)) return i;
+            }
+
+            return -1;
+        }
+
         private void Set(int index, ItemStack stack)
         {
             _slots[index] = stack;

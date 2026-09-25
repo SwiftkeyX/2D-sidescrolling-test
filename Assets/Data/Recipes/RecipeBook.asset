@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44a0bd87989855b4eaf1a78eb3961f2e, type: 3}
+  m_Name: RecipeBook
+  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.Crafting.RecipeBookSO
+  _recipes:
+  - _ingredients:
+    - _item: {fileID: 11400000, guid: 4742b08feaa92cc45a045b8b979a8329, type: 2}
+      _count: 10
+    _result: {fileID: 11400000, guid: 1e15026df9d20174d91f083f587c18a3, type: 2}
+  - _ingredients:
+    - _item: {fileID: 11400000, guid: e3d7de1379fc2164199134907351e6e8, type: 2}
+      _count: 1
+    - _item: {fileID: 11400000, guid: 91437fbb85fac1343b6a522901273a5e, type: 2}
+      _count: 1
+    - _item: {fileID: 11400000, guid: 08bee07b24078ac4db9cf8acae4ab37e, type: 2}
+      _count: 1
+    _result: {fileID: 11400000, guid: 0e01cdea629f2964d8fd40aaa51292e2, type: 2}
+  - _ingredients:
+    - _item: {fileID: 11400000, guid: 0e01cdea629f2964d8fd40aaa51292e2, type: 2}
+      _count: 3
+    _result: {fileID: 11400000, guid: c7589d8d6653c6045859ac5c46712cbb, type: 2}
