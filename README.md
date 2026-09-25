@@ -33,10 +33,10 @@ Feature 0. player can move, jump
    2. inventory can hold resources, tools, crafted objects, and seeds.
       - [ ] Have several items in the game. Those items also was categorized.
       - [ ] make at least 3 items in each category  
-        resource = lumber, carrot, red berry, corn  
-        tools = watering can, shovel, axes  
-        seed = carrot seed, red berry seed, corn seed  
-        crafted item = Storage Chest, Golden Veggie, Broccoli
+             resource = lumber, carrot, red berry, corn  
+             tools = watering can, shovel, axes  
+             seed = carrot seed, red berry seed, corn seed  
+             crafted item = Storage Chest, Golden Veggie, Broccoli
    3. inventory bar - a overlay bar at the bottom for quick access e.g. equipable, usable, or placeable
       - [ ] use simple grid UI overlay like inventory window
       - [ ] drag seeds from a bar on the ground to place it
@@ -119,11 +119,11 @@ I am not confidence in making inventory. So I'll start with what I am confidence
     player have 30 health. slime have 20 health
   - (14:00) slime also push player when jump on the player  
     when slime hit player, slime should fly pass through the player.  
-    okay, how about having 2 collider:  
-    1. hitbox - using isTrigger - put this in the child for easy time searching  
+    okay, how about having 2 collider:
+    1. hitbox - using isTrigger - put this in the child for easy time searching
     2. collider - separating collider layer for player and enemies using matrix.  
-    now player and enemies don't collide, but the hitbox still does.  
-    now player is hurt and slime fly pass through the player while doing so.
+       now player and enemies don't collide, but the hitbox still does.  
+       now player is hurt and slime fly pass through the player while doing so.
 - [x] attach hitbox to bullet
   - (14:40) attach hitbox to bullet. adjust bullet collision layer.
 
@@ -162,7 +162,7 @@ I am not confidence in making inventory. So I'll start with what I am confidence
 
 Inventory is the biggest mechanic for me that I wasn't confidence at
 
-## Design inventory 
+## Design inventory
 
 **player can collect/use/remove/organize items (6.30hr)**
 
@@ -179,7 +179,7 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     the ghost doesn't work correctly. the ghost doesn't follow player's mouse.
 
 - [x] Inventory have 2 part: 1. the big inventory window open by "O" and 2. a overlay bar at the bottom for quick access  
-  The idea is (4hr)
+       The idea is (4hr)
   - When the inventory is open:  
     1\) player can drag item from inventory & access bar to re-arrange item, drop item.  
     2\) but player can't use any active item: tool/seed/etc...
@@ -196,9 +196,9 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     The dragging.cs become too messy. It's no longer readable. Let discarded this.
     Inventory and Hotbar are both inventory. Need better name to distinct them.
   - (13:05) Okay, the functionality of inventory window & hotbar are similar but hotbar can do a bit more:
-      Inventory window can drag for re-arrange.
-      Hotbar can drag re-arrange & drag for item activation too. 
-    Functionality are from the UI part. So let make InventoryPanel a mother. 
+    Inventory window can drag for re-arrange.
+    Hotbar can drag re-arrange & drag for item activation too.
+    Functionality are from the UI part. So let make InventoryPanel a mother.
     Make 2 child: InventoryWindow & InventoryHotbar.
     Rename the player's inventory to Backpack to prevent confusion.
   - (13:45) Implement Hotbar panel to re-arrage with Backpack panel
@@ -206,6 +206,7 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
   - (14:30) Add quality of lift: Block attacks while the backpack is open, and when clicking the hotbar
 
 **items can be separated into resources, tools, crafted objects, and seeds (3hr)**
+
 - [x] inventory can hold resources, tools, crafted objects, and seeds.
   - (14:40) make at least 3 items in each category  
     resource = lumber, carrot, red berry, corn  
@@ -214,9 +215,9 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     crafted item = Storage Chest, Golden Veggie, Broccoli
     (2hr break)
   - (17:00) let ItemSO be a parent of all 4 categorize. Begin by making existing EquipmentSO a child to ItemSO.
-  - (17:15) add each ItemSO as planned. 
-  implement SeedSO.
-  re-organized file for ItemSO using their categorized.
+  - (17:15) add each ItemSO as planned.
+    implement SeedSO.
+    re-organized file for ItemSO using their categorized.
 - [x] drag tools/seed/resource/crafted item from a bar outside the bound to use them
   - (17:30) active for each tools  
     draggin tool out of bound, equip the tool to the player. when equip, player activate tool using left click.
@@ -234,37 +235,53 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
     carrot + red berry + corn = golden veggie  
     x3 golden veggie = broccoli
 
-- [ ] cleanup:
-  - Item can be drop on the world - when the item was drop let it float up and down a little
-  - implement .asmdef to force clean architecture
-  - dragging is left click, so it also trigger wand's attack. fix later.
-  - what is the difference between letting a item be a prefab and SO.
-  a prefab can have position and exist in the world. SO can't. 
-  In this case, ItemSO don't need the position in the world so it don't have to be prefab.
-  If it was a prefab, most of the item would just be a same gameobject with different sprite.
-  Only some of the item could be a prefab because it have different behaviour e.g. wand shooting cube. 
 
-# Day 3 
+# Day 3
 
 ## Design inventory
- **?**
+
+**cleanup (2hr)**
+
 - [x] cleanup from yesterday
   - (7:30) continue make seed be able to planted/grow/harvest.
   - (7:50) implment axes behaviour to cut the tree
-  implement tree prefab
-  when the tree is cut, the tree should drop x3 Lumber
+    implement tree prefab
+    when the tree is cut, the tree should drop x3 Lumber
+
+**item can stack inside inventory (3hr)**
+
 - [x] items can stack and have limit at 10 max
   - (8:30) each cell in inventory keep a list<Stack>. Stack is class that keep a items variable and a number of the stack.
-  change to let the Item itself have a amount variable.
-  for simplicity, let Lumber the only 1 can stack more than 1.
-  when pickup item, it should be added to the very first cell. if the cell happen to be the same item, add them together.
+    change to let the Item itself have a amount variable.
+    for simplicity, let Lumber the only 1 can stack more than 1.
+    when pickup item, it should be added to the very first cell. if the cell happen to be the same item, add them together.
   - (9:50) implement storage chest
   - (12:00) cleanup and refactor some code
 
-## Design Craft mechanic 
-- [ ] crafting is available from the "inventory" and "station crafting"
-  - (??) Make a Recipe class that hold every combination of each items. Let assume the crafting use only 3 item in total. The order while crafting doesn't matter.
-  - (??) Let station craftign have 3 craft cell
-  - (??) Let Inventory have 2 craft cell
-- [ ] requirement
-  - (??) A Storage Chest requiring 10x Lumber, which can hold 30 items when crafted and placed
+## Design Craft mechanic
+
+**crafting mechanic overall (2hr)**
+
+- [x] crafting is available from the "inventory" and "station crafting"
+  - (12:20) implement RecipeSO for listing all crafting recipe
+    implement Craft to check if the ingredient match the Recipe
+    implement Ingredient for a ingredient in crafting mechanic.
+    implement craft panel: 1) backpack 2) stationary
+
+**cleanup overall (???)**
+- [x] (14:00) cleanup:
+  - make other seed be able to stack too
+  - when seed was grow and pickup, let make it drop the additional x3 seed too.
+  - the character can jump off the tree which is not intented.
+  Likely because the collider's cast check for any collision without filtering. 
+  - player is too big, let separate it into smaller class.
+  - implement .asmdef to force clean architecture
+  how about adding item namespace and move item/equipment stuff inside it.
+  how about moving all interface into 1 place, contract namespace. skip.
+
+# NOTE
+What is the difference between letting a item be a prefab and SO.
+  a prefab can have position and exist in the world. SO can't.
+  In this case, ItemSO don't need the position in the world so it don't have to be prefab.
+  If it was a prefab, most of the item would just be a same gameobject with different sprite.
+  Only some of the item could be a prefab because it have different behaviour e.g. wand shooting cube.

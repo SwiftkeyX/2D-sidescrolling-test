@@ -1,0 +1,22 @@
+{
+    "name": "SideScroller.Characters",
+    "rootNamespace": "SideScroller.Characters",
+    "references": [
+        "SideScroller.Combat",
+        "SideScroller.Crafting",
+        "SideScroller.Farming",
+        "SideScroller.Input",
+        "SideScroller.Interactions",
+        "SideScroller.Inventories",
+        "SideScroller.Items"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

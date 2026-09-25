@@ -1,8 +1,7 @@
-using SideScroller.Inventories;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace SideScroller.Equipments
+namespace SideScroller.Items
 {
     /// <summary>
     /// Data for one equippable thing
@@ -11,7 +10,6 @@ namespace SideScroller.Equipments
     public class EquipmentSO : ItemSO
     {
         [SerializeField] private EquipmentTypeEnum _type;
-        // FIXLATER:
         [FormerlySerializedAs("_behaviourPrefab")]
         [SerializeField] private Equipment _equipment;
 

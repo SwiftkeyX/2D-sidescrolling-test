@@ -1,0 +1,18 @@
+{
+    "name": "SideScroller.Storage",
+    "rootNamespace": "SideScroller.Storage",
+    "references": [
+        "SideScroller.Interactions",
+        "SideScroller.Inventories",
+        "SideScroller.Items"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

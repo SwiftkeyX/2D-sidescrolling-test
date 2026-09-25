@@ -15,6 +15,7 @@ MonoBehaviour:
   _displayName: Red Berry Seed
   _icon: {fileID: 21300000, guid: 60141f80985fb7a478709a1d1512763d, type: 2}
   _category: 2
+  _maxStack: 10
   _growthStages:
   - {fileID: 21300000, guid: 60141f80985fb7a478709a1d1512763d, type: 2}
   - {fileID: 21300000, guid: 50c2da7a3bdf92e4b823e32d3296d32a, type: 2}

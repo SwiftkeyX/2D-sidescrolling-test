@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SideScroller.Equipments
+namespace SideScroller.Items
 {
     // player have 1 equipment slot which the sprite is show above player's head
     // EquipmentSlot hold the logic for swapping that sprite for the player

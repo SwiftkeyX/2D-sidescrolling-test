@@ -230,6 +230,81 @@
     width: 432px;
 }
 
+/* ============================== crafting ============================== */
+
+/* craft cells -> arrow -> result -> button, on one line under the backpack */
+.craft__row {
+    flex-direction: row;
+    align-items: center;
+}
+
+/* only as wide as its cells: 2 in the backpack, 3 at the station */
+.craft__grid {
+    width: auto;
+    flex-wrap: nowrap;
+}
+
+.craft__arrow {
+    font-size: 28px;
+    -unity-font-style: bold;
+    color: rgb(240, 240, 248);
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+/* looks like a cell, but it's a preview: nothing can be dragged in or out of it */
+.craft__result {
+    width: 64px;
+    height: 64px;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: rgba(255, 215, 90, 0.10);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgba(255, 215, 90, 0.45);
+    border-right-color: rgba(255, 215, 90, 0.45);
+    border-top-color: rgba(255, 215, 90, 0.45);
+    border-bottom-color: rgba(255, 215, 90, 0.45);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.craft__button {
+    height: 40px;
+    margin-left: 12px;
+    padding-left: 14px;
+    padding-right: 14px;
+    font-size: 16px;
+    -unity-font-style: bold;
+    color: rgb(20, 18, 28);
+    background-color: rgb(255, 215, 90);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.craft__button:hover {
+    background-color: rgb(255, 228, 140);
+}
+
+/* no recipe matches: greyed out, can't be pressed */
+.craft__button:disabled {
+    opacity: 0.35;
+}
+
 /* Stack size, bottom-right of the cell. Created in code by InventoryPanel, empty when the stack is 1. */
 .inventory__count {
     position: absolute;

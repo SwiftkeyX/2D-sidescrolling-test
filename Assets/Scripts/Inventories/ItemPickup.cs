@@ -1,4 +1,4 @@
-using SideScroller.Characters;
+using SideScroller.Items;
 using UnityEngine;
 
 namespace SideScroller.Inventories
@@ -31,11 +31,11 @@ namespace SideScroller.Inventories
             // item is pickable after a set delay
             if (Time.time < _pickableAt) return;
 
-            // if not player, return
-            Player player = other.GetComponentInParent<Player>();
-            if (player == null) return;
+            // if not something that can collect items (e.g. the player), return
+            IItemCollector collector = other.GetComponentInParent<IItemCollector>();
+            if (collector == null) return;
 
-            if (player.Backpack.TryAdd(Item)) Destroy(gameObject);
+            if (collector.TryCollect(Item)) Destroy(gameObject);
         }
 
         // ================================= drop item =================================

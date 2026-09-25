@@ -1,4 +1,4 @@
-namespace SideScroller.Inventories
+namespace SideScroller.Items
 {
     // what kind of item it is. decides what happens when the item is used from the hotbar
     // Resource = does nothing, used for crafting    e.g. lumber, carrot

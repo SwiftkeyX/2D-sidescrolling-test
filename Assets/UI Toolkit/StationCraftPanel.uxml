@@ -1,0 +1,24 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Overlay.uss?fileID=7433441132597879392&amp;guid=2a6f58d0b3e74c81af9d64e05b71c832&amp;type=3#Overlay"/>
+    <ui:VisualElement name="StationCraftPanel" class="inventory">
+        <ui:Label name="StationTitle" picking-mode="Ignore" text="Crafting Station" class="inventory__title"/>
+        <ui:VisualElement name="CraftRow" picking-mode="Ignore" class="craft__row">
+            <ui:VisualElement name="StationGrid" class="inventory__grid craft__grid">
+                <ui:VisualElement name="Cell0" class="inventory__cell">
+                    <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="Cell1" class="inventory__cell">
+                    <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="Cell2" class="inventory__cell">
+                    <ui:VisualElement name="Icon" picking-mode="Ignore" class="inventory__icon"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label name="CraftArrow" picking-mode="Ignore" text="&#8594;" class="craft__arrow"/>
+            <ui:VisualElement name="ResultCell" picking-mode="Ignore" class="craft__result">
+                <ui:VisualElement name="ResultIcon" picking-mode="Ignore" class="inventory__icon"/>
+            </ui:VisualElement>
+            <ui:Button name="CraftButton" text="Craft" class="craft__button"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

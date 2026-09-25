@@ -15,6 +15,7 @@ MonoBehaviour:
   _displayName: Carrot Seed
   _icon: {fileID: 21300000, guid: b80f9f5856bfbbf438f68766acc6f4e6, type: 2}
   _category: 2
+  _maxStack: 10
   _growthStages:
   - {fileID: 21300000, guid: b80f9f5856bfbbf438f68766acc6f4e6, type: 2}
   - {fileID: 21300000, guid: 78b871e0cc9ba8845b8f5bedbb086204, type: 2}

@@ -1,0 +1,24 @@
+{
+    "name": "SideScroller.UI",
+    "rootNamespace": "SideScroller.UI",
+    "references": [
+        "SideScroller.Characters",
+        "SideScroller.Combat",
+        "SideScroller.Crafting",
+        "SideScroller.Input",
+        "SideScroller.Inventories",
+        "SideScroller.Items",
+        "SideScroller.Storage",
+        "SideScroller.TimeHop",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

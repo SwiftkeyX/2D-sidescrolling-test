@@ -1,0 +1,17 @@
+{
+    "name": "SideScroller.Woodcutting",
+    "rootNamespace": "SideScroller.Woodcutting",
+    "references": [
+        "SideScroller.Inventories",
+        "SideScroller.Items"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
