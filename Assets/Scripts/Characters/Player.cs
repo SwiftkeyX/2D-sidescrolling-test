@@ -49,7 +49,8 @@ namespace SideScroller.Characters
         [SerializeField] private float _respawnDelay = 1.5f;
 
 
-        private const float GroundCheckDistance = 0.05f;
+        private const float GroundCheckDistance = 0.05f;    // distance used by raycast to check the ground
+        private const float DropSpread = 0.3f;              // gap between items when a stack is dropped
 
         // ======================================== getter ========================================
         // ====== 1. input ======
@@ -201,19 +202,24 @@ namespace SideScroller.Characters
 
 
         // ======================================== inventory ========================================
-        // take the item out of the slot and drop it on the floor in front of the player
+        // take the whole stack out of the slot and drop it on the floor in front of the player
         public void DropItem(Inventory from, int slot)
         {
-            IInventoryable item = from.Get(slot);
-            if (item == null) return;
+            ItemStack stack = from.GetStack(slot);
+            if (stack == null) return;
 
             Vector2 front = (Vector2)transform.position + new Vector2(FacingDirection * _dropDistance, 0f);
 
             // drop item = spawn item into the world
-            // if nothing spawned, the item stays where it was
-            if (ItemPickup.Spawn(item, front) == null) return;
+            int dropped = 0;
+            for (int i = 0; i < stack.Count; i++)
+            {
+                if (ItemPickup.Spawn(stack.Item, front + new Vector2(i * DropSpread, 0f)) == null) break;
+                dropped++;
+            }
 
-            from.Remove(slot);
+            // remove dropped item from inventory
+            if (dropped > 0) from.Remove(slot, dropped);
         }
 
         // use the item in the slot. what "use" means depends on the item's category:
@@ -246,7 +252,7 @@ namespace SideScroller.Characters
             // try plant it
             if (Plant.TryPlant(seed, worldPos) == null) return;
 
-            // if success, remove that seed from the backpack 
+            // if success, take one seed off the stack
             from.Remove(slot);
         }
 

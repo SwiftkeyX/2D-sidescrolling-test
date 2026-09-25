@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace SideScroller.Inventories
 {
-    // FIXME: this is temporarily
     // ItemPickup work mainly 2 way: 
     // 1. to pickup item    - the item itself have ItemPickup. when player walk into these item lying in the world, 
     // the collision is trigger, that item was destroyed, and get put inside the inventory as SO.

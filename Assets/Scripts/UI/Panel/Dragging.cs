@@ -101,7 +101,7 @@ namespace SideScroller.UI
 
         // ============================================= drop =============================================
         // an item can be dropped on 2 thing:
-        // 1) a cell, in any panel => move it there, swap if the cell already have item (if re-arranging is allowed)
+        // 1) a cell, in any panel => move it there, merge if same item, swap if another item (if re-arranging is allowed)
         // 2) outside panel => hand resposibility to the owner 
         // the function could either be to "drop it on the floor" or to "use it"
         private void Drop(Vector2 panelPos)
@@ -111,7 +111,7 @@ namespace SideScroller.UI
             // released on a cell = put the item there
             if (target != null && _canRearrange)
             {
-                PlaceAndSwap(target);
+                PlaceOnSlot(target);
                 Release();
                 return;
             }
@@ -130,10 +130,11 @@ namespace SideScroller.UI
         }
 
         // place the held item on the target slot
-        // if the target slot already have item, swap the slot.
-        private void PlaceAndSwap(PanelSlot target)
+        // 1) same item with room = stack them together
+        // 2) another item = swap the slot.
+        private void PlaceOnSlot(PanelSlot target)
         {
-            Inventory.SwapBetweenInventory(_held.Panel.Inventory, _held.Index, target.Panel.Inventory, target.Index);
+            Inventory.MoveBetweenInventory(_held.Panel.Inventory, _held.Index, target.Panel.Inventory, target.Index);
         }
 
         // put back whatever is held

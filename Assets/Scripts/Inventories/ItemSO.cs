@@ -14,8 +14,13 @@ namespace SideScroller.Inventories
         // e.g. EquipmentSO is always Tool
         [SerializeField] private ItemCategoryEnum _category;
 
+        // how many the item stacked in 1 cell? 
+        // e.g. Lumber is 10
+        [SerializeField, Min(1)] private int _maxStack = 1;
+
         public string DisplayName => _displayName;
         public Sprite Icon => _icon;
         public virtual ItemCategoryEnum Category => _category;
+        public virtual int MaxStack => _maxStack;
     }
 }

@@ -224,6 +224,18 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+/* Stack size, bottom-right of the cell. Created in code by InventoryPanel, empty when the stack is 1. */
+.inventory__count {
+    position: absolute;
+    right: 4px;
+    bottom: 2px;
+    font-size: 14px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
 /* The cell an item is being dragged out of. Its icon stays, dimmed, until the drop lands. */
 .inventory__cell--held > .inventory__icon {
     opacity: 0.3;

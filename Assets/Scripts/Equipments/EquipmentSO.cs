@@ -19,5 +19,8 @@ namespace SideScroller.Equipments
 
         // equipable things is categorized as tool
         public override ItemCategoryEnum Category => ItemCategoryEnum.Tool;
+
+        // tools never stack
+        public override int MaxStack => 1;
     }
 }

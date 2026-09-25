@@ -8,5 +8,6 @@ namespace SideScroller.Inventories
         string DisplayName { get; }
         Sprite Icon { get; }
         ItemCategoryEnum Category { get; }
+        int MaxStack { get; }       
     }
 }
