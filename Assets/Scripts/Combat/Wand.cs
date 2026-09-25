@@ -7,7 +7,7 @@ namespace SideScroller.Combat
     {
         [SerializeField] private Bullet _bulletPrefab;
 
-        public override void Activate(Vector2 direction)
+        public override void Activate(Vector2 direction, Vector2 pointer)
         {
             if (_bulletPrefab == null) return;
     

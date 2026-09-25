@@ -1,4 +1,3 @@
-using SideScroller.Characters;
 using SideScroller.Equipments;
 using UnityEngine;
 
@@ -10,17 +9,11 @@ namespace SideScroller.Woodcutting
         [SerializeField] private float _reach = 2f;         // how far from the player the tree can be
         [SerializeField] private float _aimRadius = 0.5f;   // how close to the tree the pointer has to be
 
-        private Player _player;
-
-        public override void Activate(Vector2 direction)
+        public override void Activate(Vector2 direction, Vector2 pointer)
         {
-            if (_player == null) _player = GetComponentInParent<Player>();
-            if (_player == null) return;
+            Vector2 from = transform.position;
 
-            Vector2 target = _player.GetPointerWorldPosition();
-            Vector2 from = _player.transform.position;
-
-            foreach (Collider2D hit in Physics2D.OverlapCircleAll(target, _aimRadius))
+            foreach (Collider2D hit in Physics2D.OverlapCircleAll(pointer, _aimRadius))
             {
                 ChoppableTree tree = hit.GetComponentInParent<ChoppableTree>();
                 if (tree == null) continue;

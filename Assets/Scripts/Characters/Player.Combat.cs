@@ -14,7 +14,7 @@ namespace SideScroller.Characters
             Equipment tool = _equipmentSlot.CurrentEquipment;
             if (tool == null) return;
 
-            tool.Activate(GetAimDirection());
+            tool.Activate(GetAimDirection(), GetPointerWorldPosition());
         }
     }
 }
