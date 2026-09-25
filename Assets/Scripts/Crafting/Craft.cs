@@ -5,15 +5,16 @@ using UnityEngine;
 
 namespace SideScroller.Crafting
 {
-    /// One combination: up to 3 ingredients => a result.
-    /// the order of items in the craft cells doesn't matter:
-    /// the grid is counted by item, e.g. {Carrot:1, Corn:1, Red Berry:1}, then compared to what the recipe needs.
-    /// Craft mechanic exist in this game. 
-    /// This class, "Craft" is to check if the ingredient match the correct
+    /// FIXLATER: let rename this to Recipe later
+    /// This class, "Craft" is to check if the ingredient match the correct ingredient.
+    /// the order of items in the craft cells doesn't matter.
     [Serializable]
     public class Craft
     {
+        // ingredient for this recipe e.g. Lumber x10
         [SerializeField] private List<Ingredient> _ingredients = new();
+
+        // result for this recipe e.g. Storage Chest
         [SerializeField] private ItemSO _result;
 
         public IReadOnlyList<Ingredient> Ingredients => _ingredients;
@@ -21,21 +22,27 @@ namespace SideScroller.Crafting
 
         // ======================================== public ========================================
         // the grid matches when:
-        // 1) it has at least the amount of every ingredient
-        // 2) it has nothing that isn't an ingredient
-        // FLAGGING: I don't understand this. we'll come back later.
+        // 1) there's no extra ingredient that wasn't in recipe
+        // 2) it has at least the amount of every ingredient
+        // e.g. Golden Veggie recipe: need = {Carrot:1, Red Berry:1, Corn:1}
+        //   cells [Corn][Carrot][Red Berry] => have = {Corn:1, Carrot:1, Red Berry:1} => match (the dictionary has no order)
+        //   cells [Lumber x10][Carrot]      => Carrot isn't in the chest recipe      => fails 1)
+        //   cells [Lumber x9]               => 9 < 10                                => fails 2)
         public bool Matches(Inventory grid)
         {
             Dictionary<IInventoryable, int> have = CountByItem(grid);
             Dictionary<IInventoryable, int> need = Needs();
 
+            // empty grid, or a recipe with no ingredients, never matches
             if (have.Count == 0 || need.Count == 0) return false;
 
+            // 1) there's no extra ingredient that wasn't in recipe
             foreach (KeyValuePair<IInventoryable, int> item in have)
             {
                 if (!need.ContainsKey(item.Key)) return false;
             }
 
+            // 2) there's no ingredient missing, and enough of each
             foreach (KeyValuePair<IInventoryable, int> item in need)
             {
                 if (!have.TryGetValue(item.Key, out int count) || count < item.Value) return false;
@@ -65,8 +72,8 @@ namespace SideScroller.Crafting
         }
 
         // ======================================== private ========================================
-        // what the recipe asks for, by item.
-        // FIXME: put a example here for clarification Needs = (Lumber, 10), etc...
+        // get dictionary of what this recipe need
+        // e.g. Storage Chest need {Lumber: 10}
         private Dictionary<IInventoryable, int> Needs()
         {
             Dictionary<IInventoryable, int> need = new();
@@ -82,8 +89,9 @@ namespace SideScroller.Crafting
             return need;
         }
 
-        // what the grid holds, by item. the same item split over 2 cells is added together
-        // FIXME: put a example here for clarification Needs = (Lumber, 10), etc...
+        // get dictionary of what the grid current hold
+        // e.g. [Lumber x5][Lumber x5][-]   => {Lumber:10}
+        //      [Corn x1][-][Carrot x1]  => {Corn:1, Carrot:1}
         private static Dictionary<IInventoryable, int> CountByItem(Inventory grid)
         {
             Dictionary<IInventoryable, int> have = new();

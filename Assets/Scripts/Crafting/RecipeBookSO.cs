@@ -30,19 +30,19 @@ namespace SideScroller.Crafting
         {
             // lookup recipe
             Craft recipe = LookupRecipe(grid);
-            
+
             // the recipe is incorrect, return
             if (recipe == null || recipe.Result == null) return false;
-            
+
             // the inventory is full, return
             if (!output.CanAdd(recipe.Result)) return false;
 
             // the craft is success
             output.TryAdd(recipe.Result);
-            
+
             // consume ingredient
             recipe.Consume(grid);
-            
+
             return true;
         }
     }

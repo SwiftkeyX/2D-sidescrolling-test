@@ -41,6 +41,10 @@ namespace SideScroller.UI
         // this function let children init after the parent did init. 
         protected virtual void OnInventoryMounted(VisualElement panel) { }
 
+        // something in the shown inventory changed.
+        // e.g. the craft panel re-checks which recipe the grid makes
+        protected virtual void OnInventoryChanged() { }
+
         // =================================== public ===================================
         // context: The item is add/remove/moved around, Inventory panel need to display that item sprite is moved from cell to cell. 
         // this function put the item sprite, and the stack size, inside the cell index
@@ -114,12 +118,12 @@ namespace SideScroller.UI
         // the StoragePanel need to be able to connect to all of them. 
         protected void BindPanelToInventory(Inventory inventory)
         {
-            if (Inventory != null) Inventory.SlotChanged -= SetItem;
+            if (Inventory != null) Inventory.SlotChanged -= HandleSlotChanged;
 
             Inventory = inventory;
             if (Inventory != null)
             {
-                Inventory.SlotChanged += SetItem;
+                Inventory.SlotChanged += HandleSlotChanged;
 
                 // the uxml and the inventory should agree on how many slots there are
                 if (_cells.Length != Inventory.Size)
@@ -129,14 +133,21 @@ namespace SideScroller.UI
             }
 
             InitItem();
+            OnInventoryChanged();
         }
 
         protected virtual void OnDisable()
         {
-            if (Inventory != null) Inventory.SlotChanged -= SetItem;
+            if (Inventory != null) Inventory.SlotChanged -= HandleSlotChanged;
         }
 
         // =================================== private ===================================
+        private void HandleSlotChanged(int index, ItemStack stack)
+        {
+            SetItem(index, stack);
+            OnInventoryChanged();
+        }
+
         // the cells are authored in the uxml, get those cells into code: 
         // Cell0 = slot 0, Cell1 = slot 1...
         private void FindCells()

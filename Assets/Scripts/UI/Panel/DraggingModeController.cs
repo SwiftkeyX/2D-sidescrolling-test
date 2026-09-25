@@ -25,6 +25,7 @@ namespace SideScroller.UI
         [SerializeField] private InventoryBackpackPanel _backpackPanel;
         [SerializeField] private InventoryHotbarPanel _hotbarPanel;
         [SerializeField] private InventoryStoragePanel _storagePanel;
+        [SerializeField] private BackpackCraftPanel _craftPanel;
         [SerializeField] private StyleSheet _ghostStyle;
 
         private VisualElement _ghost;
@@ -79,22 +80,24 @@ namespace SideScroller.UI
             if (_backpackPanel == null) _backpackPanel = FindFirstObjectByType<InventoryBackpackPanel>();
             if (_hotbarPanel == null) _hotbarPanel = FindFirstObjectByType<InventoryHotbarPanel>();
             if (_storagePanel == null) _storagePanel = FindFirstObjectByType<InventoryStoragePanel>();
+            if (_craftPanel == null) _craftPanel = FindFirstObjectByType<BackpackCraftPanel>();
 
             // basic guard
             if (_player == null || _backpackPanel == null || _backpackPanel.Inventory == null) return false;
             if (_hotbarPanel != null && _hotbarPanel.Inventory == null) return false;
 
-            // basic guard + send backpack & hotbar & storage to InventoryPanel
+            // basic guard + send backpack & hotbar & storage & craft cells to InventoryPanel
             List<InventoryPanel> arrangePanels = new() { _backpackPanel };
             if (_hotbarPanel != null) arrangePanels.Add(_hotbarPanel);
             if (_storagePanel != null) arrangePanels.Add(_storagePanel);
+            if (_craftPanel != null) arrangePanels.Add(_craftPanel);
 
             // init ghost
             _ghost = BuildGhost();
 
             // init arrange mode
             _arrange = new Dragging(
-                panels: arrangePanels.ToArray(),  // arrange mode need backpack & hotbar & storage
+                panels: arrangePanels.ToArray(),  // arrange mode need backpack & hotbar & storage & craft cells
                 ghost: _ghost,
                 canRearrange: true,
                 releasedOutside: _player.DropItem   // dropping outside mean dropping item on the floor

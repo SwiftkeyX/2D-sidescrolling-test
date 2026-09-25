@@ -1,5 +1,6 @@
 using SideScroller.Characters.States;
 using SideScroller.Combat;
+using SideScroller.Crafting;
 using SideScroller.Equipments;
 using SideScroller.Farming;
 using SideScroller.Input;
@@ -35,6 +36,10 @@ namespace SideScroller.Characters
         private Inventory _hotbar;
         [SerializeField] private int _hotbarSize = 5;
         [SerializeField] private float _dropDistance = 1.5f;
+        // === crafting ===
+        private Inventory _craftGrid;
+        [SerializeField] private int _craftGridSize = 2;
+        [SerializeField] private RecipeBookSO _recipeBook;
 
         // ===== unity =====
         private Collider2D _collider;
@@ -81,16 +86,20 @@ namespace SideScroller.Characters
 
         public void Equip(EquipmentSO equipment) => _equipmentSlot.Equip(equipment);
         public void Unequip() => _equipmentSlot.Unequip();
+        public bool ToolsLocked { get; set; }
 
         // ====== 6. inventory ======
         public Inventory Backpack => _backpack ??= new Inventory(_backpackSize);
         public Inventory Hotbar => _hotbar ??= new Inventory(_hotbarSize);
 
-        // while UI is open, player's tools is locked from activate
-        // e.g. if backpack is open, wand can't attack 
-        public bool ToolsLocked { get; set; }
+        // ====== 7. crafting ======
+        public Inventory CraftGrid => _craftGrid ??= new Inventory(_craftGridSize);
+        public RecipeBookSO RecipeBook => _recipeBook;
 
-        // ====== 7. aim ======
+        public Craft LookupRecipe(Inventory grid) => _recipeBook == null ? null : _recipeBook.LookupRecipe(grid);
+        public bool TryCraft(Inventory grid) => _recipeBook != null && _recipeBook.TryCraft(grid, Backpack);
+
+        // ====== 8. aim ======
         public float FacingDirection => _playerSprite != null && _playerSprite.flipX ? -1f : 1f;
 
         // get direction from the player toward the pointer

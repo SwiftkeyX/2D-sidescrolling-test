@@ -11398,6 +11398,8 @@ MonoBehaviour:
   _backpackSize: 10
   _hotbarSize: 5
   _dropDistance: 1.5
+  _craftGridSize: 2
+  _recipeBook: {fileID: 11400000, guid: a89b55577eb08f34799db36bb9e02b92, type: 2}
   _moveSpeed: 5
   _jumpForce: 9
   _checkpoint: {fileID: 815348241}
@@ -13293,6 +13295,7 @@ GameObject:
   - component: {fileID: 2058672594}
   - component: {fileID: 2058672596}
   - component: {fileID: 2058672595}
+  - component: {fileID: 2058672597}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -13426,6 +13429,7 @@ MonoBehaviour:
   _backpackPanel: {fileID: 2058672593}
   _hotbarPanel: {fileID: 2058672594}
   _storagePanel: {fileID: 2058672596}
+  _craftPanel: {fileID: 2058672597}
   _ghostStyle: {fileID: 7433441132597879392, guid: 2a6f58d0b3e74c81af9d64e05b71c832, type: 3}
 --- !u!114 &2058672596
 MonoBehaviour:
@@ -13443,6 +13447,21 @@ MonoBehaviour:
   _player: {fileID: 1136419350}
   _backpackPanel: {fileID: 2058672593}
   _closeDistance: 2.5
+--- !u!114 &2058672597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058672587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6001728a603778b4c82c58639f8c8919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SideScroller.UI.InventoryCraftPanel
+  _panelAsset: {fileID: 9197481963319205126, guid: 76e2e36e83befb64a9e55fd28080ec36, type: 3}
+  _player: {fileID: 1136419350}
+  _backpackPanel: {fileID: 2058672593}
 --- !u!4 &2065105546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3278020652388066334, guid: 82a028307474f154da84344ddde460d2, type: 3}
