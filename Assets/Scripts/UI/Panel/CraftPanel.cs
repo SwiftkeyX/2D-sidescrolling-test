@@ -51,8 +51,8 @@ namespace SideScroller.UI
         {
             if (_resultIcon == null) return;
 
-            Craft recipe = Player == null || Inventory == null ? null : Player.LookupRecipe(Inventory);
-            
+            Recipe recipe = Player == null || Inventory == null ? null : Player.LookupRecipe(Inventory);
+
             // if the recipe is matched something, show the result icon
             Sprite icon = recipe?.Result == null ? null : recipe.Result.Icon;
             _resultIcon.style.backgroundImage = icon == null ? new StyleBackground(StyleKeyword.None) : new StyleBackground(icon);

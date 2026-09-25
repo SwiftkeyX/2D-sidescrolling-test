@@ -262,7 +262,7 @@ Inventory is the biggest mechanic for me that I wasn't confidence at
 
 **crafting mechanic overall (2hr)**
 
-- [ ] crafting is available from the "inventory" and "station crafting"
+- [x] crafting is available from the "inventory" and "station crafting"
   - (12:20) implement RecipeSO for listing all crafting recipe
     implement Craft to check if the ingredient match the Recipe
     implement Ingredient for a ingredient in crafting mechanic.

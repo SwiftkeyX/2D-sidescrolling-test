@@ -96,7 +96,7 @@ namespace SideScroller.Characters
         public Inventory CraftGrid => _craftGrid ??= new Inventory(_craftGridSize);
         public RecipeBookSO RecipeBook => _recipeBook;
 
-        public Craft LookupRecipe(Inventory grid) => _recipeBook == null ? null : _recipeBook.LookupRecipe(grid);
+        public Recipe LookupRecipe(Inventory grid) => _recipeBook == null ? null : _recipeBook.LookupRecipe(grid);
         public bool TryCraft(Inventory grid) => _recipeBook != null && _recipeBook.TryCraft(grid, Backpack);
 
         // ====== 8. aim ======

@@ -10,14 +10,14 @@ namespace SideScroller.Crafting
     public class RecipeBookSO : ScriptableObject
     {
         // all recipe list in here
-        [SerializeField] private List<Craft> _recipes = new();
-        public IReadOnlyList<Craft> Recipes => _recipes;
+        [SerializeField] private List<Recipe> _recipes = new();
+        public IReadOnlyList<Recipe> Recipes => _recipes;
 
         // lookup the recipe this grid makes.
         // FLAGGING: if 2 recipes match, the first one in the list wins
-        public Craft LookupRecipe(Inventory grid)
+        public Recipe LookupRecipe(Inventory grid)
         {
-            foreach (Craft recipe in _recipes)
+            foreach (Recipe recipe in _recipes)
             {
                 if (recipe.Matches(grid)) return recipe;
             }
@@ -29,7 +29,7 @@ namespace SideScroller.Crafting
         public bool TryCraft(Inventory grid, Inventory output)
         {
             // lookup recipe
-            Craft recipe = LookupRecipe(grid);
+            Recipe recipe = LookupRecipe(grid);
 
             // the recipe is incorrect, return
             if (recipe == null || recipe.Result == null) return false;

@@ -9,7 +9,7 @@ namespace SideScroller.Crafting
     /// This class, "Craft" is to check if the ingredient match the correct ingredient.
     /// the order of items in the craft cells doesn't matter.
     [Serializable]
-    public class Craft
+    public class Recipe
     {
         // ingredient for this recipe e.g. Lumber x10
         [SerializeField] private List<Ingredient> _ingredients = new();
