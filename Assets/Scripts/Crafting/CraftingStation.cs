@@ -1,5 +1,4 @@
 using System;
-using SideScroller.Characters;
 using SideScroller.Interactions;
 using SideScroller.Inventories;
 using UnityEngine;
@@ -18,6 +17,6 @@ namespace SideScroller.Crafting
         public static event Action<CraftingStation> Interacted;
 
         public Inventory Grid => _grid ??= new Inventory(_size);
-        public void Interact(Player player) => Interacted?.Invoke(this);
+        public void Interact() => Interacted?.Invoke(this);
     }
 }

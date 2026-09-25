@@ -31,7 +31,7 @@ namespace SideScroller.Characters
             }
 
             // interact with the cloest one
-            closest?.Interact(this);
+            closest?.Interact();
         }
     }
 }

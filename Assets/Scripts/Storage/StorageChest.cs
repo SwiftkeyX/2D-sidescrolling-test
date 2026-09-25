@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using SideScroller.Characters;
 using SideScroller.Interactions;
 using SideScroller.Inventories;
 using UnityEngine;
@@ -21,7 +20,7 @@ namespace SideScroller.Storage
         public static event Action<StorageChest> Interacted;
 
         public Inventory Contents => _contents ??= PreAuthorItem();
-        public void Interact(Player player) => Interacted?.Invoke(this);
+        public void Interact() => Interacted?.Invoke(this);
 
         // ==================== private ====================
         private Inventory PreAuthorItem()

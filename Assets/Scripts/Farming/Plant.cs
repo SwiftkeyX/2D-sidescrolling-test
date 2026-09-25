@@ -1,4 +1,3 @@
-using SideScroller.Characters;
 using SideScroller.Interactions;
 using SideScroller.Inventories;
 using UnityEngine;
@@ -78,7 +77,7 @@ namespace SideScroller.Farming
         // ================================= 3. harvest =================================
         // if the plant is grown, player press E on it:
         // the harvest is collected into player's backpack, and some of its seed drop on the ground
-        public void Interact(Player player)
+        public void Interact()
         {
             if (!IsGrown) return;
 
