@@ -1,0 +1,16 @@
+{
+    "name": "SideScroller.Combat",
+    "rootNamespace": "SideScroller.Combat",
+    "references": [
+        "SideScroller.Equipments"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

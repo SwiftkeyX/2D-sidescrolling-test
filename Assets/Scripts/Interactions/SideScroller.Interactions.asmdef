@@ -1,0 +1,14 @@
+{
+    "name": "SideScroller.Interactions",
+    "rootNamespace": "SideScroller.Interactions",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

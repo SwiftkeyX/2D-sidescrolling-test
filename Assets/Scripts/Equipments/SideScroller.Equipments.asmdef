@@ -1,0 +1,16 @@
+{
+    "name": "SideScroller.Equipments",
+    "rootNamespace": "SideScroller.Equipments",
+    "references": [
+        "SideScroller.Inventories"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

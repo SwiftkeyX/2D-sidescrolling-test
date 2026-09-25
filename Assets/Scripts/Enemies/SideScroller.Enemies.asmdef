@@ -1,0 +1,17 @@
+{
+    "name": "SideScroller.Enemies",
+    "rootNamespace": "SideScroller.Enemies",
+    "references": [
+        "SideScroller.Characters",
+        "SideScroller.Combat"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
