@@ -26,6 +26,7 @@ namespace SideScroller.UI
         [SerializeField] private InventoryHotbarPanel _hotbarPanel;
         [SerializeField] private InventoryStoragePanel _storagePanel;
         [SerializeField] private BackpackCraftPanel _craftPanel;
+        [SerializeField] private StationCraftPanel _stationPanel;
         [SerializeField] private StyleSheet _ghostStyle;
 
         private VisualElement _ghost;
@@ -81,6 +82,7 @@ namespace SideScroller.UI
             if (_hotbarPanel == null) _hotbarPanel = FindFirstObjectByType<InventoryHotbarPanel>();
             if (_storagePanel == null) _storagePanel = FindFirstObjectByType<InventoryStoragePanel>();
             if (_craftPanel == null) _craftPanel = FindFirstObjectByType<BackpackCraftPanel>();
+            if (_stationPanel == null) _stationPanel = FindFirstObjectByType<StationCraftPanel>();
 
             // basic guard
             if (_player == null || _backpackPanel == null || _backpackPanel.Inventory == null) return false;
@@ -91,6 +93,7 @@ namespace SideScroller.UI
             if (_hotbarPanel != null) arrangePanels.Add(_hotbarPanel);
             if (_storagePanel != null) arrangePanels.Add(_storagePanel);
             if (_craftPanel != null) arrangePanels.Add(_craftPanel);
+            if (_stationPanel != null) arrangePanels.Add(_stationPanel);
 
             // init ghost
             _ghost = BuildGhost();
